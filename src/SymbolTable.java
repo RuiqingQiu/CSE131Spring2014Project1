@@ -59,18 +59,25 @@ class SymbolTable
 	public STO
 	access (String strName)
 	{
-		Stack		stk = new Stack ();
+		Stack<Scope>		stk = new Stack<Scope> ();
 		Scope		scope;
 		STO		stoReturn = null;	
-
+		
+		// Phase 0 fix
 		for (Enumeration<Scope> e = m_stkScopes.elements(); e.hasMoreElements(); )
 		{
 			scope = e.nextElement();
+			stk.push(scope);
+			
+		}
+		while(!stk.empty()){
+			scope = stk.pop();
 			if ((stoReturn = scope.access (strName)) != null)
 				return	stoReturn;
 		}
-
+		
 		return (null);
+		
 	}
 
 

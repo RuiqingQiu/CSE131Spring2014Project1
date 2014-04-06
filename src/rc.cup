@@ -33,6 +33,7 @@ terminal
     T_CONST,
     T_CONTINUE,
     T_COUT,
+    T_DELETE,
     T_DOT,
     T_ELSE,
     T_ENDL,
@@ -57,6 +58,7 @@ terminal
     T_MINUSMINUS,
     T_MOD,
     T_NEQ,
+    T_NEW,
     T_NOT,
     T_NULLPTR,
     T_OR,
@@ -123,6 +125,10 @@ non terminal
     ReturnStmt,
     ReadStmt,
     WriteStmt,
+    //Phase 0
+    NewStmt,
+    DeleteStmt,
+    
     WritePairList,
     WritePair,
     ConstExpr,
@@ -371,6 +377,8 @@ Stmt ::=        VarDecl
     |               ReturnStmt
     |               ReadStmt
     |               WriteStmt
+    |				NewStmt
+    |				DeleteStmt
     ;
 
 
@@ -489,6 +497,14 @@ ReadStmt ::=        T_CIN T_ISTREAM Designator T_SEMI
 
 WriteStmt ::=       T_COUT T_OSTREAM WritePairList T_SEMI
     ;
+
+//Phase 0
+NewStmt  ::= 	T_NEW Designator T_SEMI 
+	;
+
+DeleteStmt ::=  T_DELETE Designator T_SEMI 
+	;
+
 
 
 WritePairList ::=   WritePair
@@ -628,6 +644,10 @@ Equality ::=     T_EQU
     |               T_NEQ
     ;
 
+//Phase 0
+UnarySign ::=   T_PLUS
+	|			T_MINUS
+	;
 
 Relation ::=     T_LT
     |               T_GT
@@ -773,8 +793,9 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                         RESULT = new ConstSTO ("nullptr");
                     :}
     |               T_COLONCOLON T_ID:_1
+    				//Check #0 global variable check
                     {:
-                        RESULT = ((MyParser) parser).DoDesignator3_ID (_1);
+                        RESULT = ((MyParser) parser).DoDesignator3_Global_ID (_1);
                     :}
     |               T_ID:_1
                     {:

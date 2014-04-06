@@ -403,7 +403,6 @@ class MyParser extends parser
 	DoDesignator3_ID (String strID)
 	{
 		STO		sto;
-
 		if ((sto = m_symtab.access (strID)) == null)
 		{
 			m_nNumErrors++;
@@ -412,7 +411,19 @@ class MyParser extends parser
 		}
 		return (sto);
 	}
-
+	//Check #0, global variable check
+	STO
+	DoDesignator3_Global_ID (String strID)
+	{
+		STO sto;
+		if((sto = m_symtab.accessGlobal(strID)) == null)
+		{
+			m_nNumErrors++;
+		 	m_errors.print (Formatter.toString(ErrorMsg.error0g_Scope, strID));	
+			sto = new ErrorSTO (strID);
+		}
+		return (sto);
+	}
 
 	//----------------------------------------------------------------
 	//
