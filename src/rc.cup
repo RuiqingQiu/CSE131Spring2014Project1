@@ -745,10 +745,10 @@ Designator ::= T_STAR Designator:_1
                     {:
 			RESULT = _1;
                     :}
-    |               T_NOT Designator:_1
-                    {:
-			RESULT = _1;
-                    :}
+    |          T_NOT Designator:_1
+               {:
+				  RESULT = ((MyParser) parser).DoUnaryExpr(_1, new NotOp());
+               	:}
     |               T_SIZEOF T_LPAREN Designator:_2 T_RPAREN
                     {:
 			RESULT = new ConstSTO("sizeof variable - fix me");

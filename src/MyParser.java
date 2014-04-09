@@ -350,6 +350,17 @@ class MyParser extends parser
 	    }
 	    return result;
 	}
+	
+	STO
+	DoUnaryExpr(STO a, UnaryOp o)
+	{
+		STO result = o.checkOperands(a);
+		if(result instanceof ErrorSTO){
+			m_nNumErrors++;
+			m_errors.print (result.getName());
+		}
+		return result;
+	}
 
 	//----------------------------------------------------------------
 	//
