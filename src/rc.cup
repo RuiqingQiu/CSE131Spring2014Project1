@@ -554,9 +554,9 @@ Expr0 ::=        Expr0:_1 T_OR Expr1:_3
 
 
 Expr1 ::=        Expr1:_1 T_AND Expr2:_3
-                    {:
-			RESULT = ((MyParser) parser).DoBinaryExpr(_1, new AndOp(), _3);
-                    :}
+                 {:
+                   RESULT = ((MyParser) parser).DoBinaryExpr(_1, new AndOp(), _3);
+                 :}
     |               Expr2:_1
                     {:
 			RESULT = _1;
@@ -564,10 +564,10 @@ Expr1 ::=        Expr1:_1 T_AND Expr2:_3
     ;
 
 
-Expr2 ::=        Expr2:_1 T_BAR Expr3
-                    {:
-			RESULT = _1;
-                    :}
+Expr2 ::=        Expr2:_1 T_BAR Expr3:_3
+                 {:
+					RESULT = ((MyParser) parser).DoBinaryExpr(_1, new BwOrOp(), _3);
+                 :}
     |               Expr3:_1
                     {:
                         RESULT = _1;
@@ -575,10 +575,10 @@ Expr2 ::=        Expr2:_1 T_BAR Expr3
     ;
 
 
-Expr3 ::=        Expr3:_1 T_CARET Expr4
-                    {:
-			RESULT = _1;
-                    :}
+Expr3 ::=        Expr3:_1 T_CARET Expr4:_3
+                 {:
+			       RESULT = ((MyParser) parser).DoBinaryExpr(_1, new BwXorOp(), _3);
+                 :}
     |               Expr4:_1
                     {:
                         RESULT = _1;
@@ -586,10 +586,10 @@ Expr3 ::=        Expr3:_1 T_CARET Expr4
     ;
 
 
-Expr4 ::=        Expr4:_1 T_AMPERSAND Expr5
-                    {:
-			RESULT = _1;
-                    :}
+Expr4 ::=        Expr4:_1 T_AMPERSAND Expr5:_3
+                 {:
+			       RESULT = ((MyParser) parser).DoBinaryExpr(_1, new BwAndOp(), _3);
+                 :}
     |               Expr5:_1
                     {:
                         RESULT = _1;
@@ -737,18 +737,18 @@ Designator ::= T_STAR Designator:_1
                     {:
 			RESULT = _1;
                     :}
-    |               T_AMPERSAND Designator:_1
-                    {:
+    |   T_AMPERSAND Designator:_1
+        {:
 			RESULT = _1;
-                    :}
-    |               UnarySign Designator:_1
-                    {:
+        :}
+    |   UnarySign Designator:_1
+        {:
 			RESULT = _1;
-                    :}
-    |          T_NOT Designator:_1
-               {:
-				  RESULT = ((MyParser) parser).DoUnaryExpr(_1, new NotOp());
-               	:}
+        :}
+    |   T_NOT Designator:_1
+        {:
+            RESULT = ((MyParser) parser).DoUnaryExpr(_1, new NotOp());
+        :}
     |               T_SIZEOF T_LPAREN Designator:_2 T_RPAREN
                     {:
 			RESULT = new ConstSTO("sizeof variable - fix me");
@@ -761,10 +761,10 @@ Designator ::= T_STAR Designator:_1
                     {:
 			RESULT = _2;
                     :}
-    |               IncDecOp Designator:_2
-                    {:
+    |   IncDecOp Designator:_2
+        {:
 			RESULT = _2;
-                    :}
+        :}
     |               Designator2:_1 
                     {:
                         RESULT = _1;
