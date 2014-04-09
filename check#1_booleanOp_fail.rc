@@ -1,0 +1,4 @@
+bool a = true < 3;
+bool b = false > true;
+bool c = true <= 4;
+bool d = false >= 10.0;

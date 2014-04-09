@@ -1,3 +1,4 @@
 bool a = true != 1;
 
-int b = true != 1;
+bool b = true != 1;
+

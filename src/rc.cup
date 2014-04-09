@@ -599,7 +599,10 @@ Expr4 ::=        Expr4:_1 T_AMPERSAND Expr5
 
 Expr5 ::=           Expr5:_1 Equality:_2 Expr6:_3
                     {:
-                        RESULT = ((MyParser) parser).DoBinaryExpr(_1, _2, _3);
+                    	if(_2.equals("=="))
+                        	RESULT = ((MyParser) parser).DoBinaryExpr(_1, new EqualOp(), _3);
+                        else
+                        	RESULT = ((MyParser) parser).DoBinaryExpr(_1, new NotEqualOp(), _3);
                     :}
     |               Expr6:_1
                     {:
@@ -610,10 +613,15 @@ Expr5 ::=           Expr5:_1 Equality:_2 Expr6:_3
 
 Expr6 ::=           Expr6:_1 Relation:_2 Expr7:_3
                     {:
+                        //check #0
                     	if(_2.equals("<"))
                     	  RESULT = ((MyParser) parser).DoBinaryExpr(_1, new LessThanOp(), _3);
+                        else if (_2.equals("<="))
+                          RESULT = ((MyParser) parser).DoBinaryExpr(_1, new LessAndEqualThanOp(), _3);
+                        else if(_2.equals(">"))
+                          RESULT = ((MyParser) parser).DoBinaryExpr(_1, new GreaterThanOp(), _3);
                         else
-                          RESULT = _1;
+                          RESULT = ((MyParser) parser).DoBinaryExpr(_1, new GreaterAndEqualThanOp(), _3);
                     :}
     |               Expr7:_1
                     {:
@@ -656,11 +664,11 @@ Expr8 ::=        Expr8:_1 MulOp:_2 Designator:_3
 
 Equality ::=     T_EQU
 				{:
-					RESULT = new EqualOp();
+					RESULT = "==";
 				:}
     |               T_NEQ
     			{:
-    				RESULT = new NotEqualOp();
+    				RESULT = "!=";
     			:}
     ;
 
@@ -674,8 +682,17 @@ Relation ::=     T_LT
 						RESULT = "<";
 					:}
     |               T_GT
+                      {:
+                        RESULT = ">";
+                      :}
     |               T_LTE
+                      {:
+                        RESULT = "<=";
+                      :}
     |               T_GTE
+                      {:
+                        RESULT = ">=";
+                      :}
     ;
 
 

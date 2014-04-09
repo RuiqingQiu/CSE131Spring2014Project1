@@ -1,6 +1,6 @@
 
 public class NotEqualOp extends ComparisonOp{
-
+	
 	STO checkOperands(STO a, STO b) {
 		Type aType = a.getType();
 		Type bType = b.getType();
