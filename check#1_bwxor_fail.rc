@@ -1,0 +1,2 @@
+int a = 1 ^ true;
+int b = false ^ 2;

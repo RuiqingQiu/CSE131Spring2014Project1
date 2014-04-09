@@ -1,0 +1,13 @@
+bool x = true;
+
+int b = x++;	//Error, Bool increment
+
+int c = ++x;	//Error, Bool increment
+
+int d = x--;	//Error, Bool decrement
+
+int e = --x;	//Error, Bool decrement
+
+int f = 1++;	//Not a modifiable L-value
+
+int g = (1+2)++;	//Not a modifiable L-value
