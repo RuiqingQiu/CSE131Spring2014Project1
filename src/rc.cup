@@ -639,7 +639,13 @@ Expr7 ::=           Expr7:_1 AddOp:_2 Expr8:_3
 
 Expr8 ::=        Expr8:_1 MulOp:_2 Designator:_3
                     {:
-                        RESULT = _1;
+                        //Check #1
+                        if(_2.equals("*"))
+                          RESULT = ((MyParser) parser).DoBinaryExpr(_1,new MulOp(), _3);
+                        else if(_2.equals("/"))
+                          RESULT = ((MyParser)parser).DoBinaryExpr(_1,new DivOp(),_3);
+                        else
+                          RESULT = ((MyParser)parser).DoBinaryExpr(_1,new ModOp(),_3); 
                     :}
     |               Designator:_1
                     {:
