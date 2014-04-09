@@ -1,0 +1,5 @@
+bool a = 1 || 2;
+bool b = true || 2;
+bool c = 2 || false;
+bool d = 2.0 || false;
+bool e = true || 3.0;
