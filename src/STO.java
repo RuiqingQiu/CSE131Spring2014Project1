@@ -66,7 +66,7 @@ abstract class STO
 		return	m_isAddressable;
 	}
 
-	private void
+	protected void
 	setIsAddressable (boolean addressable)
 	{
 		m_isAddressable = addressable;
@@ -81,7 +81,7 @@ abstract class STO
 		return	m_isModifiable;
 	}
 
-	private void
+	protected void
 	setIsModifiable (boolean modifiable)
 	{
 		m_isModifiable = modifiable;
