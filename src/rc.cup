@@ -610,10 +610,15 @@ Expr5 ::=           Expr5:_1 Equality Expr6
 
 Expr6 ::=           Expr6:_1 Relation:_2 Expr7:_3
                     {:
+                        //check #0
                     	if(_2.equals("<"))
                     	  RESULT = ((MyParser) parser).DoBinaryExpr(_1, new LessThanOp(), _3);
+                        else if (_2.equals("<="))
+                          RESULT = ((MyParser) parser).DoBinaryExpr(_1, new LessAndEqualThanOp(), _3);
+                        else if(_2.equals(">"))
+                          RESULT = ((MyParser) parser).DoBinaryExpr(_1, new GreaterThanOp(), _3);
                         else
-                          RESULT = _1;
+                          RESULT = ((MyParser) parser).DoBinaryExpr(_1, new GreaterAndEqualThanOp(), _3);
                     :}
     |               Expr7:_1
                     {:
@@ -668,8 +673,17 @@ Relation ::=     T_LT
 						RESULT = "<";
 					:}
     |               T_GT
+                      {:
+                        RESULT = ">"
+                      :}
     |               T_LTE
+                      {:
+                        RESULT = "<="
+                      :}
     |               T_GTE
+                      {:
+                        RESULT = ">="
+                      :}
     ;
 
 
