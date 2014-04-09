@@ -608,9 +608,12 @@ Expr5 ::=           Expr5:_1 Equality Expr6
     ;
 
 
-Expr6 ::=           Expr6:_1 Relation Expr7
+Expr6 ::=           Expr6:_1 Relation:_2 Expr7:_3
                     {:
-                        RESULT = _1;
+                    	if(_2.equals("<"))
+                    	  RESULT = ((MyParser) parser).DoBinaryExpr(_1, new LessThanOp(), _3);
+                        else
+                          RESULT = _1;
                     :}
     |               Expr7:_1
                     {:
@@ -655,6 +658,9 @@ UnarySign ::=   T_PLUS
 	;
 
 Relation ::=     T_LT
+					{:
+						RESULT = "<";
+					:}
     |               T_GT
     |               T_LTE
     |               T_GTE
@@ -776,7 +782,7 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_FLOAT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1);
+                        RESULT = new ConstSTO (_1, new FloatType("float", 32));
                     :}
     |               T_CHAR_LITERAL:_1
                     {:
