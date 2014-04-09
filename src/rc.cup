@@ -768,7 +768,8 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_INT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1);
+                        RESULT = new ConstSTO (_1, new IntType("int", 32));
+                        
                     :}
     |               T_FLOAT_LITERAL:_1
                     {:
