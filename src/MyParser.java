@@ -338,7 +338,18 @@ class MyParser extends parser
 	{
 		m_symtab.closeScope ();
 	}
-
+	
+	//Check #1
+	STO
+	DoBinaryExpr(STO a, BinaryOp o, STO b)
+	{
+		STO result = o.checkOperands(a, b);
+	    if (result instanceof ErrorSTO) {
+	    	m_nNumErrors++;
+			m_errors.print (result.getName());
+	    }
+	    return result;
+	}
 
 	//----------------------------------------------------------------
 	//

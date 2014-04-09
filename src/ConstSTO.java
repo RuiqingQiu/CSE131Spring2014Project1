@@ -20,7 +20,19 @@ class ConstSTO extends STO
 	ConstSTO (String strName, Type typ)
 	{
 		super (strName, typ);
-		m_value = null; // fix this
+		if(typ.isInt()){
+			//Phase 0 part 3
+			//It's a octal or hex value
+			if(strName.charAt(0) == '0'){
+				m_value = Integer.decode(strName).doubleValue();
+			}
+			//If it's a good format
+			else
+				m_value = Double.parseDouble(strName);
+		}
+		
+		this.setIsAddressable(false);
+		this.setIsModifiable(false);
                 // You may want to change the isModifiable and isAddressable                      
                 // fields as necessary
 	}

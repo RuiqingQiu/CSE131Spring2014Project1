@@ -27,7 +27,7 @@ abstract class Type
 		return m_typeName;
 	}
 
-	private void
+	protected void
 	setName (String str)
 	{
 		m_typeName = str;
@@ -43,7 +43,7 @@ abstract class Type
 		return m_size;
 	}
 
-	private void
+	protected void
 	setSize (int size)
 	{
 		m_size = size;
