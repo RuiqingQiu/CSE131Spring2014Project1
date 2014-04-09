@@ -597,9 +597,9 @@ Expr4 ::=        Expr4:_1 T_AMPERSAND Expr5
     ;
 
 
-Expr5 ::=           Expr5:_1 Equality Expr6
+Expr5 ::=           Expr5:_1 Equality:_2 Expr6:_3
                     {:
-                        RESULT = _1;
+                        RESULT = ((MyParser) parser).DoBinaryExpr(_1, _2, _3);
                     :}
     |               Expr6:_1
                     {:
@@ -655,7 +655,13 @@ Expr8 ::=        Expr8:_1 MulOp:_2 Designator:_3
 
 
 Equality ::=     T_EQU
+				{:
+					RESULT = new EqualOp();
+				:}
     |               T_NEQ
+    			{:
+    				RESULT = new NotEqualOp();
+    			:}
     ;
 
 //Phase 0
@@ -800,11 +806,11 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_TRUE
                     {:
-                        RESULT = new ConstSTO ("true");
+                        RESULT = new ConstSTO ("true", new BoolType("bool",1));
                     :}
     |               T_FALSE
                     {:
-                        RESULT = new ConstSTO ("false");
+                        RESULT = new ConstSTO ("false", new BoolType("bool",1));
                     :}
     |               T_NULLPTR
                     {:
