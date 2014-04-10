@@ -1,0 +1,6 @@
+static float f = 5.5;
+function : void foo()
+{
+  static int f;
+  f = ::f; //Error, can't assign float to int
+}

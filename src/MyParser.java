@@ -348,6 +348,7 @@ class MyParser extends parser
 	{
 		STO result = o.checkOperands(a, b);
 	    if (result instanceof ErrorSTO) {
+	    	result.setType(new ErrorType("error",8));
 	    	m_nNumErrors++;
 			m_errors.print (result.getName());
 	    }
@@ -359,6 +360,7 @@ class MyParser extends parser
 	{
 		STO result = o.checkOperands(a);
 		if(result instanceof ErrorSTO){
+			result.setType(new ErrorType("error",8));
 			m_nNumErrors++;
 			m_errors.print (result.getName());
 		}
@@ -369,13 +371,22 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	STO
-	DoAssignExpr (STO stoDes)
+	DoAssignExpr (STO stoDes, STO expr)
 	{
+		if(expr.isError())
+			return expr;
+		//Check if STO is not modifiable value
 		if (!stoDes.isModLValue())
 		{
-			// Good place to do the assign checks
+			//Enter here if it's an error
+			STO result = new ErrorSTO(ErrorMsg.error3a_Assign);
+			result.setType(new ErrorType("error",8));
+			m_nNumErrors++;
+			m_errors.print (result.getName());
+			return result;
+			// Good place to do the assign check		
 		}
-		
+		//It's a good modifiable L-value
 		return stoDes;
 	}
 
