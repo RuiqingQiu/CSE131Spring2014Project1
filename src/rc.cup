@@ -192,11 +192,11 @@ non terminal Vector
 
 Program ::=    {:
                          ((MyParser) parser).DoProgramStart(); 
-                    :}
-                    OptGlobalDecls
-                    {:
-                         ((MyParser) parser).DoProgramEnd();
-                    :}
+               :}
+               OptGlobalDecls
+               {:
+                       ((MyParser) parser).DoProgramEnd();
+               :}
     ;
 
 OptGlobalDecls ::=  GlobalDecls
