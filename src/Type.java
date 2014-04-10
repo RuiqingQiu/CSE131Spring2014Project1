@@ -58,8 +58,8 @@ abstract class Type
 	//	change this around.
 	//----------------------------------------------------------------
 	public boolean	isInt ()	{ return false; }
-	public boolean isBool()		{return false;}
-
+	public boolean isBool()		{ return false; }
+	public boolean isError()    { return false; }
 	//----------------------------------------------------------------
 	//	Name of the Type (e.g., int, bool, or some typedef
 	//----------------------------------------------------------------

@@ -544,10 +544,10 @@ ExprList ::=     Expr
     |               ExprList T_COMMA Expr
     ;
 
-Expr ::=         Designator:_1 T_ASSIGN Expr
-                    {:
-                        ((MyParser) parser).DoAssignExpr (_1);
-                    :}
+Expr ::=         Designator:_1 T_ASSIGN Expr:_2
+                 {:
+                   RESULT = ((MyParser) parser).DoAssignExpr (_1, _2);
+                 :}
     |               Expr0:_1
                     {:
 			RESULT = _1;
