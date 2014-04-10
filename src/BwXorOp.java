@@ -5,7 +5,7 @@ public class BwXorOp extends BitwiseOp{
 		Type bType = b.getType();
 		//Both operands must be bool type
 		if (aType instanceof IntType && bType instanceof IntType) {
-			return new ExprSTO("BwAndOp", aType);
+			return new ExprSTO("BwXorOp", aType);
 		}
 		else {
 			// error

@@ -222,9 +222,9 @@ ExternDecl ::= T_EXTERN UndecoratedType IdList:_3 T_SEMI
                     :}
     ;
 
-VarDecl ::=     OptStatic UndecoratedType IdListWOptInit:_3 T_SEMI
+VarDecl ::=     OptStatic UndecoratedType:_2 IdListWOptInit:_3 T_SEMI
                     {:
-                         ((MyParser) parser).DoVarDecl (_3);
+                         ((MyParser) parser).DoVarDecl (_3,_2);
                     :}
     |           OptStatic T_AUTO T_ID T_ASSIGN Expr T_SEMI
 
@@ -303,18 +303,31 @@ Type ::=         SubType OptModifiers
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
 
-UndecoratedType ::= SubType
+UndecoratedType ::= SubType:_1
+					{:RESULT = _1; :}
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
 
 SubType ::=    QualIdent
-    |               BasicType
+    |               BasicType:_1
+    				{:
+    				  RESULT = _1;
+    				:}
     ;
 
 
 BasicType ::=       T_INT 
+					{:
+					  RESULT = new IntType("int", 4);
+					:}
     |               T_FLOAT
+    				{:
+    				  RESULT = new FloatType("float", 4);
+    				:}
     |               T_BOOL
+   					{:
+    				  RESULT = new BoolType("bool", 4);
+    				:}
     |               T_CHAR
     ;
 
@@ -761,9 +774,12 @@ Designator ::= T_STAR Designator:_1
                     {:
 			RESULT = _2;
                     :}
-    |   IncDecOp Designator:_2
-        {:
-			RESULT = _2;
+    |   IncDecOp:_1 Designator:_2
+        {:  
+            if(_1.equals("++"))
+			  RESULT = ((MyParser) parser).DoUnaryExpr(_2, new IncOp());
+			else
+			  RESULT = ((MyParser) parser).DoUnaryExpr(_2, new DecOp());
         :}
     |               Designator2:_1 
                     {:
@@ -784,9 +800,12 @@ Designator2 ::=     Designator2:_1 T_DOT T_ID:_3
                     {:
                         RESULT = _1;
                     :}
-    |               Designator2:_1 IncDecOp
+    |               Designator2:_1 IncDecOp:_2
                     {:
-                        RESULT = _1;
+                    	if(_2.equals("++"))
+                          RESULT = ((MyParser) parser).DoUnaryExpr(_1, new IncOp());
+                        else
+                          RESULT = ((MyParser) parser).DoUnaryExpr(_1, new DecOp());
                     :}
     |               Designator2:_1 T_LPAREN OptExprList T_RPAREN
                     {:

@@ -11,3 +11,7 @@ int e = --x;	//Error, Bool decrement
 int f = 1++;	//Not a modifiable L-value
 
 int g = (1+2)++;	//Not a modifiable L-value
+
+int h = 1--;
+
+int k = 1++;
