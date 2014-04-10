@@ -47,7 +47,7 @@ abstract class STO
 		return	m_type;
 	}
 
-	private void
+	protected void
 	setType (Type type)
 	{
 		m_type = type;
@@ -75,7 +75,7 @@ abstract class STO
 	//----------------------------------------------------------------
 	// You shouldn't need to use these two routines directly
 	//----------------------------------------------------------------
-	private boolean
+	protected boolean
 	getIsModifiable ()
 	{
 		return	m_isModifiable;
