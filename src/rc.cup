@@ -34,6 +34,7 @@ terminal
     T_CONTINUE,
     T_COUT,
     T_DELETE,
+    T_DECLTYPE,
     T_DOT,
     T_ELSE,
     T_ENDL,
@@ -174,7 +175,8 @@ non terminal Type
     SubType,
     Type,
     UndecoratedType,
-    ReturnType
+    ReturnType,
+    DeclareType
     ;
     	
 non terminal Vector
@@ -313,8 +315,18 @@ SubType ::=    QualIdent
     				{:
     				  RESULT = _1;
     				:}
+    |			DeclareType:_1
+    				{:
+    				  RESULT = _1;
+    				:}
     ;
 
+DeclareType ::=  T_DECLTYPE T_LPAREN Expr0:_1 T_RPAREN
+				 {:
+				    RESULT = _1.getType();
+				    
+				 :}
+	;
 
 BasicType ::=       T_INT 
 					{:
@@ -357,6 +369,7 @@ ReturnType ::=      SubType OptPointerList
                         RESULT = null;
                     :}
     |               T_VOID
+
     ;
 
 
@@ -475,7 +488,10 @@ ArrElemsList ::=    Expr
     |               ArrElemsList T_COMMA Expr
     ;
 
-IfStmt ::=          T_IF Expr CodeBlock OptElse
+IfStmt ::=          T_IF Expr:_1 CodeBlock OptElse
+					{:
+					  RESULT = ((MyParser) parser).DoIfWhileExpr(_1);
+					:}
     ;
 
 
@@ -484,7 +500,10 @@ OptElse ::=         T_ELSE CodeBlock
     ;
 
 
-WhileStmt ::=       T_WHILE Expr CodeBlock
+WhileStmt ::=       T_WHILE Expr:_1 CodeBlock
+					{:
+					  RESULT = ((MyParser) parser).DoIfWhileExpr(_1);
+					:}
     ;
 
 

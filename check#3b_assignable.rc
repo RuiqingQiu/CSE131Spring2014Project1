@@ -1,14 +1,20 @@
-int x;
-int y = 2;
-x = y; //int to int
-
-float z = 0.1;
-float g;
-g = z; // float to float
-
-bool b = true;
-bool boolean = b; // bool to bool
-
+function : int main()
+{
+	int x = 0;
+	int y = 2;
+	x = y; //int to int
+	
+	float z = 0.1;
+	float g;
+	g = z; // float to float
+	
+	bool b = true;
+	bool boolean = b; // bool to bool
+	
+	int i = 10;
+	float f = 0.1;
+	f = i; //int is assignable to int
+}
 
 
 

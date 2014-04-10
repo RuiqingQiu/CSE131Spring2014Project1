@@ -401,6 +401,19 @@ class MyParser extends parser
 		return stoDes;
 	}
 
+	STO
+	DoIfWhileExpr(STO expr)
+	{
+		if(expr.getType().isBool() || expr.getType().isInt())
+			return expr;
+		
+		STO result = new ErrorSTO(Formatter.toString(ErrorMsg.error4_Test, 
+				expr.getType().getName()));
+		result.setType(new ErrorType("error",8));
+		m_nNumErrors++;
+		m_errors.print (result.getName());
+		return result;
+	}
 
 	//----------------------------------------------------------------
 	//

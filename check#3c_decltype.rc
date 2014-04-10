@@ -1,0 +1,13 @@
+function : int main(){
+  int x = 10;
+  decltype (x++) y;
+
+  //y = 1.0;
+}
+
+int x = 10;
+float y = 20;
+function : decltype(x+20.0) foo()
+{
+  return y;
+}

@@ -3,4 +3,17 @@ function : void foo()
 {
   static int f;
   f = ::f; //Error, can't assign float to int
+
+
+//bool is not assignable to int
+bool b = true;
+int x = 0;
+x = b;//bool is not assignable to int
+
+b = x;//int is not assignable to bool
+
+float z = 6.6;
+bool s = false;
+z = s;//bool is not assignable to float
+s = z;//float is not assignable to bool
 }
