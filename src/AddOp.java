@@ -13,7 +13,8 @@ public class AddOp extends ArithmeticOp  {
 			//Calculate the value of two Ints
 			return new ExprSTO("AddOp", aType);
 		} else {
-			return new ExprSTO("AddOp", new FloatType("Float", 32));
+			//the size is 8 bytes
+			return new ExprSTO("AddOp", new FloatType("Float", 8));
 		}
 	}
 }
