@@ -6,5 +6,17 @@ public class BoolType extends BasicType {
 		this.setSize(1);
 	}
 	public boolean isBool(){return true;}
+	@Override
+	public boolean isAssignableTo(Type t) {
+		if (t.isBool())
+			return true;
+		return false;
+	}
+	@Override
+	public boolean isEquivalentTo(Type t) {
+		if (t.isBool())
+			return true;
+		return false;
+	}
 
 }

@@ -49,7 +49,10 @@ abstract class Type
 		m_size = size;
 	}
 
-
+	//(int -> float)
+	public abstract boolean isAssignableTo(Type t);
+	// Same type
+	public abstract boolean isEquivalentTo(Type t);
 	//----------------------------------------------------------------
 	//	It will be helpful to ask a Type what specific Type it is.
 	//	The Java operator instanceof will do this, but you may
@@ -57,9 +60,10 @@ abstract class Type
 	//	etc. Below is an example of isInt(). Feel free to
 	//	change this around.
 	//----------------------------------------------------------------
-	public boolean	isInt ()	{ return false; }
+	public boolean isInt ()	{ return false; }
 	public boolean isBool()		{ return false; }
 	public boolean isError()    { return false; }
+	public boolean isFloat()	{ return false; }
 	//----------------------------------------------------------------
 	//	Name of the Type (e.g., int, bool, or some typedef
 	//----------------------------------------------------------------

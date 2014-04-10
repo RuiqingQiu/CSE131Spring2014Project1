@@ -373,6 +373,7 @@ class MyParser extends parser
 	STO
 	DoAssignExpr (STO stoDes, STO expr)
 	{
+		//Check #3a
 		if(expr.isError())
 			return expr;
 		//Check if STO is not modifiable value
@@ -387,6 +388,16 @@ class MyParser extends parser
 			// Good place to do the assign check		
 		}
 		//It's a good modifiable L-value
+		//Check #3b
+		//Check if the expr is not assignable to the designator
+		if (!expr.getType().isAssignableTo(stoDes.getType())){
+			STO result = new ErrorSTO(Formatter.toString(ErrorMsg.error3b_Assign, 
+					expr.getType().getName(), stoDes.getType().getName()));
+			result.setType(new ErrorType("error",8));
+			m_nNumErrors++;
+			m_errors.print (result.getName());
+			return result;
+		}
 		return stoDes;
 	}
 

@@ -6,5 +6,17 @@ public class FloatType extends NumericType{
 		this.setSize(32);
 	}
 	public boolean isFloat(){return true;}
+	@Override
+	public boolean isAssignableTo(Type t) {
+		if(t.isFloat())
+			return true;
+		return false;
+	}
+	@Override
+	public boolean isEquivalentTo(Type t) {
+		if(t.isFloat())
+			return true;
+		return false;
+	}
 
 }

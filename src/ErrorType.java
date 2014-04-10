@@ -5,4 +5,14 @@ public class ErrorType extends Type{
 		super("ERROR", 8);
 	}
 
+	@Override
+	public boolean isAssignableTo(Type t) {
+		return false;
+	}
+
+	@Override
+	public boolean isEquivalentTo(Type t) {
+		return false;
+	}
+
 }
