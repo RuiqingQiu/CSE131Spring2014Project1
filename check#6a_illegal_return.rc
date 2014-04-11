@@ -2,3 +2,7 @@ function : int foo()
 {
   return;
 }
+
+function :void main(){
+  return 1;
+}

@@ -342,9 +342,25 @@ class MyParser extends parser
 		}
 		//no expr is specified and the return type is not void
 		if(!(m_symtab.getFunc().getReturnType() instanceof VoidType)){
+			//Return should not be void but is void
 			if(t instanceof VoidType){
 				m_nNumErrors++;
 				m_errors.print (ErrorMsg.error6a_Return_expr);
+				return;
+			}
+			//user given return type is not assignable to function return type
+			if(!(t.isAssignableTo(m_symtab.getFunc().getReturnType()))){
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error6a_Return_type, t.getName(),m_symtab.getFunc().getReturnType().getName()));
+			    return;
+			}
+		}
+		else{
+			//user given return type is not assignable to function return type
+			if(!(t.isAssignableTo(m_symtab.getFunc().getReturnType()))){
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error6a_Return_type, t.getName(),m_symtab.getFunc().getReturnType().getName()));
+			    return;
 			}
 		}
 		
