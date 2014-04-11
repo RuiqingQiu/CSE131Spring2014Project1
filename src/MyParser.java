@@ -279,7 +279,7 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	void
-	DoFuncDecl_1 (String id)
+	DoFuncDecl_1 (Type returnType, String id)
 	{
 		if (m_symtab.accessLocal (id) != null)
 		{
@@ -292,6 +292,7 @@ class MyParser extends parser
 
 		m_symtab.openScope ();
 		m_symtab.setFunc (sto);
+		m_symtab.getFunc().setReturnType(returnType);
 	}
 
 
@@ -307,16 +308,29 @@ class MyParser extends parser
 
 
 	//----------------------------------------------------------------
-	//
+	// DoFormalParams need to store all parameters to the FuncSTO and 
+	// add all parameter list name binded to type and store in the 
+	// symbol table
 	//----------------------------------------------------------------
 	void
-	DoFormalParams (Vector<String> params)
+	DoFormalParams (Vector<STO> params)
 	{
+		
 		if (m_symtab.getFunc () == null)
 		{
 			m_nNumErrors++;
 			m_errors.print ("internal: DoFormalParams says no proc!");
 		}
+		//If no arguments, return
+		if(params.size() == 0)
+			return;
+		else
+			//Add all the param to the symbal table and FuncSTO
+			for(STO s : params){
+				m_symtab.getFunc().addParameter(s);
+				m_symtab.insert(s);
+			}
+		
 
 		// insert parameters here
 	}
@@ -419,7 +433,7 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	STO
-	DoFuncCall (STO sto)
+	DoFuncCall (STO sto, Vector<STO> arguments)
 	{
 		if (!sto.isFunc())
 		{
@@ -427,8 +441,52 @@ class MyParser extends parser
 			m_errors.print (Formatter.toString(ErrorMsg.not_function, sto.getName()));
 			return (new ErrorSTO (sto.getName ()));
 		}
-
-		return (sto);
+		
+		//It's a FuncSTO, check number of arguments
+		FuncSTO tmp = (FuncSTO) sto;
+		//Check the number is the same
+		if(arguments.size() == tmp.getParameterNumbers()){
+			Vector<STO> params = (Vector<STO>) tmp.getParameterSTO().clone();
+			for(int i = 0; i < arguments.size(); i++){
+				if (params.get(i).getType().isReference()){
+					//pass by reference, argument type is not equivalent to the parameter type
+					if(!arguments.get(i).getType().isEquivalentTo(params.get(i).getType())){
+						m_nNumErrors++;
+						m_errors.print (Formatter.toString(ErrorMsg.error5r_Call, 
+						  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
+						return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
+					}
+					
+					//pass by reference, argument is not a modifiable L-value
+					if(!arguments.get(i).isModLValue()){
+						m_nNumErrors++;
+						m_errors.print (Formatter.toString(ErrorMsg.error5c_Call, 
+								params.get(i).getName(), params.get(i).getType().getName()));
+						return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
+					}
+					
+					
+					
+				}
+				//The argument is pass by value
+				else{
+					//If the type is not assignable
+					if(!arguments.get(i).getType().isAssignableTo(params.get(i).getType())){
+						m_nNumErrors++;
+						m_errors.print (Formatter.toString(ErrorMsg.error5a_Call, 
+						  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
+						return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
+					}
+				}
+			}
+		    //The function evaluates to return type
+		    return new ExprSTO("FuncCall", tmp.getReturnType());
+		}
+		else{
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error5n_Call, arguments.size(), tmp.getParameterNumbers()));
+			return (new ErrorSTO ("DoFuncCall, arugment number"));
+		}
 	}
 
 

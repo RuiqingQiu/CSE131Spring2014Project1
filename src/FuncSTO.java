@@ -1,3 +1,5 @@
+import java.util.Vector;
+
 //---------------------------------------------------------------------
 //
 //---------------------------------------------------------------------
@@ -14,6 +16,7 @@ class FuncSTO extends STO
 		setReturnType (null);
                 // You may want to change the isModifiable and isAddressable                      
                 // fields as necessary
+		this.parameters = new Vector<STO>();
 	}
 
 
@@ -44,10 +47,21 @@ class FuncSTO extends STO
 	{
 		return m_returnType;
 	}
+	
+	public void addParameter(STO s){
+		this.parameters.add(s);
+	}
+	public int getParameterNumbers(){
+		return this.parameters.size();
+	}
+	public Vector<STO> getParameterSTO(){
+		return parameters;
+	}
 
 
 //----------------------------------------------------------------
 //	Instance variables.
 //----------------------------------------------------------------
 	private Type 		m_returnType;
+	private Vector<STO> parameters;
 }
