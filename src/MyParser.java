@@ -287,11 +287,11 @@ class MyParser extends parser
 			m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
 		}
 	
-		FuncSTO sto = new FuncSTO (id);
-		m_symtab.insert (sto);
+		FuncSTO sto = new FuncSTO (id);//initialize here so that we can insert parameter into the FuncSTO
+		m_symtab.insert (sto);//inserted into current scope
 
-		m_symtab.openScope ();
-		m_symtab.setFunc (sto);
+		m_symtab.openScope (); //new scope opened 
+		m_symtab.setFunc (sto);//current function we are in is set
 	}
 
 
@@ -301,8 +301,8 @@ class MyParser extends parser
 	void
 	DoFuncDecl_2 ()
 	{
-		m_symtab.closeScope ();
-		m_symtab.setFunc (null);
+		m_symtab.closeScope ();//close scope(pops top scope off)
+		m_symtab.setFunc (null);//Say we are back in outer scope
 	}
 
 
@@ -319,10 +319,19 @@ class MyParser extends parser
 		}
 
 		// insert parameters here
+		//for each parameter in the vector
+		for (int i = 0; i < params.size (); i++)
+		{
+			String id = params.elementAt (i);
+			
+			//initialize VarSTO for each parameter
+			VarSTO 	sto = new VarSTO (id);
+			//and insert them in the symbol table
+			m_symtab.insert (sto);
+		}
 	}
 
-
-	//----------------------------------------------------------------
+    //----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
 	void

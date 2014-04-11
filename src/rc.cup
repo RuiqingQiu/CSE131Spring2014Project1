@@ -270,9 +270,10 @@ FieldList ::=     UndecoratedType IdList T_SEMI
     ;
 
 
-FuncDef ::=    T_FUNCTION T_COLON ReturnType OptRef T_ID:_2
+FuncDef ::=    T_FUNCTION T_COLON ReturnType:_1 OptRef T_ID:_2
                     {:
                         ((MyParser) parser).SaveLineNum ();
+                        //Open scope, and store return type 
                         ((MyParser) parser).DoFuncDecl_1(_2);
                     :}
                     T_LPAREN OptParamList:_3 T_RPAREN
@@ -281,6 +282,7 @@ FuncDef ::=    T_FUNCTION T_COLON ReturnType OptRef T_ID:_2
                     :}
                     T_LBRACE OptStmtList T_RBRACE
                     {:
+                    	//Close scope 
                         ((MyParser) parser).DoFuncDecl_2();
                     :}
     ;
@@ -419,12 +421,28 @@ ParamList ::=       ParamDecl
     ;
 
 
-ParamDecl ::=       Type OptRef T_ID
+ParamDecl ::=       Type OptRef:_1 T_ID
+					{:
+						//check OptRef
+						if(_1.equals("&")) //Pass by reference
+						{}
+						else //Pass by value
+						{
+						  //Check assignable
+						}
+					:}
     ;
 
 
 OptRef ::=          T_AMPERSAND
-    |               /* empty */
+					{: //Here is parameter pass by reference
+					   RESULT = "&";
+					 :}
+    |               /* empty */	
+    				 {: //Here is parameter pass by value
+    				 	RESULT ="";		
+					 :}	
+    	
     ;
 
 
@@ -559,8 +577,15 @@ OptExprList ::=     ExprList
     ;
 
 
-ExprList ::=     Expr
+ExprList ::=     Expr:_1
+				 {:
+				   //return the ExprSTO
+				   RESULT = _1;
+				  :}
     |               ExprList T_COMMA Expr
+    			 {:
+    			   //Need to return list of ExprSTO
+    			  :}
     ;
 
 Expr ::=         Designator:_1 T_ASSIGN Expr:_2
@@ -828,6 +853,8 @@ Designator2 ::=     Designator2:_1 T_DOT T_ID:_3
                     :}
     |               Designator2:_1 T_LPAREN OptExprList T_RPAREN
                     {:
+                        //Do function call check #5
+                        //OptExprList containing all the parameters
                         ((MyParser) parser).DoFuncCall (_1);
                         RESULT = _1;
                     :}

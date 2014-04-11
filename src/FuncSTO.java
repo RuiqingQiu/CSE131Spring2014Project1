@@ -1,3 +1,5 @@
+import java.util.Vector;
+
 //---------------------------------------------------------------------
 //
 //---------------------------------------------------------------------
@@ -50,4 +52,6 @@ class FuncSTO extends STO
 //	Instance variables.
 //----------------------------------------------------------------
 	private Type 		m_returnType;
+	private Vector<String>parameters; // store the parameters in the function
+	                                  //easy to check the number of parameters in the future, .size()
 }
