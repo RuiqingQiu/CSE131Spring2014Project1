@@ -565,7 +565,13 @@ ExitStmt ::=        T_EXIT T_LPAREN Expr T_RPAREN T_SEMI
 
 
 ReturnStmt ::=   T_RETURN T_SEMI
-    |               T_RETURN Expr T_SEMI
+  				 {:
+  				   RESULT = ((MyParser) parser).DoCheckReturnType(new VoidType("void",4));
+  				 :}
+    |               T_RETURN Expr:_1 T_SEMI
+         	     {:
+         	       RESULT = ((MyParser)parser).DoCheckReturnType(_1.getType()); 
+         	     :}
     ;
 
 

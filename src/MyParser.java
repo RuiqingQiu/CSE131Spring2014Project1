@@ -330,9 +330,25 @@ class MyParser extends parser
 				m_symtab.getFunc().addParameter(s);
 				m_symtab.insert(s);
 			}
+	  // insert parameters here
+	}
+	
+	void
+	DoReturnCheck(Type t){
+		if (m_symtab.getFunc () == null)
+		{
+			m_nNumErrors++;
+			m_errors.print ("internal: DoReturnCheck says no proc!");
+		}
+		//no expr is specified and the return type is not void
+		if(!(m_symtab.getFunc().getReturnType() instanceof VoidType)){
+			if(t instanceof VoidType){
+				m_nNumErrors++;
+				m_errors.print (ErrorMsg.error6a_Return_expr);
+			}
+		}
 		
-
-		// insert parameters here
+		
 	}
 
     //----------------------------------------------------------------
