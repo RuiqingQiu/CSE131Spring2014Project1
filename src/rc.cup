@@ -109,14 +109,12 @@ non terminal
     ConstDecl,
     OptStatic,
     TypedefDecl,
-    OptRef,
     FieldsList,
     FieldList,
     OptStmtList,
     StmtList,
     Stmt,
     CodeBlock,
-    OptExprList,
     IfStmt,
     OptElse,
     WhileStmt,
@@ -134,7 +132,7 @@ non terminal
     WritePairList,
     WritePair,
     ConstExpr,
-    ExprList,
+
     UnarySign,
     Equality,
     Relation,
@@ -150,7 +148,7 @@ non terminal String
     AddOp,
     MulOp,
     IncDecOp,
-    ParamDecl
+    OptRef
     ;
 
 non terminal STO
@@ -167,7 +165,8 @@ non terminal STO
     Designator,
     Designator2,
     Designator3,
-    QualIdent
+    QualIdent,
+    ParamDecl
     ;
 
 non terminal Type
@@ -185,7 +184,9 @@ non terminal Vector
     IdListWOptInit,
     IdListWInit,
     OptParamList,
-    ParamList
+    ParamList,
+    OptExprList,
+    ExprList
     ;
 
 //--------------------------------------------------------------------
@@ -273,8 +274,8 @@ FieldList ::=     UndecoratedType IdList T_SEMI
 FuncDef ::=    T_FUNCTION T_COLON ReturnType:_1 OptRef T_ID:_2
                     {:
                         ((MyParser) parser).SaveLineNum ();
-                        //Open scope, and store return type 
-                        ((MyParser) parser).DoFuncDecl_1(_2);
+
+                        ((MyParser) parser).DoFuncDecl_1(_1, _2);
                     :}
                     T_LPAREN OptParamList:_3 T_RPAREN
                     {:
@@ -288,9 +289,9 @@ FuncDef ::=    T_FUNCTION T_COLON ReturnType:_1 OptRef T_ID:_2
     ;
 
 
-FuncDecl ::=   T_EXTERN T_FUNCTION T_COLON ReturnType T_ID:_2
+FuncDecl ::=   T_EXTERN T_FUNCTION T_COLON ReturnType:_1 T_ID:_2
                     {:
-                        ((MyParser) parser).DoFuncDecl_1(_2);
+                        ((MyParser) parser).DoFuncDecl_1(_1, _2);
                     :}
                     T_LPAREN OptParamList:_3 T_RPAREN
                     {:
@@ -303,7 +304,10 @@ FuncDecl ::=   T_EXTERN T_FUNCTION T_COLON ReturnType T_ID:_2
     ;
 
 
-Type ::=         SubType OptModifiers
+Type ::=         SubType:_1 OptModifiers
+				 {:
+				   RESULT = _1;
+				 :}
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
 
@@ -319,14 +323,14 @@ SubType ::=    QualIdent
     				:}
     |			DeclareType:_1
     				{:
+    				  //Add for check#3c decltype keyword
     				  RESULT = _1;
     				:}
     ;
 
 DeclareType ::=  T_DECLTYPE T_LPAREN Expr0:_1 T_RPAREN
 				 {:
-				    RESULT = _1.getType();
-				    
+				    RESULT = _1.getType();  
 				 :}
 	;
 
@@ -365,12 +369,15 @@ Pointer ::=        T_STAR
     ;
 
 
-ReturnType ::=      SubType OptPointerList
+ReturnType ::=      SubType:_1 OptPointerList
                     {:
                         // You should determine the type and return it here
-                        RESULT = null;
+                        RESULT = _1;
                     :}
     |               T_VOID
+    				{:
+    				  RESULT = new VoidType("void", 4);
+    				:}
 
     ;
 
@@ -412,29 +419,50 @@ Stmt ::=        VarDecl
 
 
 OptParamList ::=    ParamList:_1
-    |               /* empty */
-    ;
-
-
-ParamList ::=       ParamDecl
-    |               ParamList:_1 T_COMMA ParamDecl
-    ;
-
-
-ParamDecl ::=       Type OptRef:_1 T_ID
 					{:
-						//check OptRef
-						if(_1.equals("&")) //Pass by reference
-						{}
-						else //Pass by value
-						{
-						  //Check assignable
-						}
+					  //Return a list of parameter
+					  RESULT = _1;
+					:}
+    |               /* empty */
+    				{:
+    				  RESULT = new Vector<STO>();
+    				:}
+    ;
+
+
+ParamList ::=       ParamDecl:_1
+					{:
+					  //Return the vector of parameter types
+					  Vector<STO> v = new Vector<STO>();
+					  v.addElement(_1);
+					  RESULT = v;
+					:}
+    |               ParamList:_1 T_COMMA ParamDecl:_2
+    				{:
+    				  //Return the vector with the _2 add to the back
+    				  _1.addElement(_2);
+    				  RESULT = _1;
+    				:}
+    ;
+
+
+ParamDecl ::=       Type:_1 OptRef:_3 T_ID:_2
+					{:
+					  //Check #5 parameter type check, return the type's name
+					  //if OptRef is a reference
+					  if(_3.equals("&")){
+					    _1.setReference(true);
+					    RESULT = new VarSTO(_2, _1);
+					  }
+					  else
+					    RESULT = new VarSTO(_2, _1);
+					  
 					:}
     ;
 
 
 OptRef ::=          T_AMPERSAND
+
 					{: //Here is parameter pass by reference
 					   RESULT = "&";
 					 :}
@@ -442,7 +470,6 @@ OptRef ::=          T_AMPERSAND
     				 {: //Here is parameter pass by value
     				 	RESULT ="";		
 					 :}	
-    	
     ;
 
 
@@ -572,20 +599,28 @@ ConstExpr ::=    Expr
     ;
 
 
-OptExprList ::=     ExprList
+OptExprList ::=     ExprList:_1
+					{:
+					  RESULT = _1;
+					:}
     |               /* empty */
+    				{:
+    				  RESULT = new Vector<Type>();
+    				:}
     ;
 
 
 ExprList ::=     Expr:_1
 				 {:
-				   //return the ExprSTO
-				   RESULT = _1;
-				  :}
-    |               ExprList T_COMMA Expr
+				   Vector<STO> v = new Vector<STO>();
+				   v.addElement(_1);
+				   RESULT = v;
+				 :}
+    |               ExprList:_1 T_COMMA Expr:_2
     			 {:
-    			   //Need to return list of ExprSTO
-    			  :}
+    			   _1.addElement(_2);
+    			   RESULT = _1;
+    			 :}
     ;
 
 Expr ::=         Designator:_1 T_ASSIGN Expr:_2
@@ -796,6 +831,7 @@ Designator ::= T_STAR Designator:_1
                     :}
     |   T_AMPERSAND Designator:_1
         {:
+            //Argument pass by reference
 			RESULT = _1;
         :}
     |   UnarySign Designator:_1
@@ -851,12 +887,11 @@ Designator2 ::=     Designator2:_1 T_DOT T_ID:_3
                         else
                           RESULT = ((MyParser) parser).DoUnaryExpr(_1, new DecOp());
                     :}
-    |               Designator2:_1 T_LPAREN OptExprList T_RPAREN
+    |               Designator2:_1 T_LPAREN OptExprList:_2 T_RPAREN
                     {:
                         //Do function call check #5
                         //OptExprList containing all the parameters
-                        ((MyParser) parser).DoFuncCall (_1);
-                        RESULT = _1;
+                        RESULT = ((MyParser) parser).DoFuncCall (_1, _2);
                     :}
     |               Designator3:_1
                     {:
@@ -871,12 +906,12 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_INT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1, new IntType("int", 32));
+                        RESULT = new ConstSTO (_1, new IntType("int", 4));
                         
                     :}
     |               T_FLOAT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1, new FloatType("float", 32));
+                        RESULT = new ConstSTO (_1, new FloatType("float", 4));
                     :}
     |               T_CHAR_LITERAL:_1
                     {:
@@ -888,11 +923,11 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_TRUE
                     {:
-                        RESULT = new ConstSTO ("true", new BoolType("bool",1));
+                        RESULT = new ConstSTO ("true", new BoolType("bool",4));
                     :}
     |               T_FALSE
                     {:
-                        RESULT = new ConstSTO ("false", new BoolType("bool",1));
+                        RESULT = new ConstSTO ("false", new BoolType("bool",4));
                     :}
     |               T_NULLPTR
                     {:

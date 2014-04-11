@@ -53,6 +53,8 @@ abstract class Type
 	public abstract boolean isAssignableTo(Type t);
 	// Same type
 	public abstract boolean isEquivalentTo(Type t);
+	public boolean isReference(){ return isReference; }
+	public void setReference(boolean b) {this.isReference = b;}
 	//----------------------------------------------------------------
 	//	It will be helpful to ask a Type what specific Type it is.
 	//	The Java operator instanceof will do this, but you may
@@ -69,4 +71,5 @@ abstract class Type
 	//----------------------------------------------------------------
 	private String  	m_typeName;
 	private int		m_size;
+	private boolean isReference = false;
 }
