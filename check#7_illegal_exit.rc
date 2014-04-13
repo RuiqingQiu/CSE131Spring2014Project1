@@ -1,0 +1,14 @@
+//Success
+function : void test()
+{
+  exit(1);
+}
+
+function : void test2(){
+  exit(true);
+}
+
+function : void test1()
+{
+  exit();
+}
