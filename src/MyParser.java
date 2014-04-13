@@ -395,6 +395,15 @@ class MyParser extends parser
 		}
 		return;
 	}
+	
+	void
+	DoExitStmtCheck(STO s){
+		//cehck if the STO is assignable to an int
+		if(!(s.getType().isAssignableTo(new IntType("int",4)))){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error7_Exit, s.getType().getName()));
+		}
+	}
 
     //----------------------------------------------------------------
 	//

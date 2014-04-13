@@ -561,7 +561,11 @@ ContinueStmt ::=    T_CONTINUE T_SEMI
     ;
 
 
-ExitStmt ::=        T_EXIT T_LPAREN Expr T_RPAREN T_SEMI
+ExitStmt ::=        T_EXIT T_LPAREN Expr:_1 T_RPAREN T_SEMI
+                    {:
+                       //DoExitStmtCheck if Expr is assignable to an int
+                       ((MyParser) parser).DoExitStmtCheck(_1); 
+                    :}
     ;
 
 
