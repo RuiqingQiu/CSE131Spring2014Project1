@@ -36,3 +36,11 @@ function: void test4(){
   if(true){
   }
 }
+
+//Success: when is void, top level return can be ignored
+function : void test5(){
+  int x = 2;
+  if(x == 2){
+    return;
+  }
+}
