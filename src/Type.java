@@ -66,6 +66,7 @@ abstract class Type
 	public boolean isBool()		{ return false; }
 	public boolean isError()    { return false; }
 	public boolean isFloat()	{ return false; }
+	public boolean isVoid() {return false;}
 	//----------------------------------------------------------------
 	//	Name of the Type (e.g., int, bool, or some typedef
 	//----------------------------------------------------------------

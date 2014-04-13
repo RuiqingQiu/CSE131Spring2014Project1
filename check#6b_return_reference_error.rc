@@ -1,0 +1,20 @@
+//Fail
+function : int& test1(){
+  return;
+}
+
+//Fail
+function : int& test2(){
+  float x = 2.0;
+  return x;
+}
+
+//Fail
+function : int& test3(){
+  return 1.0;
+}
+
+//Fail check return expression not a modifiable L-value
+function : int & test4(){
+  return 1;
+}

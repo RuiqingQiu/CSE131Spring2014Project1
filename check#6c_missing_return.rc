@@ -1,0 +1,38 @@
+//Fail
+function : int test(){
+  int x = 0;
+}
+
+//Fail
+function : int test1(){
+  int x = 0;
+  if( x == 1){
+    return 1;
+  }
+}
+
+
+//Pass
+function : int test2(){
+  int x = 0;
+  if(x == 1){
+    return 2;
+  }
+  return x;
+}
+
+//Fail, int to void
+function: void test3(){
+  int x = 0;
+  if(true){
+    return x;
+  }
+  return;
+}
+
+//Success
+function: void test4(){
+  int x = 0;
+  if(true){
+  }
+}

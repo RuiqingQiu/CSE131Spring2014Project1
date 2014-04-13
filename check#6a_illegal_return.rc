@@ -1,8 +1,15 @@
+//Fail
 function : int foo()
 {
   return;
 }
 
+//Fail
 function :void main(){
   return 1;
+}
+
+//Correct
+function : void test(){
+  return;
 }

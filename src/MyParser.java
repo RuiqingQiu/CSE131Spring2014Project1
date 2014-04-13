@@ -302,7 +302,13 @@ class MyParser extends parser
 	void
 	DoFuncDecl_2 ()
 	{
+		
 		m_symtab.closeScope ();//close scope(pops top scope off)
+		//No top level return statement has been seen
+		if (m_symtab.getFunc().getTopLevelReturn() == false && !(m_symtab.getFunc().getReturnType() instanceof VoidType)){
+			m_nNumErrors++;
+			m_errors.print (ErrorMsg.error6c_Return_missing);
+		}
 		m_symtab.setFunc (null);//Say we are back in outer scope
 	}
 
@@ -334,37 +340,60 @@ class MyParser extends parser
 	}
 	
 	void
-	DoReturnCheck(Type t){
+	DoReturnCheck(STO s){
+		Type t = s.getType();
 		if (m_symtab.getFunc () == null)
 		{
 			m_nNumErrors++;
 			m_errors.print ("internal: DoReturnCheck says no proc!");
 		}
-		//no expr is specified and the return type is not void
-		if(!(m_symtab.getFunc().getReturnType() instanceof VoidType)){
-			//Return should not be void but is void
-			if(t instanceof VoidType){
-				m_nNumErrors++;
-				m_errors.print (ErrorMsg.error6a_Return_expr);
-				return;
-			}
-			//user given return type is not assignable to function return type
-			if(!(t.isAssignableTo(m_symtab.getFunc().getReturnType()))){
-				m_nNumErrors++;
-				m_errors.print (Formatter.toString(ErrorMsg.error6a_Return_type, t.getName(),m_symtab.getFunc().getReturnType().getName()));
-			    return;
-			}
+		
+		//It's top level and a return statement is found
+		if(m_symtab.getLevel() == 2){
+			m_symtab.getFunc().setTopLevelReturn(true);
+		}
+		//Check if the return type is by reference or value
+		if(m_symtab.getFunc().getReturnType().isReference()){
+		  //Check if the type of return expression is not equivalent to the return 
+		  //type of the function
+		  if(!(t.isEquivalentTo(m_symtab.getFunc().getReturnType()))){
+			  m_nNumErrors++;
+			  m_errors.print (Formatter.toString(ErrorMsg.error6b_Return_equiv, t.getName(),m_symtab.getFunc().getReturnType().getName()));
+			  return;
+		  }
+		  //return expression is not a modifiable L-value
+		  if(!(s.isModLValue())){
+			  m_nNumErrors++;
+			  m_errors.print (ErrorMsg.error6b_Return_modlval);
+			  return;
+		  }
 		}
 		else{
-			//user given return type is not assignable to function return type
-			if(!(t.isAssignableTo(m_symtab.getFunc().getReturnType()))){
-				m_nNumErrors++;
-				m_errors.print (Formatter.toString(ErrorMsg.error6a_Return_type, t.getName(),m_symtab.getFunc().getReturnType().getName()));
-			    return;
+			//no expr is specified and the return type is not void
+			if(!(m_symtab.getFunc().getReturnType() instanceof VoidType)){
+				//Return should not be void but is void
+				if(t instanceof VoidType){
+					m_nNumErrors++;
+					m_errors.print (ErrorMsg.error6a_Return_expr);
+					return;
+				}
+				//user given return type is not assignable to function return type
+				if(!(t.isAssignableTo(m_symtab.getFunc().getReturnType()))){
+					m_nNumErrors++;
+					m_errors.print (Formatter.toString(ErrorMsg.error6a_Return_type, t.getName(),m_symtab.getFunc().getReturnType().getName()));
+				    return;
+				}
+			}
+			else{
+				//user given return type is not assignable to function return type
+				if(!(t.isAssignableTo(m_symtab.getFunc().getReturnType()))){
+					m_nNumErrors++;
+					m_errors.print (Formatter.toString(ErrorMsg.error6a_Return_type, t.getName(),m_symtab.getFunc().getReturnType().getName()));
+				    return;
+				}
 			}
 		}
-		
-		
+		return;
 	}
 
     //----------------------------------------------------------------

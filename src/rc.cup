@@ -271,10 +271,11 @@ FieldList ::=     UndecoratedType IdList T_SEMI
     ;
 
 
-FuncDef ::=    T_FUNCTION T_COLON ReturnType:_1 OptRef T_ID:_2
+FuncDef ::=    T_FUNCTION T_COLON ReturnType:_1 OptRef:_4 T_ID:_2
                     {:
                         ((MyParser) parser).SaveLineNum ();
-
+						if(_4.equals("&"))
+						  _1.setReference(true);
                         ((MyParser) parser).DoFuncDecl_1(_1, _2);
                     :}
                     T_LPAREN OptParamList:_3 T_RPAREN
@@ -566,11 +567,12 @@ ExitStmt ::=        T_EXIT T_LPAREN Expr T_RPAREN T_SEMI
 
 ReturnStmt ::=   T_RETURN T_SEMI
   				 {:
-  				   ((MyParser) parser).DoReturnCheck(new VoidType("void",4));
+  				   //((MyParser) parser).DoReturnCheck(new VoidType("void",4));
+  				   ((MyParser) parser).DoReturnCheck(new ExprSTO("void",new VoidType("void",4)));
   				 :}
     |               T_RETURN Expr:_1 T_SEMI
          	     {:
-         	       ((MyParser)parser).DoReturnCheck(_1.getType()); 
+         	       ((MyParser)parser).DoReturnCheck(_1); 
          	     :}
     ;
 

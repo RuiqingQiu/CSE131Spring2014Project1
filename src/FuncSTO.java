@@ -17,6 +17,7 @@ class FuncSTO extends STO
                 // You may want to change the isModifiable and isAddressable                      
                 // fields as necessary
 		this.parameters = new Vector<STO>();
+		this.top_level_return = false;
 	}
 
 
@@ -57,12 +58,17 @@ class FuncSTO extends STO
 	public Vector<STO> getParameterSTO(){
 		return parameters;
 	}
-
+	public void setTopLevelReturn(boolean b){
+		this.top_level_return = b;
+	}
+	public boolean getTopLevelReturn(){
+		return this.top_level_return;
+	}
 
 //----------------------------------------------------------------
 //	Instance variables.
 //----------------------------------------------------------------
 	private Type 		m_returnType;
-
+	private boolean     top_level_return;
 	private Vector<STO> parameters;
 }
