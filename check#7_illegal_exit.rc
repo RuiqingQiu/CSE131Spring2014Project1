@@ -8,7 +8,9 @@ function : void test2(){
   exit(true);
 }
 
-function : void test1()
+//Ask the tutor to confirm this 
+//Ours has syntax error around (
+/*function : void test1()
 {
   exit();
-}
+}*/

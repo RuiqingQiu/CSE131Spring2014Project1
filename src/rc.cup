@@ -918,7 +918,11 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_INT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1, new IntType("int", 4));
+                        ConstSTO s = new ConstSTO(_1,new IntType("int",4));
+                        
+                        s.setValue(Double.parseDouble(_1));
+                      
+                        RESULT = s;
                         
                     :}
     |               T_FLOAT_LITERAL:_1
