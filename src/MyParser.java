@@ -166,7 +166,19 @@ class MyParser extends parser
 		m_symtab.closeScope ();
 	}
 
-
+	void
+	DoGlobalStaticInitCheck(String id, STO s){
+		//Check if it's within a function block
+		if(m_symtab.getFunc() != null){
+			
+		}
+		//If the initialization expreesion didn't return a constSTO
+		if (!(s instanceof ConstSTO)){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
+		}
+	}
+	
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

@@ -1,1 +1,21 @@
+//Pass
 int x = 1;
+
+//Pass
+int b, c;
+
+
+//Fail
+int y = x;
+
+//Fail
+static int z = x;
+
+function : void main(){
+  //Fail
+  static int d = x;
+  
+  //Pass
+  int a = x;
+}
+
