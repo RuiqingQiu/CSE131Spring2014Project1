@@ -1,0 +1,19 @@
+//Pass
+float[10] a;
+
+//Fail
+int [false] d;
+
+int x = 10;
+//Fail
+int[x] e;
+
+//Fail
+int [0] b;
+
+//Fail
+int[-1] c;
+
+typedef float[10] ARR;
+ARR z;
+ARR[2] y;

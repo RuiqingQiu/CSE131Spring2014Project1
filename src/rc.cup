@@ -403,7 +403,12 @@ BasicType ::=       T_INT
 
 
 OptModifiers ::= 	PointerList
-	|				T_LBRACKET ConstExpr T_RBRACKET
+	|				T_LBRACKET ConstExpr:_1 T_RBRACKET
+					{:
+					  //Modifier for array type
+					  //Check #10, illegal array declaration
+					  ((MyParser) parser).DoArrayDeclCheck(_1);
+					:}
     |               /* empty */
     ;
 	
