@@ -298,7 +298,7 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	void
-	DoTypedefDecl (Vector<String> lstIDs)
+	DoTypedefDecl (Type type, Vector<String> lstIDs)
 	{
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
@@ -309,8 +309,9 @@ class MyParser extends parser
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
 			}
-		
+			
 			TypedefSTO 	sto = new TypedefSTO (id);
+			sto.setType(type);
 			m_symtab.insert (sto);
 		}
 	}
@@ -404,6 +405,7 @@ class MyParser extends parser
 		{
 			m_nNumErrors++;
 			m_errors.print ("internal: DoReturnCheck says no proc!");
+			return;
 		}
 		
 		//It's top level and a return statement is found

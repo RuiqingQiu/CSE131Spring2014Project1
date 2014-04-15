@@ -246,7 +246,6 @@ VarDecl ::=     OptStatic:_1 UndecoratedType:_2 IdListWOptInit:_3 T_SEMI
 	                           ((MyParser) parser).DoVarDecl (v,_2);
 	                         }
 	                         else{
-	                            
 	                            ((MyParser) parser).DoVarDecl (_3,_2);
 	                         }
 	                     }
@@ -285,9 +284,9 @@ OptStatic ::=   T_STATIC
     ;
 
 
-TypedefDecl ::=     T_TYPEDEF Type IdListUpper:_2 T_SEMI
+TypedefDecl ::=     T_TYPEDEF Type:_1 IdListUpper:_2 T_SEMI
                     {:
-                        ((MyParser) parser).DoTypedefDecl (_2);
+                        ((MyParser) parser).DoTypedefDecl (_1, _2);
                     :}
     |               T_STRUCTDEF T_ID_U:_1 T_LBRACE
                     {:
@@ -356,7 +355,14 @@ UndecoratedType ::= SubType:_1
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
 
-SubType ::=    QualIdent
+SubType ::=    QualIdent:_1
+			   {:
+			     //Get the basic type out of TypedefSTO
+			     //modifiy the previous type and set its name to be the correct typedef ID
+			     Type t = _1.getType();
+			     t.setName(_1.getName());
+			     RESULT = t;
+			   :}
     |               BasicType:_1
     				{:
     				  RESULT = _1;
@@ -370,7 +376,13 @@ SubType ::=    QualIdent
 
 DeclareType ::=  T_DECLTYPE T_LPAREN Expr0:_1 T_RPAREN
 				 {:
-				    RESULT = _1.getType();  
+				    if(_1.isTypedef()){
+				      Type t = _1.getType();
+				      t.setName(_1.getName());
+				      RESULT = t;
+				    }
+				    else
+				      RESULT = _1.getType();  
 				 :}
 	;
 
@@ -1043,6 +1055,7 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
 
 QualIdent ::=       T_ID_U:_1
                     {:
+                       //Return a typedefSTO
                        RESULT = ((MyParser) parser).DoQualIdent (_1);
                     :}
     ;
