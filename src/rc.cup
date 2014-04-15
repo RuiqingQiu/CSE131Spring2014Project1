@@ -234,11 +234,13 @@ VarDecl ::=     OptStatic:_1 UndecoratedType:_2 IdListWOptInit:_3 T_SEMI
                            for(int i = 0; i < _3.size(); i++){
                              VarSTO s = (VarSTO)_3.elementAt(i);
                              s.setStatic(true);
+                             s.setType(_2);
                              v.addElement(s);
                            }
-                           ((MyParser) parser).DoVarDecl (_3,_2);
+                           ((MyParser) parser).DoVarDecl (v,_2);
                          }
                          else{
+                            
                             ((MyParser) parser).DoVarDecl (_3,_2);
                          }
                     :}
@@ -520,6 +522,7 @@ IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
                         //Check if the OptInit is known at compile time
                         VarSTO v = new VarSTO(_1);
                         v.setInit(_2);
+                        v.setStatic(false);
                         RESULT = new Vector();
                         RESULT.addElement (v);
                     :}
@@ -528,6 +531,7 @@ IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
                         RESULT = _1;
                         VarSTO v = new VarSTO(_3);
                         v.setInit(_2);
+                        v.setStatic(false);
                         RESULT.addElement (v);
                     :}
     ;

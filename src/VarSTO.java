@@ -44,6 +44,7 @@ class VarSTO extends STO
 	public void setStatic(boolean b){
 		this.isStatic = b;
 	}
+
 	private STO init;
 	private boolean isStatic;
 }

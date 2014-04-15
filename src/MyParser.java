@@ -166,19 +166,6 @@ class MyParser extends parser
 		m_symtab.closeScope ();
 	}
 
-	void
-	DoGlobalStaticInitCheck(String id, STO s){
-		//Check if it's within a function block
-		if(m_symtab.getFunc() != null){
-			
-		}
-		//If the initialization expreesion didn't return a constSTO
-		if (!(s instanceof ConstSTO)){
-			m_nNumErrors++;
-			m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
-		}
-	}
-	
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -206,6 +193,7 @@ class MyParser extends parser
 					if(!(stoList.elementAt(i).getInit() instanceof ConstSTO)){
 						m_nNumErrors++;
 						m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
+						return;
 					}
 				}
 			}
@@ -217,8 +205,19 @@ class MyParser extends parser
 						if(!(stoList.elementAt(i).getInit() instanceof ConstSTO)){
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
+							return;
 						}
 					}
+				}
+			}
+			
+			//Check if the init type is assignable to Type
+			if(stoList.elementAt(i).getInit() != null){
+				//If the init expression is not assignable to type declared
+				if(!(stoList.elementAt(i).getInit().getType().isAssignableTo(type))){
+					m_nNumErrors++;
+					m_errors.print (Formatter.toString(ErrorMsg.error8_Assign,stoList.elementAt(i).getInit().getType().getName(), type.getName()));
+				    return;
 				}
 			}
 
