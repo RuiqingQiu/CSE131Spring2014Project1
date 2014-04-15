@@ -136,7 +136,7 @@ non terminal
     UnarySign,
     Equality,
     Relation,
-    OptInit,
+
     ArrElemsList,
     OptModifiers,
     PointerList,
@@ -166,6 +166,7 @@ non terminal STO
     Designator2,
     Designator3,
     QualIdent,
+    OptInit,
     ParamDecl
     ;
 
@@ -499,12 +500,17 @@ IdListUpper ::=     T_ID_U:_1
                     :}
     ;
 
-IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit
+IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
                     {:
+                        //Check if the OptInit is known at compile time
+                        if(_2 != null){
+                        	((MyParser) parser).DoGlobalStaticInitCheck(_1, _2);
+                        }
+                        
                         RESULT = new Vector ();
                         RESULT.addElement (_1);
                     :}
-    |               IdListWOptInit:_1 T_COMMA OptModifiers T_ID:_3 OptInit
+    |               IdListWOptInit:_1 T_COMMA OptModifiers T_ID:_3 OptInit:_2
                     {:
                         RESULT = _1;
                         RESULT.addElement (_3);
@@ -525,7 +531,10 @@ IdListWInit ::=     OptModifiers T_ID:_1 T_ASSIGN ConstExpr
     ;
 
 
-OptInit ::=         T_ASSIGN Expr
+OptInit ::=         T_ASSIGN Expr:_1
+					{:
+					  RESULT = _1;
+					:}
     |               T_ASSIGN T_LBRACE ArrElemsList T_RBRACE
     |               /* empty */
     ;
@@ -921,13 +930,15 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                         ConstSTO s = new ConstSTO(_1,new IntType("int",4));
                         
                         s.setValue(Double.parseDouble(_1));
-                      
                         RESULT = s;
                         
                     :}
     |               T_FLOAT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1, new FloatType("float", 4));
+                        ConstSTO s = new ConstSTO (_1, new FloatType("float", 4));
+                        s.setValue(Double.parseDouble(_1));
+                        RESULT = s;
+                        
                     :}
     |               T_CHAR_LITERAL:_1
                     {:
@@ -939,11 +950,15 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_TRUE
                     {:
-                        RESULT = new ConstSTO ("true", new BoolType("bool",4));
+                        ConstSTO s = new ConstSTO ("true", new BoolType("bool",4));
+                        s.setValue(1.0);
+                        RESULT = s;
                     :}
     |               T_FALSE
                     {:
-                        RESULT = new ConstSTO ("false", new BoolType("bool",4));
+                        ConstSTO s = new ConstSTO ("false", new BoolType("bool",4));
+                        s.setValue(0);
+                        RESULT = s;
                     :}
     |               T_NULLPTR
                     {:
