@@ -10,6 +10,14 @@ public class LessThanOp extends ComparisonOp{
 			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,"bool", "<"));
 		}
 		else {
+			if(a instanceof ConstSTO && b instanceof ConstSTO){
+				ConstSTO c = new ConstSTO("", new BoolType("bool", 1));
+				if(((ConstSTO)a).getFloatValue() < ((ConstSTO)b).getFloatValue())
+					c.setValue(1.0);
+				else
+					c.setValue(0.0);
+				return c;
+			}
 			return new ExprSTO("LessThanOp", new BoolType("Bool", 1));
 		}
 	}

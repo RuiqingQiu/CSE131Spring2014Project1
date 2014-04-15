@@ -1,4 +1,4 @@
-//Fail
+/*//Fail
 static bool isTrue = 1;
 
 //Pass
@@ -14,3 +14,49 @@ function : void main(){
   
   
 }
+*/
+int a = 1; 
+int b = 9;
+const int c = 3;
+const float d = 7;
+const int e = 6;
+
+//Error
+int test1 = a + b;
+//Error
+int test2 = a + c;
+
+//Pass
+int test3 = c + d;
+
+//Pass
+bool test4 = c == d;
+
+//Error
+float test5 = d - c;
+
+float test6 = d * c;
+
+float test7 = d / c;
+
+int test8 = e % c;
+
+bool test9 = c != d;
+
+bool test10 = c > d;
+bool test11 = c < d;
+bool test12 = c >= d;
+bool test13 = c <= d;
+
+const bool t = true;
+const bool f = false;
+bool test14 = t || f;
+bool test15 = t && f;
+bool test16 = !f;
+
+int test17 = c & e;
+int test18 = c | e;
+int test19 = c ^ e;
+
+const int Zero = 0;
+int test20 = c / Zero;

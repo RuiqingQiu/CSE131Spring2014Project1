@@ -5,6 +5,12 @@ public class BwOrOp extends BitwiseOp{
 		Type bType = b.getType();
 		//Both operands must be bool type
 		if (aType instanceof IntType && bType instanceof IntType) {
+			if(a instanceof ConstSTO && b instanceof ConstSTO){
+				int x = ((ConstSTO)a).getIntValue() | ((ConstSTO)b).getIntValue();
+				ConstSTO c = new ConstSTO("", aType);
+				c.setValue(x);
+				return c;
+			}
 			return new ExprSTO("BwOrOp", aType);
 		}
 		else {

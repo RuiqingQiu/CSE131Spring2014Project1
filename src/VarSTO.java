@@ -13,6 +13,9 @@ class VarSTO extends STO
 		super (strName);
 		// You may want to change the isModifiable and isAddressable 
 		// fields as necessary
+		this.isStatic = false;
+		
+		this.isNegative = false;
 	}
 
 	public 
@@ -21,6 +24,8 @@ class VarSTO extends STO
 		super (strName, typ);
 		// You may want to change the isModifiable and isAddressable 
 		// fields as necessary
+		this.isStatic = false;
+		this.isNegative = false;
 	}
 
 	//----------------------------------------------------------------
@@ -44,7 +49,15 @@ class VarSTO extends STO
 	public void setStatic(boolean b){
 		this.isStatic = b;
 	}
+	public boolean isNegative(){
+		return this.isNegative;
+	}
+	public void setNegative(boolean b){
+		this.isNegative = b;
+	}
 
 	private STO init;
 	private boolean isStatic;
+	
+	private boolean isNegative;
 }

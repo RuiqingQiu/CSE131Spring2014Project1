@@ -7,6 +7,14 @@ public class OrOp extends BooleanOp {
 		Type bType = b.getType();
 		//Both operands must be bool type
 		if (aType instanceof BoolType && bType instanceof BoolType) {
+			if(a instanceof ConstSTO && b instanceof ConstSTO){
+				ConstSTO c = new ConstSTO("", new BoolType("bool", 1));
+				if(((ConstSTO)a).getBoolValue() || ((ConstSTO)b).getBoolValue())
+					c.setValue(1.0);
+				else
+					c.setValue(0.0);
+				return c;
+			}
 			return new ExprSTO("OrOp", aType);
 		}
 		else {

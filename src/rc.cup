@@ -132,7 +132,7 @@ non terminal
     WritePair,
    
 
-    UnarySign,
+
     Equality,
     Relation,
 
@@ -148,7 +148,8 @@ non terminal String
     MulOp,
     IncDecOp,
     OptRef,
-    OptStatic
+    OptStatic,
+    UnarySign
     ;
 
 non terminal STO
@@ -229,29 +230,48 @@ ExternDecl ::= T_EXTERN UndecoratedType IdList:_3 T_SEMI
 
 VarDecl ::=     OptStatic:_1 UndecoratedType:_2 IdListWOptInit:_3 T_SEMI
                     {:
-                         //If the static keyword is provided
-                         if(_1 != null){
-                           Vector<VarSTO> v = new Vector<VarSTO>();
-                           for(int i = 0; i < _3.size(); i++){
-                             VarSTO s = (VarSTO)_3.elementAt(i);
-                             s.setStatic(true);
-                             s.setType(_2);
-                             v.addElement(s);
-                           }
-                           ((MyParser) parser).DoVarDecl (v,_2);
+                         //If error occured, which return a empty vector
+                         if(_3.size() == 0){
                          }
                          else{
-                            
-                            ((MyParser) parser).DoVarDecl (_3,_2);
-                         }
+	                         //If the static keyword is provided
+	                         if(_1 != null){
+	                           Vector<VarSTO> v = new Vector<VarSTO>();
+	                           for(int i = 0; i < _3.size(); i++){
+	                             VarSTO s = (VarSTO)_3.elementAt(i);
+	                             s.setStatic(true);
+	                             s.setType(_2);
+	                             v.addElement(s);
+	                           }
+	                           ((MyParser) parser).DoVarDecl (v,_2);
+	                         }
+	                         else{
+	                            
+	                            ((MyParser) parser).DoVarDecl (_3,_2);
+	                         }
+	                     }
                     :}
     |           OptStatic T_AUTO T_ID T_ASSIGN Expr T_SEMI
 
     ;
 
-ConstDecl ::=  OptStatic T_CONST UndecoratedType IdListWInit:_3 T_SEMI
+ConstDecl ::=  OptStatic:_1 T_CONST UndecoratedType:_2 IdListWInit:_3 T_SEMI
                     {:
-                        ((MyParser) parser).DoConstDecl (_3);
+                       //If the static keyword is provided
+                       if(_1 != null){
+                         Vector<VarSTO> v = new Vector<VarSTO>();
+                         for(int i = 0; i < _3.size(); i++){
+                           VarSTO s = (VarSTO)_3.elementAt(i);
+                           s.setStatic(true);
+                           s.setType(_2);
+                           v.addElement(s);
+                         }
+                         ((MyParser) parser).DoConstDecl (v, _2);
+                       }
+                       else{
+                         ((MyParser) parser).DoConstDecl (_3, _2);
+                       }
+                   
                     :}
     |          OptStatic T_CONST T_AUTO T_ID T_ASSIGN Expr T_SEMI
     ;
@@ -520,12 +540,16 @@ IdListUpper ::=     T_ID_U:_1
 
 IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
                     {:
-                        //Check if the OptInit is known at compile time
-                        VarSTO v = new VarSTO(_1);
-                        v.setInit(_2);
-                        v.setStatic(false);
-                        RESULT = new Vector();
-                        RESULT.addElement (v);
+                        if(_2 instanceof ErrorSTO)
+                          RESULT = new Vector();
+                        else{
+	                      //Check if the OptInit is known at compile time
+	                      VarSTO v = new VarSTO(_1);
+	                      v.setInit(_2);
+	                      v.setStatic(false);
+	                      RESULT = new Vector();
+	                      RESULT.addElement (v);
+	                    }
                     :}
     |               IdListWOptInit:_1 T_COMMA OptModifiers T_ID:_3 OptInit:_2
                     {:
@@ -539,9 +563,11 @@ IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
 
 IdListWInit ::=     OptModifiers T_ID:_1 T_ASSIGN ConstExpr:_2
                     {:
-                      ((MyParser) parser).DoConstInitCheck(_1,_2);
+                      VarSTO v = new VarSTO(_1);
+                      v.setInit(_2);
+                      v.setStatic(false);
 			          RESULT = new Vector ();
-			          RESULT.addElement (_1);
+			          RESULT.addElement (v);
                     :}
   //|       Do not need an extra rule since we are not doing constant arrays
     |               IdListWInit:_1 T_COMMA OptModifiers T_ID:_3 T_ASSIGN ConstExpr
@@ -811,7 +837,13 @@ Equality ::=     T_EQU
 
 //Phase 0
 UnarySign ::=   T_PLUS
+				{:
+				  RESULT = "+";
+				:}
 	|			T_MINUS
+				{:
+				  RESULT = "-";
+				:}
 	;
 
 Relation ::=     T_LT
@@ -879,9 +911,18 @@ Designator ::= T_STAR Designator:_1
             //Argument pass by reference
 			RESULT = _1;
         :}
-    |   UnarySign Designator:_1
+    |   UnarySign:_2 Designator:_1
         {:
-			RESULT = _1;
+            if(_2.equals("+"))
+			  RESULT = _1;
+			else{
+			  if(_1 instanceof ConstSTO){
+			    ((ConstSTO)_1).setValue(-(((ConstSTO)_1).getFloatValue()));
+			    RESULT = _1;
+			  }else if(_1 instanceof VarSTO){
+			    ((VarSTO)_1).setNegative(true);
+			  }
+			}
         :}
     |   T_NOT Designator:_1
         {:
@@ -952,8 +993,8 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
     |               T_INT_LITERAL:_1
                     {:
                         ConstSTO s = new ConstSTO(_1,new IntType("int",4));
-                        
-                        s.setValue(Double.parseDouble(_1));
+                        int value = Integer.decode(_1);
+                        s.setValue(value);
                         RESULT = s;
                         
                     :}

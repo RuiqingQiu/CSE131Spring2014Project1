@@ -256,8 +256,12 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	void
-	DoConstDecl (Vector<String> lstIDs)
+	DoConstDecl (Vector<VarSTO> STOlst, Type type)
 	{
+		Vector<String> lstIDs = new Vector<String>();
+		for(VarSTO s : STOlst){
+			lstIDs.addElement(s.getName());
+		}
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
 			String id = lstIDs.elementAt (i);
@@ -266,22 +270,27 @@ class MyParser extends parser
 			{
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString (ErrorMsg.redeclared_id, id));
+				return;
 			}
-			
+			//check if the const init is known at compile time
+			if(!(STOlst.elementAt(i).getInit() instanceof ConstSTO)){
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString (ErrorMsg.error8b_CompileTime, id));
+				return;
+			}
+			//Check if the ConstExpr is assignable to Type
+			if(!(STOlst.elementAt(i).getInit().getType().isAssignableTo(type))){
+				m_errors.print (Formatter.toString (ErrorMsg.error8_Assign, STOlst.elementAt(i).getInit().getType().getName(), type.getName()));
+			    return;
+			}
 			ConstSTO 	sto = new ConstSTO (id);
+			sto.setType(type);
+			sto.setIsAddressable(true);
+			sto.setIsModifiable(false);
+			ConstSTO c = (ConstSTO)(STOlst.elementAt(i).getInit());
+			sto.setValue(c.getValue());
 			m_symtab.insert (sto);
 		}
-	}
-	
-	void
-	DoConstInitCheck(String id,STO s){
-		if(!(s instanceof ConstSTO)){
-			m_nNumErrors++;
-			m_errors.print (Formatter.toString (ErrorMsg.error8b_CompileTime, id));
-			
-		}
-		
-		
 	}
 	
 
