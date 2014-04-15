@@ -1,1 +1,32 @@
+//Pass
 int x = 1;
+
+//Pass
+int b, c;
+
+
+//Fail
+int y = x;
+
+//Fail
+static int z = x;
+
+function : void main(){
+  //Fail
+  static int d = x;
+  
+  static int j = 1;
+  
+  //Pass
+  int a = x;
+  
+  int e;
+  static bool isTrue = 1;
+  if(true){
+    //Pass, second level local var 
+    int x = 1;
+    //Fail
+    static int any = x;
+  }
+}
+
