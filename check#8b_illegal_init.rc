@@ -1,0 +1,13 @@
+//Fail
+static bool isTrue = 1;
+int x = 1;
+
+//Fail, x is not known at compile time
+const int c = x; 
+
+function : void main(){
+  //Fail
+  static int x = 1.0;
+  
+  
+}

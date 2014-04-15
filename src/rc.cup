@@ -107,7 +107,6 @@ non terminal
     ExternDecl,
     VarDecl,
     ConstDecl,
-    OptStatic,
     TypedefDecl,
     FieldsList,
     FieldList,
@@ -148,7 +147,8 @@ non terminal String
     AddOp,
     MulOp,
     IncDecOp,
-    OptRef
+    OptRef,
+    OptStatic
     ;
 
 non terminal STO
@@ -226,9 +226,21 @@ ExternDecl ::= T_EXTERN UndecoratedType IdList:_3 T_SEMI
                     :}
     ;
 
-VarDecl ::=     OptStatic UndecoratedType:_2 IdListWOptInit:_3 T_SEMI
+VarDecl ::=     OptStatic:_1 UndecoratedType:_2 IdListWOptInit:_3 T_SEMI
                     {:
-                         ((MyParser) parser).DoVarDecl (_3,_2);
+                         //If the static keyword is provided
+                         if(_1 != null){
+                           Vector<VarSTO> v = new Vector<VarSTO>();
+                           for(int i = 0; i < _3.size(); i++){
+                             VarSTO s = (VarSTO)_3.elementAt(i);
+                             s.setStatic(true);
+                             v.addElement(s);
+                           }
+                           ((MyParser) parser).DoVarDecl (_3,_2);
+                         }
+                         else{
+                            ((MyParser) parser).DoVarDecl (_3,_2);
+                         }
                     :}
     |           OptStatic T_AUTO T_ID T_ASSIGN Expr T_SEMI
 
@@ -243,6 +255,9 @@ ConstDecl ::=  OptStatic T_CONST UndecoratedType IdListWInit:_3 T_SEMI
 
 
 OptStatic ::=   T_STATIC
+				{:
+				  RESULT = "static";
+				:}
     |               /* empty */
     ;
 
@@ -503,17 +518,17 @@ IdListUpper ::=     T_ID_U:_1
 IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
                     {:
                         //Check if the OptInit is known at compile time
-                        if(_2 != null){
-                        	((MyParser) parser).DoGlobalStaticInitCheck(_1, _2);
-                        }
-                        
-                        RESULT = new Vector ();
-                        RESULT.addElement (_1);
+                        VarSTO v = new VarSTO(_1);
+                        v.setInit(_2);
+                        RESULT = new Vector();
+                        RESULT.addElement (v);
                     :}
     |               IdListWOptInit:_1 T_COMMA OptModifiers T_ID:_3 OptInit:_2
                     {:
                         RESULT = _1;
-                        RESULT.addElement (_3);
+                        VarSTO v = new VarSTO(_3);
+                        v.setInit(_2);
+                        RESULT.addElement (v);
                     :}
     ;
 

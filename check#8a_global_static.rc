@@ -15,7 +15,18 @@ function : void main(){
   //Fail
   static int d = x;
   
+  static int j = 1;
+  
   //Pass
   int a = x;
+  
+  int e;
+  static bool isTrue = 1;
+  if(true){
+    //Pass, second level local var 
+    int x = 1;
+    //Fail
+    static int any = x;
+  }
 }
 

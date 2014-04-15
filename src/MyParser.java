@@ -183,16 +183,43 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	void
-	DoVarDecl (Vector<String> lstIDs, Type type)
+	DoVarDecl (Vector<VarSTO> stoList, Type type)
 	{
+		Vector<String> lstIDs = new Vector<String>();
+		for (STO s : stoList){
+			lstIDs.addElement(s.getName());
+		}
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
 			String id = lstIDs.elementAt (i);
-		
+			//Check redeclare error
 			if (m_symtab.accessLocal (id) != null)
 			{
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
+			}
+			
+			//Check global or static initialized is known at compile time
+			if(stoList.elementAt(i).isStatic()){
+				//If there's init
+				if(stoList.elementAt(i).getInit() != null){
+					if(!(stoList.elementAt(i).getInit() instanceof ConstSTO)){
+						m_nNumErrors++;
+						m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
+					}
+				}
+			}
+			//Global or local
+			else{
+				//If it's  global scope
+				if(m_symtab.getLevel() == 1){
+					if(stoList.elementAt(i).getInit() != null){
+						if(!(stoList.elementAt(i).getInit() instanceof ConstSTO)){
+							m_nNumErrors++;
+							m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
+						}
+					}
+				}
 			}
 
 			VarSTO 		sto = new VarSTO (id);

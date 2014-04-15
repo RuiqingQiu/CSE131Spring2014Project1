@@ -31,4 +31,19 @@ class VarSTO extends STO
 	{
 		return true;
 	}
+	public STO getInit(){
+		return init;
+	}
+	public void setInit(STO init){
+		this.init = init;
+	}
+	
+	public boolean isStatic(){
+		return this.isStatic;
+	}
+	public void setStatic(boolean b){
+		this.isStatic = b;
+	}
+	private STO init;
+	private boolean isStatic;
 }
