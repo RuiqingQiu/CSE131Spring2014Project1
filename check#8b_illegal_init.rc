@@ -1,11 +1,14 @@
 //Fail
 static bool isTrue = 1;
+
+//Pass
 int x = 1;
 
 //Fail, x is not known at compile time
 const int c = x; 
 
 function : void main(){
+  const int a = 1;
   //Fail
   static int x = 1.0;
   

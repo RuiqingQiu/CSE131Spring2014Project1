@@ -130,7 +130,7 @@ non terminal
     
     WritePairList,
     WritePair,
-    ConstExpr,
+   
 
     UnarySign,
     Equality,
@@ -167,7 +167,8 @@ non terminal STO
     Designator3,
     QualIdent,
     OptInit,
-    ParamDecl
+    ParamDecl,
+    ConstExpr
     ;
 
 non terminal Type
@@ -536,10 +537,11 @@ IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
                     :}
     ;
 
-IdListWInit ::=     OptModifiers T_ID:_1 T_ASSIGN ConstExpr
+IdListWInit ::=     OptModifiers T_ID:_1 T_ASSIGN ConstExpr:_2
                     {:
-			RESULT = new Vector ();
-			RESULT.addElement (_1);
+                      ((MyParser) parser).DoConstInitCheck(_1,_2);
+			          RESULT = new Vector ();
+			          RESULT.addElement (_1);
                     :}
   //|       Do not need an extra rule since we are not doing constant arrays
     |               IdListWInit:_1 T_COMMA OptModifiers T_ID:_3 T_ASSIGN ConstExpr
@@ -635,7 +637,10 @@ WritePair ::=    Expr
     ;
 
 
-ConstExpr ::=    Expr
+ConstExpr ::=    Expr:_1
+                 {:
+                   RESULT = _1; 
+                 :}
     ;
 
 

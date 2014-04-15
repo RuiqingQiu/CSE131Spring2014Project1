@@ -261,20 +261,31 @@ class MyParser extends parser
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
 			String id = lstIDs.elementAt (i);
-
+            //throw error if redeclaration occurs
 			if (m_symtab.accessLocal (id) != null)
 			{
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString (ErrorMsg.redeclared_id, id));
 			}
-		
+			
 			ConstSTO 	sto = new ConstSTO (id);
 			m_symtab.insert (sto);
 		}
 	}
+	
+	void
+	DoConstInitCheck(String id,STO s){
+		if(!(s instanceof ConstSTO)){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString (ErrorMsg.error8b_CompileTime, id));
+			
+		}
+		
+		
+	}
+	
 
-
-	//----------------------------------------------------------------
+    //----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
 	void
