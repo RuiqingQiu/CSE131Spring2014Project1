@@ -23,7 +23,11 @@ public class ArrayType extends CompositeType{
 	}
 	
 	public Type clone(){
-		return new ArrayType(this.getName(), this.getSize());
+		ArrayType t = new ArrayType(this.getName(), this.getSize());
+		t.setArraySize(this.getArraySize());
+		t.setElementType(this.getElementType());
+		
+		return t;
 	}
 	
 	private int ArraySize;

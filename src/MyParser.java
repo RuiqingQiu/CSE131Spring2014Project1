@@ -222,7 +222,13 @@ class MyParser extends parser
 			}
 
 			VarSTO 		sto = new VarSTO (id);
-			sto.setType(type);
+			//Check if it's an array type
+			if(stoList.elementAt(i).getType() instanceof CompositeType){
+				((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
+				sto.setType(stoList.elementAt(i).getType());
+			}
+			else
+				sto.setType(type);
 			sto.setIsAddressable(true);
 			sto.setIsModifiable(true);
 			m_symtab.insert (sto);
@@ -309,9 +315,10 @@ class MyParser extends parser
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
 			}
+			//set the name of the TypedefSTO
 			TypedefSTO 	sto = new TypedefSTO (id);
-			//System.out.println(type.getName());
-			sto.setType(type.clone());
+			
+			sto.setType(type);
 			m_symtab.insert (sto);
 		}
 	}
@@ -667,14 +674,36 @@ class MyParser extends parser
 	{
 		// Good place to do the array checks
 		//Check the type of designator precding any [] operator is not an array or pointer type
+		if(!(nameSto.getType() instanceof ArrayType) && !(nameSto.getType() instanceof PointerType)){
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11t_ArrExp,nameSto.getType().getName()));	
+			return new ErrorSTO("error");
+		}
 		
 		//Check the type of the index expression is not equivalent to int
-		
+		if(!(indexExpr.getType().isEquivalentTo(new IntType("int",4)))){
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11i_ArrExp,indexExpr.getType().getName()));	
+			return new ErrorSTO("error");
+		}
 		//Check if the index expression is a constant, an error should generate if the index is 
 		//outside the bounds of the array
+		if(nameSto.getType() instanceof ArrayType){
+			if(indexExpr instanceof ConstSTO){
+				if(((ConstSTO) indexExpr).getIntValue() >= ((ArrayType)nameSto.getType()).getArraySize()){
+					m_nNumErrors++;
+					m_errors.print(Formatter.toString(ErrorMsg.error11b_ArrExp,((ConstSTO) indexExpr).getIntValue(),((ArrayType)nameSto.getType()).getArraySize()));	
+					return new ErrorSTO("error");
+				}	
+		    }
+		}
+		ExprSTO e = new ExprSTO("array_doDesignator2", ((CompositeType)nameSto.getType()).getElementType());
 		
 		
-		return nameSto;
+		e.setIsAddressable(true);
+		e.setIsModifiable(true);
+		//Correct usage of array, dereference the array and get its element type
+		return e;
 	}
 
 
@@ -736,7 +765,7 @@ class MyParser extends parser
 //	Instance variables
 //----------------------------------------------------------------
 	private Lexer			m_lexer;
-	private ErrorPrinter		m_errors;
+	private ErrorPrinter	m_errors;
 	private int 			m_nNumErrors;
 	private String			m_strLastLexeme;
 	private boolean			m_bSyntaxError = true;

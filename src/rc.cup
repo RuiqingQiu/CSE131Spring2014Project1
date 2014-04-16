@@ -287,6 +287,7 @@ OptStatic ::=   T_STATIC
 
 TypedefDecl ::=     T_TYPEDEF Type:_1 IdListUpper:_2 T_SEMI
                     {:
+                        //insert TypeDef STO into the symbol table
                         ((MyParser) parser).DoTypedefDecl (_1, _2);
                     :}
     |               T_STRUCTDEF T_ID_U:_1 T_LBRACE
@@ -356,14 +357,16 @@ Type ::=         SubType:_1 OptModifiers:_2
 				       RESULT = _2;
 				     }
 				   }
-				   else
+				   else{
 				     RESULT = _1;
+				   }
 				 :}
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
 
 UndecoratedType ::= SubType:_1
-					{:RESULT = _1; :}
+					{:RESULT = _1; 
+					:}
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
 
@@ -375,6 +378,7 @@ SubType ::=    QualIdent:_1
 			     t.setName(_1.getName());
 			     RESULT = t;
 			   :}
+			   
     |               BasicType:_1
     				{:
     				  RESULT = _1;

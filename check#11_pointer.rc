@@ -1,0 +1,5 @@
+function : void main(){
+  int [10] a;
+  int * d;
+  d[1] = 1;
+}
