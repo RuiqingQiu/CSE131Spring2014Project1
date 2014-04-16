@@ -24,8 +24,8 @@ int[-1] c;
 typedef float[10] ARR;
 typedef ARR ARR2;
 typedef int[10] INTARR;
+
 ARR z;
-<<<<<<< HEAD
 INTARR l;
 ARR[2] y; //array of array
 
@@ -45,8 +45,7 @@ function: void main(){
   z = l;
 }
 
-=======
 ARR[2] y;
 
 int[++0] arr;
->>>>>>> 77ab7e384cdcb4dba919e676c21b2931baf54ef1
+
