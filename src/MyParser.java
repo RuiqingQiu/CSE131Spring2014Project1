@@ -310,7 +310,8 @@ class MyParser extends parser
 				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
 			}
 			TypedefSTO 	sto = new TypedefSTO (id);
-			sto.setType(type);
+			//System.out.println(type.getName());
+			sto.setType(type.clone());
 			m_symtab.insert (sto);
 		}
 	}

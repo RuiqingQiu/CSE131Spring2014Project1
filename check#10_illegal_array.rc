@@ -17,5 +17,7 @@ int[-1] c;
 typedef float[10] ARR;
 ARR z;
 ARR[2] y;
-
+function : void main(){
+  z = 2.0;
+}
 int[++0] arr;
