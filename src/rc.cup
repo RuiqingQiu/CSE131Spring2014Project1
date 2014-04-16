@@ -137,7 +137,7 @@ non terminal
     Relation,
 
     ArrElemsList,
-    OptModifiers,
+
     PointerList,
     Pointer,
 	OptPointerList
@@ -178,7 +178,8 @@ non terminal Type
     Type,
     UndecoratedType,
     ReturnType,
-    DeclareType
+    DeclareType,
+    OptModifiers
     ;
     	
 non terminal Vector
@@ -344,15 +345,28 @@ FuncDecl ::=   T_EXTERN T_FUNCTION T_COLON ReturnType:_1 T_ID:_2
     ;
 
 
-Type ::=         SubType:_1 OptModifiers
+Type ::=         SubType:_1 OptModifiers:_2
 				 {:
-				   RESULT = _1;
+				   //If there's modifiers
+				   if(_2 != null){
+				     if(_2 instanceof ErrorType){
+				       RESULT = _2;
+				     }
+				     else{
+				       ((CompositeType)_2).setElementType(_1);
+				       RESULT = _2;
+				     }
+				   }
+				   else{
+				     RESULT = _1;
+				   }
 				 :}
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
 
 UndecoratedType ::= SubType:_1
-					{:RESULT = _1; :}
+					{:RESULT = _1; 
+					:}
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
 
@@ -364,6 +378,7 @@ SubType ::=    QualIdent:_1
 			     t.setName(_1.getName());
 			     RESULT = t;
 			   :}
+			   
     |               BasicType:_1
     				{:
     				  RESULT = _1;
@@ -401,6 +416,9 @@ BasicType ::=       T_INT
 
 
 OptModifiers ::= 	PointerList
+					{:
+					  RESULT = new PointerType("pointer", 4);
+					:}
 	|				T_LBRACKET ConstExpr:_1 T_RBRACKET
 					{:
 					  //Modifier for array type
@@ -553,7 +571,7 @@ IdListUpper ::=     T_ID_U:_1
                     :}
     ;
 
-IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
+IdListWOptInit ::=  OptModifiers:_3 T_ID:_1 OptInit:_2
                     {:
                         if(_2 instanceof ErrorSTO)
                           RESULT = new Vector();
@@ -562,17 +580,26 @@ IdListWOptInit ::=  OptModifiers T_ID:_1 OptInit:_2
 	                      VarSTO v = new VarSTO(_1);
 	                      v.setInit(_2);
 	                      v.setStatic(false);
+	                      if(_3 != null)
+	                        v.setType(_3);	                      
 	                      RESULT = new Vector();
 	                      RESULT.addElement (v);
 	                    }
                     :}
-    |               IdListWOptInit:_1 T_COMMA OptModifiers T_ID:_3 OptInit:_2
+    |               IdListWOptInit:_1 T_COMMA OptModifiers:_4 T_ID:_3 OptInit:_2
                     {:
-                        RESULT = _1;
-                        VarSTO v = new VarSTO(_3);
-                        v.setInit(_2);
-                        v.setStatic(false);
-                        RESULT.addElement (v);
+                        if(_2 instanceof ErrorSTO)
+                          RESULT = new Vector();
+                        else{
+	                        RESULT = _1;
+	                        VarSTO v = new VarSTO(_3);
+	                        v.setInit(_2);
+	                        v.setStatic(false);
+	                        //If there's modifier
+	                        if(_4 != null)
+		                        v.setType(_4);
+	                        RESULT.addElement (v);
+	                    }
                     :}
     ;
 

@@ -5,5 +5,7 @@ public class PointerType extends PointerGroupType {
 		super(strName, size);
 		// TODO Auto-generated constructor stub
 	}
-
+	public Type clone(){
+		return new PointerType(this.getName(), this.getSize());
+	}
 }

@@ -21,6 +21,15 @@ public class ArrayType extends CompositeType{
 	public void setArraySize(int size){
 		this.ArraySize = size;
 	}
+	
+	public Type clone(){
+		ArrayType t = new ArrayType(this.getName(), this.getSize());
+		t.setArraySize(this.getArraySize());
+		t.setElementType(this.getElementType());
+		
+		return t;
+	}
+	
 	private int ArraySize;
 	
 }

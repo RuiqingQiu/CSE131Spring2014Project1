@@ -1,0 +1,28 @@
+function : void main(){
+  int test1;
+  test1 [1];
+  
+  int x = 1;
+  int [20] test2;
+  test2 [x];
+  float y = 1.0;
+  test2 [y];
+  
+  test2[21];
+  
+}
+
+
+function : void test1(){
+  const int cc = 1;
+  typedef int[10] ARR;
+
+  int[10] a;
+  ARR b;
+  ARR[2] c;
+  int * d;
+  //c is 2x10 array
+  c[1][9] = a[2];
+  b[b[b[b[2] - cc] + cc] -1] = c[1][9];
+  a[2] = d[0];
+}
