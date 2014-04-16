@@ -19,4 +19,7 @@ public class FloatType extends NumericType{
 		return false;
 	}
 
+	public Type clone(){
+		return new FloatType(this.getName(), this.getSize());
+	}
 }

@@ -360,7 +360,7 @@ SubType ::=    QualIdent:_1
 			   {:
 			     //Get the basic type out of TypedefSTO
 			     //modifiy the previous type and set its name to be the correct typedef ID
-			     Type t = _1.getType();
+			     Type t = _1.getType().clone();
 			     t.setName(_1.getName());
 			     RESULT = t;
 			   :}
@@ -377,13 +377,10 @@ SubType ::=    QualIdent:_1
 
 DeclareType ::=  T_DECLTYPE T_LPAREN Expr0:_1 T_RPAREN
 				 {:
-				    if(_1.isTypedef()){
-				      Type t = _1.getType();
-				      t.setName(_1.getName());
-				      RESULT = t;
-				    }
-				    else
-				      RESULT = _1.getType();  
+				    Type t = _1.getType();				    
+				    t.setName(_1.getType().getName());
+				    RESULT = t;
+				     
 				 :}
 	;
 

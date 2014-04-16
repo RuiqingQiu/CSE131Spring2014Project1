@@ -1,21 +1,45 @@
 typedef int INTEGER;
 typedef INTEGER INTEGER2;
+typedef int INTEGER3;
+typedef bool BOOL;
 
 INTEGER a;
 INTEGER b;
 
+BOOL b1 = true;
+BOOL b2 = false;
+
+function : void boolCheck(){
+  b1 = true;
+  b1 = b1 == b2;
+  b1 = b2;
+  
+  //Fail
+  b1 = 1.0;
+  //Fail
+  b1 = a;
+  //Pass
+  bool z = b1;
+}
+
 //Fail
 INTEGER c = true || false;
+
 INTEGER2 d;
 INTEGER2 e;
+INTEGER3 f;
+
 const int c = 2 + 3 * 0 - 1;
 
 function : int main(){
   a = b + c;
   e = a + b;
+  
+  //INTEGER is assignable to INTEGER3
+  //typedefs use loose name equivalence to resolve down to the lowest level
+  f = a;
   return a;
- 
-}
+ }
 
 function : int test1(){
   d = 1 + 1;

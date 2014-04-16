@@ -3,8 +3,8 @@ public class IntType extends NumericType{
 
 	public IntType(String strName, int size) {
 		super(strName, size);
-		//Int 32 bits
-		this.setSize(32);
+		//Int 4 bytes
+		this.setSize(4);
 	}
 	public boolean isInt(){return true;}
 	@Override
@@ -20,5 +20,8 @@ public class IntType extends NumericType{
 			return true;
 		else
 			return false;
+	}
+	public Type clone(){
+		return new IntType(this.getName(), this.getSize());
 	}
 }

@@ -18,5 +18,9 @@ public class BoolType extends BasicType {
 			return true;
 		return false;
 	}
+	
+	public Type clone(){
+		return new BoolType(this.getName(), this.getSize());
+	}
 
 }
