@@ -405,7 +405,7 @@ OptModifiers ::= 	PointerList
 					{:
 					  //Modifier for array type
 					  //Check #10, illegal array declaration
-					  ((MyParser) parser).DoArrayDeclCheck(_1);
+					  RESULT = ((MyParser) parser).DoArrayDeclCheck(_1);
 					:}
     |               /* empty */
     ;

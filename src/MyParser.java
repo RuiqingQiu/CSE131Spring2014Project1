@@ -630,26 +630,33 @@ class MyParser extends parser
 	}
 
 
-	void
+	Type
 	DoArrayDeclCheck(STO sto){
+		if(sto.isError())
+		{
+			return new ErrorType("error", 4);
+		}
 		//Check if the type of index expression is equivalent to int
 		if(!(sto.getType().isEquivalentTo(new IntType("int", 4)))){
 			m_nNumErrors++;
 		 	m_errors.print (Formatter.toString(ErrorMsg.error10i_Array, sto.getType().getName()));	
-		 	return;
+		 	return new ErrorType("error", 4);
 		}
 		//Check if the value of the index expression is not known at compile time
 		if(!(sto instanceof ConstSTO)){
 			m_nNumErrors++;
 		 	m_errors.print(ErrorMsg.error10c_Array);	
-		 	return;
+		 	return new ErrorType("error", 4);
 		}
 		//Check if the value of the index expression is not greater than 0
 		if(((ConstSTO)sto).getIntValue() <= 0){
 			m_nNumErrors++;
 		 	m_errors.print(Formatter.toString(ErrorMsg.error10z_Array,((ConstSTO)sto).getIntValue()));	
-		 	return;
+		 	return new ErrorType("error", 4);
 		}
+		ArrayType t = new ArrayType("array", 4);
+		t.setArraySize(((ConstSTO)sto).getIntValue());
+		return t;
 	}
 	//----------------------------------------------------------------
 	//

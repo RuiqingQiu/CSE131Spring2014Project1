@@ -17,3 +17,5 @@ int[-1] c;
 typedef float[10] ARR;
 ARR z;
 ARR[2] y;
+
+int[++0] arr;
