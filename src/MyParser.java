@@ -662,11 +662,18 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	STO
-	DoDesignator2_Array (STO sto)
+	DoDesignator2_Array (STO nameSto, STO indexExpr)
 	{
 		// Good place to do the array checks
-
-		return sto;
+		//Check the type of designator precding any [] operator is not an array or pointer type
+		
+		//Check the type of the index expression is not equivalent to int
+		
+		//Check if the index expression is a constant, an error should generate if the index is 
+		//outside the bounds of the array
+		
+		
+		return nameSto;
 	}
 
 
