@@ -2,7 +2,6 @@
 // For typedefs like: typedef int myInteger1, myInteger2;
 // Also can hold the structdefs
 //---------------------------------------------------------------------
-
 class TypedefSTO extends STO
 {
 	//----------------------------------------------------------------

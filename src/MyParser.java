@@ -298,7 +298,7 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	void
-	DoTypedefDecl (Vector<String> lstIDs)
+	DoTypedefDecl (Type type, Vector<String> lstIDs)
 	{
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
@@ -309,8 +309,9 @@ class MyParser extends parser
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
 			}
-		
+			
 			TypedefSTO 	sto = new TypedefSTO (id);
+			sto.setType(type);
 			m_symtab.insert (sto);
 		}
 	}
@@ -404,6 +405,7 @@ class MyParser extends parser
 		{
 			m_nNumErrors++;
 			m_errors.print ("internal: DoReturnCheck says no proc!");
+			return;
 		}
 		
 		//It's top level and a return statement is found
@@ -629,6 +631,27 @@ class MyParser extends parser
 	}
 
 
+	void
+	DoArrayDeclCheck(STO sto){
+		//Check if the type of index expression is equivalent to int
+		if(!(sto.getType().isEquivalentTo(new IntType("int", 4)))){
+			m_nNumErrors++;
+		 	m_errors.print (Formatter.toString(ErrorMsg.error10i_Array, sto.getType().getName()));	
+		 	return;
+		}
+		//Check if the value of the index expression is not known at compile time
+		if(!(sto instanceof ConstSTO)){
+			m_nNumErrors++;
+		 	m_errors.print(ErrorMsg.error10c_Array);	
+		 	return;
+		}
+		//Check if the value of the index expression is not greater than 0
+		if(((ConstSTO)sto).getIntValue() <= 0){
+			m_nNumErrors++;
+		 	m_errors.print(Formatter.toString(ErrorMsg.error10z_Array,((ConstSTO)sto).getIntValue()));	
+		 	return;
+		}
+	}
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

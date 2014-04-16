@@ -1,0 +1,32 @@
+typedef int INTEGER;
+typedef INTEGER INTEGER2;
+
+INTEGER a;
+INTEGER b;
+
+//Fail
+INTEGER c = true || false;
+INTEGER2 d;
+INTEGER2 e;
+const int c = 2 + 3 * 0 - 1;
+
+function : int main(){
+  a = b + c;
+  e = a + b;
+  return a;
+ 
+}
+
+function : int test1(){
+  d = 1 + 1;
+  //Fail
+  e = false;
+  return d;
+}
+
+function : int test2()
+{
+  decltype(a) x;
+  x = false;
+  return 0;
+}
