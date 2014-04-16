@@ -632,36 +632,67 @@ class MyParser extends parser
 	}
 
 
-	void
+	Type
 	DoArrayDeclCheck(STO sto){
+		if(sto.isError())
+		{
+			return new ErrorType("error", 4);
+		}
 		//Check if the type of index expression is equivalent to int
 		if(!(sto.getType().isEquivalentTo(new IntType("int", 4)))){
 			m_nNumErrors++;
 		 	m_errors.print (Formatter.toString(ErrorMsg.error10i_Array, sto.getType().getName()));	
-		 	return;
+		 	return new ErrorType("error", 4);
 		}
 		//Check if the value of the index expression is not known at compile time
 		if(!(sto instanceof ConstSTO)){
 			m_nNumErrors++;
 		 	m_errors.print(ErrorMsg.error10c_Array);	
-		 	return;
+		 	return new ErrorType("error", 4);
 		}
 		//Check if the value of the index expression is not greater than 0
 		if(((ConstSTO)sto).getIntValue() <= 0){
 			m_nNumErrors++;
 		 	m_errors.print(Formatter.toString(ErrorMsg.error10z_Array,((ConstSTO)sto).getIntValue()));	
-		 	return;
+		 	return new ErrorType("error", 4);
 		}
+		ArrayType t = new ArrayType("array", 4);
+		t.setArraySize(((ConstSTO)sto).getIntValue());
+		return t;
 	}
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
 	STO
-	DoDesignator2_Array (STO sto)
+	DoDesignator2_Array (STO nameSto, STO indexExpr)
 	{
 		// Good place to do the array checks
-
-		return sto;
+		//Check the type of designator precding any [] operator is not an array or pointer type
+		if(!(nameSto.getType() instanceof ArrayType)){
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11t_ArrExp,nameSto.getType().getName()));	
+			return new ErrorSTO("error");
+		}
+		
+		//Check the type of the index expression is not equivalent to int
+		if(!(indexExpr.getType().isEquivalentTo(new IntType("int",4)))){
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11t_ArrExp,nameSto.getType().getName()));	
+			return new ErrorSTO("error");
+		}
+		//Check if the index expression is a constant, an error should generate if the index is 
+		//outside the bounds of the array
+		if(indexExpr instanceof ConstSTO){
+			if(((ConstSTO) indexExpr).getIntValue() >= nameSto.getType().getSize()){
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error11b_ArrExp,((ConstSTO) indexExpr).getIntValue(),nameSto.getType().getSize()));	
+				return new ErrorSTO("error");
+			}	
+	    }
+		
+		//Correct usage of array
+		return nameSto;
+			
 	}
 
 
@@ -723,7 +754,7 @@ class MyParser extends parser
 //	Instance variables
 //----------------------------------------------------------------
 	private Lexer			m_lexer;
-	private ErrorPrinter		m_errors;
+	private ErrorPrinter	m_errors;
 	private int 			m_nNumErrors;
 	private String			m_strLastLexeme;
 	private boolean			m_bSyntaxError = true;
