@@ -16,7 +16,7 @@ abstract class Type
 		setName(strName);
 		setSize(size);
 	}
-
+	
 
 	//----------------------------------------------------------------
 	//
@@ -31,6 +31,10 @@ abstract class Type
 	setName (String str)
 	{
 		m_typeName = str;
+	}
+	
+	public Type clone(){
+		return null;
 	}
 
 
