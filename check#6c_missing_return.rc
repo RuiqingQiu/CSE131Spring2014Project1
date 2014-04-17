@@ -44,3 +44,12 @@ function : void test5(){
     return;
   }
 }
+/* This is not allowed, only return statement at top level allowed
+function : int test6(){
+  if(true) {
+    return 1;
+  }
+  else{
+    return 2;
+  }
+}*/

@@ -237,6 +237,7 @@ class MyParser extends parser
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
 					sto.setIsModifiable(true);
+					System.out.println("here");
 				}
 			}
 			else{
