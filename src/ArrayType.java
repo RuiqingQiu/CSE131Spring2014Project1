@@ -30,6 +30,9 @@ public class ArrayType extends CompositeType{
 		return t;
 	}
 	
+	public boolean isArray(){
+		return true;
+	}
 	private int ArraySize;
 	
 }

@@ -8,4 +8,7 @@ public class PointerType extends PointerGroupType {
 	public Type clone(){
 		return new PointerType(this.getName(), this.getSize());
 	}
+	public boolean isPointer(){
+		return true;
+	}
 }

@@ -27,7 +27,26 @@ function : void main(){
   } 
   while(false){
     while(true){
+      if(true){
+        break;
+      }
       break;
     } 
+  }
+  if(true){
+    if(false){
+      while(true){
+        if(true){
+          if(false){
+            break;
+          }
+        }
+        else{
+          break;
+        }
+      }
+    }
+    //Fail
+    break;
   }
 }

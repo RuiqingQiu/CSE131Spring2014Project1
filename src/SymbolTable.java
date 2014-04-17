@@ -16,6 +16,8 @@ class SymbolTable
 		m_nLevel = 0;
 		m_stkScopes = new Stack<Scope> ();
 		m_scopeGlobal = null;
+		this.whileLevel = 0;
+		this.inWhile = false;
 	}
 
 
@@ -117,7 +119,23 @@ class SymbolTable
 	{
 		return m_nLevel;
 	}
-
+	
+	public void incrementWhileLevel(){
+		++whileLevel;
+	}
+	public void decrementWhileLevel(){
+		--whileLevel;
+	}
+	public int getWhileLevel(){
+		return this.whileLevel;
+	}
+	public void inWhileLoop(boolean b){
+		this.inWhile = b;
+	}
+	public boolean isInWhileLoop(){
+		return this.inWhile;
+	}
+    
 
 	//----------------------------------------------------------------
 	//	This is the function currently being parsed.
@@ -130,7 +148,9 @@ class SymbolTable
 //	Instance variables.
 //----------------------------------------------------------------
 	private Stack<Scope>  		m_stkScopes;
-	private int		m_nLevel;
-	private Scope		m_scopeGlobal;
-	private FuncSTO	        m_func = null;
+	private int		            m_nLevel;
+	private Scope		        m_scopeGlobal;
+	private FuncSTO	            m_func = null;
+	private int whileLevel;
+	private boolean inWhile;
 }

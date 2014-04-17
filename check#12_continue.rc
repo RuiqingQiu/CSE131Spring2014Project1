@@ -1,0 +1,10 @@
+function : void main(){
+  if(true){
+    break;
+  }
+  while(true){
+    if(false){
+      break;
+    }
+  }
+}

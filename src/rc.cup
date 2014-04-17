@@ -458,7 +458,9 @@ ReturnType ::=      SubType:_1 OptPointerList
 CodeBlock ::=       T_LBRACE
                     {: ((MyParser) parser).DoBlockOpen(); :}
                     OptStmtList
-		    {: ((MyParser) parser).DoBlockClose(); :}
+		            {: 
+		              ((MyParser) parser).DoBlockClose();     
+		            :}
                     T_RBRACE
     ;
 
@@ -644,7 +646,12 @@ OptElse ::=         T_ELSE CodeBlock
     ;
 
 
-WhileStmt ::=       T_WHILE Expr:_1 CodeBlock
+WhileStmt ::=       T_WHILE Expr:_1 
+					{:
+					  //Set inwhile to be true if it was false, increment the while level
+					  ((MyParser)parser).DoWhileStmt();
+					:}
+					CodeBlock
 					{:
 					  RESULT = ((MyParser) parser).DoIfWhileExpr(_1);
 					:}

@@ -223,14 +223,29 @@ class MyParser extends parser
 
 			VarSTO 		sto = new VarSTO (id);
 			//Check if it's an array type
-			if(stoList.elementAt(i).getType() instanceof CompositeType){
-				((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
-				sto.setType(stoList.elementAt(i).getType());
+			if(stoList.elementAt(i).getType() != null){
+				if(stoList.elementAt(i).getType() instanceof CompositeType){
+					((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
+					sto.setType(stoList.elementAt(i).getType());
+					//Array is addressable but not modifiable
+					sto.setIsAddressable(true);
+					sto.setIsModifiable(false);
+				}
+				else if(stoList.elementAt(i).getType().isPointer()){
+					((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
+					sto.setType(stoList.elementAt(i).getType());
+					//Array is addressable but not modifiable
+					sto.setIsAddressable(true);
+					sto.setIsModifiable(true);
+				}
 			}
-			else
+			else{
 				sto.setType(type);
-			sto.setIsAddressable(true);
-			sto.setIsModifiable(true);
+				//Regular declare, l-value
+				sto.setIsAddressable(true);
+				sto.setIsModifiable(true);
+			}
+			
 			m_symtab.insert (sto);
 		}
 	}
@@ -475,7 +490,7 @@ class MyParser extends parser
 	void
 	DoBreakStmtCheck(){
 		//program + function + while loop
-		if(m_symtab.getLevel() != 3){
+		if(!(m_symtab.isInWhileLoop())){
 			m_nNumErrors++;
 			m_errors.print (ErrorMsg.error12_Break);
 		}
@@ -484,7 +499,7 @@ class MyParser extends parser
 	void
 	DoContinueStmtCheck(){
 		//program + function + while loop
-	    if(m_symtab.getLevel() != 3){
+		if(!(m_symtab.isInWhileLoop())){
 		  m_nNumErrors++;
 		  m_errors.print (ErrorMsg.error12_Continue);
 		}	
@@ -496,6 +511,8 @@ class MyParser extends parser
 	void
 	DoBlockOpen ()
 	{
+		if(this.m_symtab.isInWhileLoop())
+		  this.m_symtab.incrementWhileLevel();
 		// Open a scope.
 		m_symtab.openScope ();
 	}
@@ -507,6 +524,13 @@ class MyParser extends parser
 	void
 	DoBlockClose()
 	{
+		//If the block closing is in the while loop, decrement the level
+		if(this.m_symtab.isInWhileLoop()){
+			this.m_symtab.decrementWhileLevel();
+			//If the level reach 0, then no more while loop
+			if(this.m_symtab.getWhileLevel() == 0)
+				this.m_symtab.inWhileLoop(false);
+		}
 		m_symtab.closeScope ();
 	}
 	
@@ -514,18 +538,26 @@ class MyParser extends parser
 	STO
 	DoBinaryExpr(STO a, BinaryOp o, STO b)
 	{
-		STO result = o.checkOperands(a, b);
-	    if (result instanceof ErrorSTO) {
-	    	result.setType(new ErrorType("error",8));
-	    	m_nNumErrors++;
-			m_errors.print (result.getName());
-	    }
-	    return result;
+		if(a.isError())
+			return a;
+		else if(b.isError())
+			return b;
+		else{
+			STO result = o.checkOperands(a, b);
+		    if (result instanceof ErrorSTO) {
+		    	result.setType(new ErrorType("error",8));
+		    	m_nNumErrors++;
+				m_errors.print (result.getName());
+		    }
+		    return result;
+		}
 	}
 	
 	STO
 	DoUnaryExpr(STO a, UnaryOp o)
 	{
+		if(a.isError())
+			return a;
 		STO result = o.checkOperands(a);
 		if(result instanceof ErrorSTO){
 			result.setType(new ErrorType("error",8));
@@ -544,6 +576,8 @@ class MyParser extends parser
 		//Check #3a
 		if(expr.isError())
 			return expr;
+		else if(stoDes.isError())
+			return stoDes;
 		//Check if STO is not modifiable value
 		if (!stoDes.isModLValue())
 		{
@@ -569,6 +603,9 @@ class MyParser extends parser
 		return stoDes;
 	}
 
+	void DoWhileStmt(){
+		this.m_symtab.inWhileLoop(true);
+	}
 	STO
 	DoIfWhileExpr(STO expr)
 	{

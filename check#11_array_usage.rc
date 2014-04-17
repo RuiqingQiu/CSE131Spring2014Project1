@@ -19,13 +19,14 @@ function : void main(){
 function : void test1(){
   const int cc = 1;
   typedef float[10] ARR;
-
+  
   int[10] a;
+  
   ARR b;
   ARR[2] c;
   int * d;
   //c is 2x10 array
-  c[1][9] = a[2];
+  //c[1][9] = a[2];
   b[b[b[b[2] - cc] + cc] -1] = c[1][9];
   a[2] = d[0];
 }
