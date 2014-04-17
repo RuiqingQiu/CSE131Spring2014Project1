@@ -1,0 +1,32 @@
+function : void main(){
+  int[100] test1;
+  
+  /*
+  //Pass
+  test1[99];
+  
+  //Fail
+  test1[0-99];
+  test1[0];
+  */
+  
+  int x = 10;
+  
+  
+  //Fail
+  test1[x];
+  
+  
+  test1[+x];
+  test1[++x];
+  
+  test1[x++];
+  test1[--x];
+  
+  
+  
+  test1[x--];
+  //Fail
+  test1[-x];
+ 
+}

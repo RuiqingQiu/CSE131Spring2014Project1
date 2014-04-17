@@ -1,0 +1,33 @@
+function : void main(){
+  //Fail;
+  break;
+  continue;
+ 
+  //Pass 
+  while(true){
+    break;
+  }
+  
+  //Pass
+  while(false){
+    continue;
+  }
+  
+  //Should pass
+  while(true){
+    break;
+    continue;
+    break;
+  }
+  
+  //Fail
+  float x = 1.32;
+  while(x){
+    break;
+  } 
+  while(false){
+    while(true){
+      break;
+    } 
+  }
+}
