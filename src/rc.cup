@@ -109,7 +109,7 @@ non terminal
     ConstDecl,
     TypedefDecl,
     FieldsList,
-    FieldList,
+
     OptStmtList,
     StmtList,
     Stmt,
@@ -190,7 +190,8 @@ non terminal Vector
     OptParamList,
     ParamList,
     OptExprList,
-    ExprList
+    ExprList,
+    FieldList
     ;
 
 //--------------------------------------------------------------------
@@ -296,23 +297,44 @@ TypedefDecl ::=     T_TYPEDEF Type:_1 IdListUpper:_2 T_SEMI
                     :}
                     FieldsList T_RBRACE T_SEMI
                     {:
+                         //Get the vector of locals from the current scope, which is the fields of the struct
                          ((MyParser) parser).DoBlockClose();
                          ((MyParser) parser).DoStructdefDecl (_1);
                     :}
     ;
 
 
-FieldsList ::=   FieldList
+FieldsList ::=   FieldList:_1
 				 {:
-				   
+				   ((MyParser) parser).DoStructFieldDecl(_1);
 				 :}
     |            FieldsList FieldList:_2
     			 {:
+    			   ((MyParser) parser).DoStructFieldDecl(_2);
     			 :}
     ;
 
 
-FieldList ::=     UndecoratedType IdList T_SEMI
+FieldList ::=     UndecoratedType:_1 IdList:_2 T_SEMI
+				  {:
+				     //Vector of 0 size, error
+				     if(_2.size() == 0){
+				       RESULT = _2;
+				     }
+				     Vector<VarSTO> v = new Vector<VarSTO>();
+				     for(int i = 0; i < _2.size(); i++){
+				       VarSTO tmp = (VarSTO)_2.elementAt(i);
+				       //If the type is not set
+				       if(tmp.getType() == null){
+				         tmp.setType(_1);
+				       }
+				       else{
+				         ((CompositeType)(tmp.getType())).setElementType(_1);
+				       }
+				       v.addElement(tmp);
+				     }
+				     RESULT = v;
+				  :}
     ;
 
 
@@ -554,16 +576,47 @@ OptRef ::=          T_AMPERSAND
     ;
 
 
-IdList ::=          OptModifiers T_ID:_1
+IdList ::=          OptModifiers:_2 T_ID:_1
                     {:
-                        //Return an vector of VarSTO
-                        RESULT = new Vector ();
-                        RESULT.addElement (_1);
+                        VarSTO v = new VarSTO(_1);
+                        if(_2 != null){
+                          if(_2.isError()){
+                            //Return an empty vector to indicate an error
+                            RESULT = new Vector();
+                          }
+                          else{
+                            //Composite type
+                            v.setType(_2);
+                            RESULT = new Vector();
+                            RESULT.addElement(v);
+                          }
+                        }
+                        //No optional modifiers
+                        else{
+                          //Return an vector of VarSTO
+                          RESULT = new Vector ();
+                          RESULT.addElement (v);
+                        }
                     :}
-    |               IdList:_1 T_COMMA OptModifiers T_ID:_3
+    |               IdList:_1 T_COMMA OptModifiers:_2 T_ID:_3
                     {:
                         RESULT = _1;
-                        RESULT.addElement (_3);
+                        VarSTO v = new VarSTO(_3);
+                        if(_2 != null){
+                          if(_2.isError()){
+                            //Return an empty vector to indicate an error
+                            RESULT = new Vector();
+                          }
+                          else{
+                            v.setType(_2);
+                            RESULT.addElement(v);
+                          }
+                        }
+                        //No optional modifiers
+                        else{
+                          //Return an vector of VarSTO
+                          RESULT.addElement (v);
+                        }
                     :}
     ;
 
@@ -582,12 +635,24 @@ IdListUpper ::=     T_ID_U:_1
 
 IdListWOptInit ::=  OptModifiers:_3 T_ID:_1 OptInit:_2
                     {:
-                        if(_2 instanceof ErrorSTO)
-                          RESULT = new Vector();
-                        else{
-	                      //Check if the OptInit is known at compile time
+                        if(_2 != null)
+                        {
+                          if(_2.isError())
+                            RESULT = new Vector();
+                          else{
+	                        //Check if the OptInit is known at compile time
+	                        VarSTO v = new VarSTO(_1);
+	                        v.setInit(_2);
+	                        v.setStatic(false);
+	                        if(_3 != null)
+	                          v.setType(_3);	                      
+	                        RESULT = new Vector();
+	                        RESULT.addElement (v);
+	                      }
+	                    }
+	                    //No init applied
+	                    else{
 	                      VarSTO v = new VarSTO(_1);
-	                      v.setInit(_2);
 	                      v.setStatic(false);
 	                      if(_3 != null)
 	                        v.setType(_3);	                      

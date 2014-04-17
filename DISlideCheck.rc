@@ -1,17 +1,16 @@
-
-  int[20] myArray;
-  int myInt;
-  int *myPtr;
-  const int c = 5;
+int[20] myArray;
+int myInt;
+int *myPtr;
+const int c = 5;
   
-  float *floatPtr;
-  function : void main(){
-    myArray[5+c] = myArray[6-c];  //bounds check
-    myArray[myInt] = 15;          //no bounds check
+float *floatPtr;
+function : void main(){
+  myArray[5+c] = myArray[6-c];  //bounds check
+  myArray[myInt] = 15;          //no bounds check
    
-    //This is fail right now but should be ok
-    myPtr = myArray;              //ok, since array id is assignable to ptr
+  //This is fail right now but should be ok
+  myPtr = myArray;              //ok, since array id is assignable to ptr
     
-    floatPtr = myArray;          //should print error int array is not assignable to float ptr
-    myPtr[c] = 100;               // no bounds check since ptr
-  }
+  floatPtr = myArray;          //should print error int array is not assignable to float ptr
+  myPtr[c] = 100;               // no bounds check since ptr
+}

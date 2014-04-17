@@ -165,7 +165,8 @@ class MyParser extends parser
 	{
 		m_symtab.closeScope ();
 	}
-
+	
+	
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -344,17 +345,30 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	void
 	DoStructdefDecl (String id)
-	{
+	{ 
+		//
 		if (m_symtab.accessLocal (id) != null)
 		{
 			m_nNumErrors++;
 			m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
 		}
-		
 		TypedefSTO 	sto = new TypedefSTO (id);
 		m_symtab.insert (sto);
 	}
-
+	void 
+	DoStructFieldDecl (Vector<VarSTO> vlist){
+		for(VarSTO v : vlist ){
+			String id = v.getName();
+			//Check if the id is already declared in the struct
+			if(m_symtab.accessLocal(id)!= null){
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error13a_Struct, id));
+			}
+			else{
+				m_symtab.insert (v);
+			}
+		}
+	}
 
 	//----------------------------------------------------------------
 	//
