@@ -224,7 +224,7 @@ class MyParser extends parser
 			VarSTO 		sto = new VarSTO (id);
 			//Check if it's an array type
 			if(stoList.elementAt(i).getType() != null){
-				if(stoList.elementAt(i).getType() instanceof CompositeType){
+				if(stoList.elementAt(i).getType().isArray()){
 					((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
 					sto.setType(stoList.elementAt(i).getType());
 					//Array is addressable but not modifiable
@@ -237,7 +237,6 @@ class MyParser extends parser
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
 					sto.setIsModifiable(true);
-					System.out.println("here");
 				}
 			}
 			else{
@@ -572,15 +571,15 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	STO
-	DoAssignExpr (STO stoDes, STO expr)
+	DoAssignExpr (STO leftHandSide, STO rightHandSide)
 	{
 		//Check #3a
-		if(expr.isError())
-			return expr;
-		else if(stoDes.isError())
-			return stoDes;
+		if(rightHandSide.isError())
+			return rightHandSide;
+		else if(leftHandSide.isError())
+			return leftHandSide;
 		//Check if STO is not modifiable value
-		if (!stoDes.isModLValue())
+		if (!leftHandSide.isModLValue())
 		{
 			//Enter here if it's an error
 			STO result = new ErrorSTO(ErrorMsg.error3a_Assign);
@@ -593,15 +592,15 @@ class MyParser extends parser
 		//It's a good modifiable L-value
 		//Check #3b
 		//Check if the expr is not assignable to the designator
-		if (!expr.getType().isAssignableTo(stoDes.getType())){
+		if (!rightHandSide.getType().isAssignableTo(leftHandSide.getType())){
 			STO result = new ErrorSTO(Formatter.toString(ErrorMsg.error3b_Assign, 
-					expr.getType().getName(), stoDes.getType().getName()));
+					rightHandSide.getType().getName(), leftHandSide.getType().getName()));
 			result.setType(new ErrorType("error",8));
 			m_nNumErrors++;
 			m_errors.print (result.getName());
 			return result;
 		}
-		return stoDes;
+		return leftHandSide;
 	}
 
 	void DoWhileStmt(){

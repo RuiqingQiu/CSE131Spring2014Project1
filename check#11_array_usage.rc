@@ -18,7 +18,7 @@ function : void main(){
 
 function : void test1(){
   const int cc = 1;
-  typedef float[10] ARR;
+  typedef int[10] ARR;
   
   int[10] a;
   

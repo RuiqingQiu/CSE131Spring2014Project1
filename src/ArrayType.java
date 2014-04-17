@@ -7,7 +7,10 @@ public class ArrayType extends CompositeType{
 
 	@Override
 	public boolean isAssignableTo(Type t) {
-		return false;
+		if(t.isPointer())
+			return true;
+		else
+			return false;
 	}
 
 	@Override
