@@ -1,9 +1,17 @@
 structdef MYS {
   int x, y;
+  //Fail, duplicate declaration of struct field
   int x;
+  //Fail, duplicate declaration of struct field
   int z, x;
+  
+  // Is this OK? NO, should fail
   float y;
+  
   int w;
+  //Fail, duplicate declaration of struct field
   int w;
+  
+  //Fail, duplicate declaration of struct field
   int x, x;
 };
