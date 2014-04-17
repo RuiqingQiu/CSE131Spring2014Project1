@@ -8,8 +8,12 @@ public class ArrayType extends CompositeType{
 	@Override
 	public boolean isAssignableTo(Type t) {
 		if(t.isPointer())
-			return true;
-		else
+			//Check if the pointer type is the same as the array type
+			if(((PointerType)t).getElementType().isEquivalentTo(this.getElementType()))
+				return true;
+			else
+				return false;
+		else	
 			return false;
 	}
 

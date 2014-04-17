@@ -4,12 +4,13 @@
   int *myPtr;
   const int c = 5;
   
+  float *floatPtr;
   function : void main(){
     myArray[5+c] = myArray[6-c];  //bounds check
     myArray[myInt] = 15;          //no bounds check
    
     //This is fail right now but should be ok
     myPtr = myArray;              //ok, since array id is assignable to ptr
-    
+    floatPtr = myArray;
     myPtr[c] = 100;               // no bounds check since ptr
   }

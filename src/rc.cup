@@ -303,7 +303,12 @@ TypedefDecl ::=     T_TYPEDEF Type:_1 IdListUpper:_2 T_SEMI
 
 
 FieldsList ::=   FieldList
-    |               FieldsList FieldList
+				 {:
+				   
+				 :}
+    |               FieldsList FieldList:_2
+    				{:
+    				:}
     ;
 
 
@@ -365,7 +370,8 @@ Type ::=         SubType:_1 OptModifiers:_2
     ;
 
 UndecoratedType ::= SubType:_1
-					{:RESULT = _1; 
+					{:
+					  RESULT = _1; 
 					:}
     |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
     ;
@@ -550,6 +556,7 @@ OptRef ::=          T_AMPERSAND
 
 IdList ::=          OptModifiers T_ID:_1
                     {:
+                        //Return an vector of VarSTO
                         RESULT = new Vector ();
                         RESULT.addElement (_1);
                     :}
