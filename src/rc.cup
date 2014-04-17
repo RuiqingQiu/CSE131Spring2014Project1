@@ -651,11 +651,21 @@ WhileStmt ::=       T_WHILE Expr:_1 CodeBlock
     ;
 
 
-BreakStmt ::=       T_BREAK T_SEMI
+BreakStmt ::=       T_BREAK:_1 T_SEMI
+                    {: 
+                     //Check illegal break statement
+                     //break statement should be inside the while loop
+                      ((MyParser) parser).DoBreakStmtCheck(); 
+                    :}
     ;
 
 
 ContinueStmt ::=    T_CONTINUE T_SEMI
+                    {: 
+                      //Check illegal continue statement
+                      //continue statement should be inside the while loop
+                      ((MyParser) parser).DoContinueStmtCheck(); 
+                    :}
     ;
 
 
@@ -963,7 +973,9 @@ Designator ::= T_STAR Designator:_1
 			    RESULT = _1;
 			  }else if(_1 instanceof VarSTO){
 			    ((VarSTO)_1).setNegative(true);
+			    RESULT = _1;
 			  }
+
 			}
         :}
     |   T_NOT Designator:_1
