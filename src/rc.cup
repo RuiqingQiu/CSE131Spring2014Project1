@@ -554,16 +554,46 @@ OptRef ::=          T_AMPERSAND
     ;
 
 
-IdList ::=          OptModifiers T_ID:_1
+IdList ::=          OptModifiers:_2 T_ID:_1
                     {:
-                        //Return an vector of VarSTO
-                        RESULT = new Vector ();
-                        RESULT.addElement (_1);
+                        VarSTO v = new VarSTO(_1);
+                        if(_2 != null){
+                          if(_2.isError()){
+                            //Return an empty vector to indicate an error
+                            RESULT = new Vector();
+                          }
+                          else{
+                            v.setType(_2);
+                            RESULT = new Vector();
+                            RESULT.addElement(v);
+                          }
+                        }
+                        //No optional modifiers
+                        else{
+                          //Return an vector of VarSTO
+                          RESULT = new Vector ();
+                          RESULT.addElement (v);
+                        }
                     :}
-    |               IdList:_1 T_COMMA OptModifiers T_ID:_3
+    |               IdList:_1 T_COMMA OptModifiers:_2 T_ID:_3
                     {:
                         RESULT = _1;
-                        RESULT.addElement (_3);
+                        VarSTO v = new VarSTO(_3);
+                        if(_2 != null){
+                          if(_2.isError()){
+                            //Return an empty vector to indicate an error
+                            RESULT = new Vector();
+                          }
+                          else{
+                            v.setType(_2);
+                            RESULT.addElement(v);
+                          }
+                        }
+                        //No optional modifiers
+                        else{
+                          //Return an vector of VarSTO
+                          RESULT.addElement (v);
+                        }
                     :}
     ;
 
@@ -582,7 +612,7 @@ IdListUpper ::=     T_ID_U:_1
 
 IdListWOptInit ::=  OptModifiers:_3 T_ID:_1 OptInit:_2
                     {:
-                        if(_2 instanceof ErrorSTO)
+                        if(_2.isError())
                           RESULT = new Vector();
                         else{
 	                      //Check if the OptInit is known at compile time

@@ -344,7 +344,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	void
 	DoStructdefDecl (String id)
-	{
+	{ 
 		if (m_symtab.accessLocal (id) != null)
 		{
 			m_nNumErrors++;
