@@ -25,7 +25,7 @@ public class MinusOp extends ArithmeticOp{
 				c.setValue(x);
 				return c;
 			}
-			return new ExprSTO("MinusOp", new FloatType("Float", 4));
+			return new ExprSTO("MinusOp", new FloatType("float", 4));
 		}
 	}
 

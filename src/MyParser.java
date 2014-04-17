@@ -471,6 +471,24 @@ class MyParser extends parser
 			m_errors.print (Formatter.toString(ErrorMsg.error7_Exit, s.getType().getName()));
 		}
 	}
+	
+	void
+	DoBreakStmtCheck(){
+		//program + function + while loop
+		if(m_symtab.getLevel() != 3){
+			m_nNumErrors++;
+			m_errors.print (ErrorMsg.error12_Break);
+		}
+	}
+	
+	void
+	DoContinueStmtCheck(){
+		//program + function + while loop
+	    if(m_symtab.getLevel() != 3){
+		  m_nNumErrors++;
+		  m_errors.print (ErrorMsg.error12_Continue);
+		}	
+	}
 
     //----------------------------------------------------------------
 	//
@@ -564,6 +582,8 @@ class MyParser extends parser
 		m_errors.print (result.getName());
 		return result;
 	}
+	
+	
 
 	//----------------------------------------------------------------
 	//
@@ -672,6 +692,9 @@ class MyParser extends parser
 	STO
 	DoDesignator2_Array (STO nameSto, STO indexExpr)
 	{
+		if(indexExpr.isError()){
+			return indexExpr;
+		}
 		// Good place to do the array checks
 		//Check the type of designator precding any [] operator is not an array or pointer type
 		if(!(nameSto.getType() instanceof ArrayType) && !(nameSto.getType() instanceof PointerType)){
@@ -680,7 +703,7 @@ class MyParser extends parser
 			return new ErrorSTO("error");
 		}
 		
-		//Check the type of the index expression is not equivalent to int
+	    //Check the type of the index expression is not equivalent to int
 		if(!(indexExpr.getType().isEquivalentTo(new IntType("int",4)))){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error11i_ArrExp,indexExpr.getType().getName()));	
@@ -690,7 +713,8 @@ class MyParser extends parser
 		//outside the bounds of the array
 		if(nameSto.getType() instanceof ArrayType){
 			if(indexExpr instanceof ConstSTO){
-				if(((ConstSTO) indexExpr).getIntValue() >= ((ArrayType)nameSto.getType()).getArraySize()){
+				if(((ConstSTO) indexExpr).getIntValue() >= ((ArrayType)nameSto.getType()).getArraySize() || 
+				   ((ConstSTO) indexExpr).getIntValue() < 0){
 					m_nNumErrors++;
 					m_errors.print(Formatter.toString(ErrorMsg.error11b_ArrExp,((ConstSTO) indexExpr).getIntValue(),((ArrayType)nameSto.getType()).getArraySize()));	
 					return new ErrorSTO("error");
