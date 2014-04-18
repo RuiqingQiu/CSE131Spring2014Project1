@@ -3,3 +3,8 @@ structdef MYS {
   MYS * y;
   MYS y;
 };
+
+structdef AAA {
+  int x,x,x,x,x,x,x,x,x;
+  int [-1] y;
+};

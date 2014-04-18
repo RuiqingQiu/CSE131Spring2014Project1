@@ -354,12 +354,6 @@ class MyParser extends parser
 		}
 
 		TypedefSTO 	sto = new TypedefSTO (id);
-		/*Vector<STO> structFields = m_symtab.getDeclaredField();
-		int size = 0;
-		for(STO s : structFields){
-			size += s.getType().getSize();
-		}
-		st.setField(structFields);*/
 		StructType st = new StructType("struct", 0);
 		sto.setType(st);
 		m_symtab.insert (sto);
@@ -367,6 +361,17 @@ class MyParser extends parser
 		m_symtab.setStructDefineComplete(false);
 	}
 	
+	void 
+	DoStructFieldFill(){
+		Vector<STO> structFields = m_symtab.getDeclaredField();
+		int size = 0;
+		for(STO s : structFields){
+			size += s.getType().getSize();
+		}
+		StructType st = new StructType("struct", size);
+		st.setField(structFields);
+		m_symtab.access(m_symtab.getStruct().getName()).setType(st);
+	}
 	void 
 	DoStructdefDeclEnd(){
 		m_symtab.setStruct(null);
@@ -747,7 +752,11 @@ class MyParser extends parser
 	DoDesignator2_Dot (STO sto, String strID)
 	{
 		// Good place to do the struct checks
-
+        //check the type of sto is a struct type
+		//if(!(sto.getType().isStruct()))
+		//check type of struct has no field named strID
+		
+		
 		return sto;
 	}
 

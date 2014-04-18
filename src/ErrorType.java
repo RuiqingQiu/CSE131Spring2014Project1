@@ -14,5 +14,8 @@ public class ErrorType extends Type{
 	public boolean isEquivalentTo(Type t) {
 		return false;
 	}
+	public boolean isError(){
+		return true;
+	}
 
 }
