@@ -108,7 +108,6 @@ non terminal
     VarDecl,
     ConstDecl,
     TypedefDecl,
-    FieldsList,
 
     OptStmtList,
     StmtList,
@@ -169,7 +168,8 @@ non terminal STO
     QualIdent,
     OptInit,
     ParamDecl,
-    ConstExpr
+    ConstExpr,
+    FieldsList
     ;
 
 non terminal Type
@@ -294,23 +294,41 @@ TypedefDecl ::=     T_TYPEDEF Type:_1 IdListUpper:_2 T_SEMI
     |               T_STRUCTDEF T_ID_U:_1 T_LBRACE
                     {:
                         ((MyParser) parser).DoBlockOpen();
+                        //Put the struct name into the symbol table for recursive define
+                        ((MyParser) parser).DoStructdefDecl(_1);
                     :}
-                    FieldsList T_RBRACE T_SEMI
+                    FieldsList:_2 T_RBRACE T_SEMI
                     {:
+                       //If error occurs
+                       if(_2 != null){
                          //Get the vector of locals from the current scope, which is the fields of the struct
                          ((MyParser) parser).DoBlockClose();
-                         ((MyParser) parser).DoStructdefDecl (_1);
+                         //((MyParser) parser).DoStructdefDecl (_1, true);
+                       }else{
+                         //Get the vector of locals from the current scope, which is the fields of the struct
+                         ((MyParser) parser).DoBlockClose();
+                         //((MyParser) parser).DoStructdefDecl (_1, false);
+                       }
+                       ((MyParser) parser).DoStructdefDeclEnd();
                     :}
     ;
 
 
 FieldsList ::=   FieldList:_1
 				 {:
-				   ((MyParser) parser).DoStructFieldDecl(_1);
+				   RESULT = ((MyParser) parser).DoStructFieldDecl(_1);
 				 :}
-    |            FieldsList FieldList:_2
+    |            FieldsList:_1 FieldList:_2
     			 {:
-    			   ((MyParser) parser).DoStructFieldDecl(_2);
+    			  
+    			   if(_1 != null && _1.isError()){
+    			     //If error already occur, still keep checking but return error
+    			     ((MyParser) parser).DoStructFieldDecl(_2);
+    			     RESULT = _1;
+    			   }
+    			   else{
+    			     RESULT = ((MyParser) parser).DoStructFieldDecl(_2);
+    			   }
     			 :}
     ;
 
@@ -327,6 +345,9 @@ FieldList ::=     UndecoratedType:_1 IdList:_2 T_SEMI
 				       //If the type is not set
 				       if(tmp.getType() == null){
 				         tmp.setType(_1);
+				       }
+				       else if(tmp.getType().isStruct()){
+				         
 				       }
 				       else{
 				         ((CompositeType)(tmp.getType())).setElementType(_1);

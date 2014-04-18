@@ -346,27 +346,69 @@ class MyParser extends parser
 	void
 	DoStructdefDecl (String id)
 	{ 
-		//
+		//Check redeclare id
 		if (m_symtab.accessLocal (id) != null)
 		{
 			m_nNumErrors++;
 			m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
 		}
+
 		TypedefSTO 	sto = new TypedefSTO (id);
+		/*Vector<STO> structFields = m_symtab.getDeclaredField();
+		int size = 0;
+		for(STO s : structFields){
+			size += s.getType().getSize();
+		}
+		st.setField(structFields);*/
+		StructType st = new StructType("struct", 0);
+		sto.setType(st);
 		m_symtab.insert (sto);
+		m_symtab.setStruct(sto);
+		m_symtab.setStructDefineComplete(false);
 	}
+	
 	void 
+	DoStructdefDeclEnd(){
+		m_symtab.setStruct(null);
+		m_symtab.setStructDefineComplete(true);
+	}
+    
+	STO
 	DoStructFieldDecl (Vector<VarSTO> vlist){
+		boolean Error = false;
 		for(VarSTO v : vlist ){
+			
 			String id = v.getName();
 			//Check if the id is already declared in the struct
 			if(m_symtab.accessLocal(id)!= null){
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString(ErrorMsg.error13a_Struct, id));
+				Error = true;
 			}
 			else{
 				m_symtab.insert (v);
 			}
+		}
+		//
+		if(Error){
+			return new ErrorSTO("struct field error");
+		}else{
+			for(VarSTO v : vlist ){
+			//Check if recursive struct definition
+				if(v.getType().isStruct()){
+					//If the field declare is equal to the name of the current struct
+					if(v.getType().getName().equals(m_symtab.getStruct().getName())){
+						m_nNumErrors++;
+						m_errors.print (Formatter.toString(ErrorMsg.error13b_Struct,v.getName()));
+						Error = true;
+					}
+				}
+			}
+			if(Error){
+				return new ErrorSTO("struct field error");
+			}
+			else
+				return null;
 		}
 	}
 

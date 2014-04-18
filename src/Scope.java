@@ -56,6 +56,13 @@ class Scope
 		m_lstLocals.addElement (sto);
 	}
 
+	/**
+	 * This is for struct, return the declared STO to fill the struct fields
+	 * @return
+	 */
+	public Vector<STO> getLocals(){
+		return this.m_lstLocals;
+	}
 
 //----------------------------------------------------------------
 //	Instance variables.

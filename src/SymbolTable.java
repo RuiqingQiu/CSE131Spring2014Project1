@@ -135,6 +135,10 @@ class SymbolTable
 	public boolean isInWhileLoop(){
 		return this.inWhile;
 	}
+	public Vector<STO> getDeclaredField(){
+		Scope		scope = m_stkScopes.peek ();
+		return scope.getLocals();
+	}
     
 
 	//----------------------------------------------------------------
@@ -142,7 +146,10 @@ class SymbolTable
 	//----------------------------------------------------------------
 	public FuncSTO		getFunc () { return m_func; }
 	public void		setFunc (FuncSTO sto) { m_func = sto; }
-
+	public TypedefSTO getStruct() {return m_struct;}
+	public void setStruct(TypedefSTO sto) {m_struct = sto;}
+	public boolean structDefineComplete(){return structDefineComplete;}
+	public void setStructDefineComplete(boolean b){this.structDefineComplete = b;}
 
 //----------------------------------------------------------------
 //	Instance variables.
@@ -151,6 +158,9 @@ class SymbolTable
 	private int		            m_nLevel;
 	private Scope		        m_scopeGlobal;
 	private FuncSTO	            m_func = null;
+	//A flag to indicate the struct definition has ended
+	private boolean 			structDefineComplete = true;
+	private TypedefSTO			m_struct = null;
 	private int whileLevel;
 	private boolean inWhile;
 }

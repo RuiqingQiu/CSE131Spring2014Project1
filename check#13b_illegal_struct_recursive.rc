@@ -1,0 +1,5 @@
+structdef MYS {
+  MYS x;
+  MYS * y;
+  MYS y;
+};

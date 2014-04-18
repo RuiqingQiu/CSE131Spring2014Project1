@@ -1,4 +1,4 @@
-/*structdef MYS {
+structdef MYS {
   int x, y;
   //Fail, duplicate declaration of struct field
   int x;
@@ -14,8 +14,9 @@
   
   //Fail, duplicate declaration of struct field
   int x, x;
-};*/
-
-structdef MYS {
-  int x, y, x; int y, x;
 };
+
+structdef MZS {
+  int a, b, a; int b, a;
+};
+
