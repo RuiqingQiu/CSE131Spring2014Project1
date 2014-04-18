@@ -7,4 +7,5 @@ structdef AAA{
 AAA x;
 function : void main(){
   int num = x.b[10][10];
+  bool k = x.b[9][9];
 }
