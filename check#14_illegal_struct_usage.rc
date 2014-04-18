@@ -1,0 +1,10 @@
+structdef MYS {
+  int x;
+  float y;
+  bool b;
+};
+
+function : void main(){
+  MYS a;
+  int number = a.x;
+}

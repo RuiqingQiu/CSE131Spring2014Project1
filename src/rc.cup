@@ -293,9 +293,10 @@ TypedefDecl ::=     T_TYPEDEF Type:_1 IdListUpper:_2 T_SEMI
                     :}
     |               T_STRUCTDEF T_ID_U:_1 T_LBRACE
                     {:
-                        ((MyParser) parser).DoBlockOpen();
                         //Put the struct name into the symbol table for recursive define
                         ((MyParser) parser).DoStructdefDecl(_1);
+                        ((MyParser) parser).DoBlockOpen();
+                       
                     :}
                     FieldsList:_2 T_RBRACE T_SEMI
                     {:
@@ -303,11 +304,10 @@ TypedefDecl ::=     T_TYPEDEF Type:_1 IdListUpper:_2 T_SEMI
                        if(_2 != null){
                          //Get the vector of locals from the current scope, which is the fields of the struct
                          ((MyParser) parser).DoBlockClose();
-                         //((MyParser) parser).DoStructdefDecl (_1, true);
                        }else{
                          //Get the vector of locals from the current scope, which is the fields of the struct
+                         ((MyParser) parser).DoStructFieldFill();
                          ((MyParser) parser).DoBlockClose();
-                         //((MyParser) parser).DoStructdefDecl (_1, false);
                        }
                        ((MyParser) parser).DoStructdefDeclEnd();
                     :}
@@ -332,7 +332,6 @@ FieldsList ::=   FieldList:_1
     			 :}
     ;
 
-
 FieldList ::=     UndecoratedType:_1 IdList:_2 T_SEMI
 				  {:
 				     //Vector of 0 size, error
@@ -343,11 +342,14 @@ FieldList ::=     UndecoratedType:_1 IdList:_2 T_SEMI
 				     for(int i = 0; i < _2.size(); i++){
 				       VarSTO tmp = (VarSTO)_2.elementAt(i);
 				       //If the type is not set
+				       
 				       if(tmp.getType() == null){
 				         tmp.setType(_1);
 				       }
-				       else if(tmp.getType().isStruct()){
-				         
+				       else if(tmp.getType().isError()){
+				         RESULT = new Vector();
+				       }
+				       else if(tmp.getType().isStruct()){				         
 				       }
 				       else{
 				         ((CompositeType)(tmp.getType())).setElementType(_1);
