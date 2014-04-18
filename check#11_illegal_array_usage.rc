@@ -1,3 +1,4 @@
+typedef int[10] ARR;
 function : void main(){
   int[100] test1;
   
@@ -26,5 +27,7 @@ function : void main(){
   
   test1[x--];
   test1[-x];
+  ARR[10] b;
+  b[10][2];
  
 }

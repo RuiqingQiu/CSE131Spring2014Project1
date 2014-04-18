@@ -1,0 +1,10 @@
+typedef int[10] ARR;
+
+structdef AAA{
+  ARR [10] b;
+};
+
+AAA x;
+function : void main(){
+  int num = x.b[10][10];
+}

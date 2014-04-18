@@ -753,11 +753,29 @@ class MyParser extends parser
 	{
 		// Good place to do the struct checks
         //check the type of sto is a struct type
-		//if(!(sto.getType().isStruct()))
+		if(!(sto.getType().isStruct())){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error14t_StructExp, sto.getType().getName()));
+		    return new ErrorSTO("ERROR");
+		}
 		//check type of struct has no field named strID
-		
-		
-		return sto;
+		Vector<STO> fieldList = ((StructType)(sto.getType())).getField();
+		boolean found = false;
+		STO target = null;
+		for(STO s: fieldList){
+			if(strID.equals(s.getName())){
+				found = true;	
+				target = s;
+				break;
+			}
+		}
+		if(!found){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error14f_StructExp, strID,sto.getType().getName()));
+		    return new ErrorSTO("ERROR");
+		}
+		//no error occur, return the StructSTO
+		return new ExprSTO("dodes_dot", target.getType());
 	}
 
 
@@ -796,12 +814,15 @@ class MyParser extends parser
 	STO
 	DoDesignator2_Array (STO nameSto, STO indexExpr)
 	{
-		if(indexExpr.isError()){
+		if(nameSto.isError()){
+			return nameSto;
+		}
+		if(indexExpr.isError() ){
 			return indexExpr;
 		}
 		// Good place to do the array checks
 		//Check the type of designator precding any [] operator is not an array or pointer type
-		if(!(nameSto.getType() instanceof ArrayType) && !(nameSto.getType() instanceof PointerType)){
+		if(!(nameSto.getType().isArray()) && !(nameSto.getType().isPointer())){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error11t_ArrExp,nameSto.getType().getName()));	
 			return new ErrorSTO("error");
