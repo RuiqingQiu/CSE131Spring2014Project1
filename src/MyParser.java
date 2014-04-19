@@ -846,8 +846,6 @@ class MyParser extends parser
 		    }
 		}
 		ExprSTO e = new ExprSTO("array_doDesignator2", ((CompositeType)nameSto.getType()).getElementType());
-		
-		
 		e.setIsAddressable(true);
 		e.setIsModifiable(true);
 		//Correct usage of array, dereference the array and get its element type

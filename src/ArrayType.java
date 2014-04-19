@@ -41,5 +41,4 @@ public class ArrayType extends CompositeType{
 		return true;
 	}
 	private int ArraySize;
-	
 }
