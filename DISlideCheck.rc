@@ -4,6 +4,8 @@ int *myPtr;
 const int c = 5;
   
 float *floatPtr;
+int ***intPtr;
+typedef int[100] ARR;
 function : void main(){
   myArray[5+c] = myArray[6-c];  //bounds check
   myArray[myInt] = 15;          //no bounds check
@@ -13,4 +15,8 @@ function : void main(){
     
   floatPtr = myArray;          //should print error int array is not assignable to float ptr
   myPtr[c] = 100;               // no bounds check since ptr
+  ARR[10] c;
+  intPtr = floatPtr;
+  floatPtr = c;
+  
 }

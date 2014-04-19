@@ -1,0 +1,14 @@
+typedef int[10] ARR;
+ARR[8] x;
+float *floatPtr;
+function : void main()
+{ 
+  floatPtr = x;
+}
+/*typedef int INTEGER;
+typedef INTEGER INTEGER2;
+INTEGER2 x;
+float y;
+function : void main(){
+  x = y;
+}*/

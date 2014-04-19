@@ -1,0 +1,11 @@
+typedef float F1;
+typedef F1 F2;
+typedef int I1;
+typedef I1 I2;
+
+function : void main(){
+  I1 x;
+  I2 y;
+  F2 z;
+  x = z = y;
+}

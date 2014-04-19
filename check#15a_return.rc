@@ -1,0 +1,14 @@
+structdef AAA{
+  int x;
+  float y;
+};
+structdef BBB{
+  int x;
+  float y;
+};
+function : AAA test1(){
+  AAA k;
+  BBB j;
+  return j;
+  //return k;
+}
