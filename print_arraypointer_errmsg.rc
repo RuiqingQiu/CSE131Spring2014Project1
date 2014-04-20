@@ -1,0 +1,64 @@
+//test case in the spec
+typedef int INTEGER;
+typedef int MONTH;
+
+INTEGER i;
+MONTH m;
+float r;
+
+structdef REC1{ float a; };
+structdef REC2{ float a; };
+typedef REC1 REC3;
+
+REC1 r1;
+REC2 r2;
+REC3 r3;
+
+function: int f(REC1 &a){ return 1; }
+
+float[5] a1;
+int[5] a2;
+
+function : int g(float[5] &a) { return 0;}
+
+int* p1;
+INTEGER *p2;
+REC1* p3;
+REC2* p4;
+REC3* p5;
+
+function : int main(){
+  i = m; //okay, assignable- loose name equivalence
+  i = r; //float cannot be assignable to int
+  r = i; // assignable
+  
+  f(r1); //okay, same type/strict name equivalence
+  f(r2);//error
+  
+  /******* this one is not passing ***********/
+  f(r3);//should be okay
+  
+  /** This two are failing right now***/
+  g(a1);//should be okay, structurally equivalence
+  g(a2);//error, not structurally equivalence
+  
+  a1 = a1;//error, arrays are not modifiable l-val and struct variables are mod L-vals, pass
+  
+  
+  r1 = r1; //okay, strict name equivalence, pass
+  r1 = r2; //error, struct strict name equivalence, pass
+  
+  /***** This case is failing right now *****/
+  r3 = r1;// okay, loose name equivalent typedef then strict name 
+          //equiv  on struct types and struct types are modifiable l-vals
+  
+  /* Fail */
+  p1 = p2;//okay, types pointer to are structurally equivalence
+  
+  p3 = p4;//error, types pointed to (structs) are not strict name equivalence,pass
+  
+  /* Fail */
+  p3 = p5;// okay,types pointed to  are strict name equivalence
+  return 0;
+
+}
