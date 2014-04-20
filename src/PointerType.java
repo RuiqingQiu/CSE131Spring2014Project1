@@ -11,4 +11,8 @@ public class PointerType extends PointerGroupType {
 	public boolean isPointer(){
 		return true;
 	}
+	public String getName ()
+	{
+		return this.getElementType().getName() + "*";
+	}
 }

@@ -1,0 +1,20 @@
+typedef float F1;
+typedef F1 F2;
+typedef int I1;
+typedef I1 I2;
+
+function : void main(){
+  
+  I1 x;
+  I2 y;
+  F2 z;
+  //Value of type F2 is not assignable to variable of type I1
+  x = z = y;
+  
+  
+  F1 f1;
+  I1 i;
+  //Value of type float is not assignable to type int
+  i = f1;
+
+}

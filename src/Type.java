@@ -32,7 +32,9 @@ abstract class Type
 	{
 		m_typeName = str;
 	}
-	
+	public String getName2(){
+		return m_typeName;
+	}
 	public Type clone(){
 		return null;
 	}
@@ -77,7 +79,7 @@ abstract class Type
 	//----------------------------------------------------------------
 	//	Name of the Type (e.g., int, bool, or some typedef
 	//----------------------------------------------------------------
-	private String  	m_typeName;
+	protected String  	m_typeName;
 	private int		m_size;
 	private boolean isReference = false;
 }
