@@ -1,0 +1,13 @@
+function : void main(){
+  int* x;
+  int* y;
+  
+  bool flag = x == y;
+  bool flag2 = x != y;
+  
+  y = ++x;
+  x = y++;
+  
+  x = nullptr;
+  
+}
