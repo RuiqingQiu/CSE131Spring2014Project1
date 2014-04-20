@@ -1,0 +1,5 @@
+int [20] a;
+function : void main(){
+  int* b = a;
+  int b = a;
+}

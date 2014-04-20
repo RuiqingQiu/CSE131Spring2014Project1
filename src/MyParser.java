@@ -421,7 +421,48 @@ class MyParser extends parser
 				return null;
 		}
 	}
-
+	
+	/*
+	 * this function is for dereference an object
+	 */
+	STO
+	doDereferenceCheck(STO deref){
+		if(!(deref.getType().isPointer())){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error15_Receiver, deref.getType().getName()));
+			return new ErrorSTO("pointer dereference error");
+		}
+		//The dereference operator is used on pointer
+		else{
+			//Return an sto of the element type
+			Type t = ((PointerType)deref.getType()).getElementType().clone();
+			ExprSTO sto = new ExprSTO("pointer dereference", t);
+			return sto;
+		}
+	}
+	
+	STO
+	DoArrowOp(STO ptr, String fieldName){
+		//Check if the arrow's left is a pointer to a struct
+		if(!(ptr.getType().isPointer())){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error15_ReceiverArrow, ptr.getType().getName()));
+			return new ErrorSTO("struct pointer arrow error");
+		}
+		//left side is good, check there's field x and get the exprSTO with the type x
+		else{
+			if(!((PointerType)ptr.getType()).getElementType().isStruct()){
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error15_ReceiverArrow, ptr.getType().getName()));
+				return new ErrorSTO("struct pointer arrow error");
+			}else{
+				VarSTO sto = new VarSTO("tmp", ((PointerType)ptr.getType()).getElementType());
+				Type t = (DoDesignator2_Dot(sto, fieldName)).getType();
+				ExprSTO ret = new ExprSTO("pointer to struct arrow", t);
+				return ret;
+			}
+		}
+	}
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -755,6 +796,9 @@ class MyParser extends parser
 	STO
 	DoDesignator2_Dot (STO sto, String strID)
 	{
+		if(sto.isError()){
+			return sto;
+		}
 		// Good place to do the struct checks
         //check the type of sto is a struct type
 		if(!(sto.getType().isStruct())){

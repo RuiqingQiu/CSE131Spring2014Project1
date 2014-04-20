@@ -2,10 +2,21 @@ structdef MYS {
   int x;
 };
 MYS *ptr;
+int ptr1;
 
 function : void main(){
   int y;
   int*** intPtr;
+  //First Fail, int not assignable to int***
   intPtr = y;
+  //Should have no error
   y = (*ptr).x;
+  
+  //Should not fail
+  int w = ptr->x;
+  
+  //Should fail
+  bool b = ptr->x;
+  //Third Fail, the type ptr is not a pointer type for the * operator
+  y = (*ptr1).x;
 }
