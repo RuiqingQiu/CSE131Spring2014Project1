@@ -5,6 +5,8 @@ function : void main()
 { 
   floatPtr = x;
 }
+
+
 /*typedef int INTEGER;
 typedef INTEGER INTEGER2;
 INTEGER2 x;

@@ -137,8 +137,8 @@ non terminal
 
     ArrElemsList,
 
-    PointerList,
-    Pointer,
+
+
 	OptPointerList
     ;
 
@@ -179,7 +179,9 @@ non terminal Type
     UndecoratedType,
     ReturnType,
     DeclareType,
-    OptModifiers
+    OptModifiers, 
+    Pointer,   
+    PointerList
     ;
     	
 non terminal Vector
@@ -252,7 +254,11 @@ VarDecl ::=     OptStatic:_1 UndecoratedType:_2 IdListWOptInit:_3 T_SEMI
 	                         }
 	                     }
                     :}
-    |           OptStatic T_AUTO T_ID T_ASSIGN Expr T_SEMI
+    |           OptStatic T_AUTO T_ID:_1 T_ASSIGN Expr:_2 T_SEMI
+                {: 
+                  // Assign _1 with the type _2 have and put in a symbol table
+                  ((MyParser) parser).DoAutoDeclaration(_1,_2);
+                :}
 
     ;
 
@@ -274,7 +280,11 @@ ConstDecl ::=  OptStatic:_1 T_CONST UndecoratedType:_2 IdListWInit:_3 T_SEMI
                        }
                    
                     :}
-    |          OptStatic T_CONST T_AUTO T_ID T_ASSIGN Expr T_SEMI
+    |          OptStatic T_CONST T_AUTO T_ID:_1 T_ASSIGN Expr:_2 T_SEMI
+               {: 
+                 // Assign _1 with the type _2 have and put in a symbol table
+                 ((MyParser) parser).DoAutoDeclaration(_1,_2);
+               :}
     ;
 
 
@@ -426,11 +436,8 @@ SubType ::=    QualIdent:_1
 			     //Get the basic type out of TypedefSTO
 			     //modifiy the previous type and set its name to be the correct typedef ID
 			     Type t = _1.getType().clone();
-			     System.out.println(_1.getName());
 				 t.setName(_1.getName());
-			   
 			     //This should be ARR
-			     System.out.println("check : " + t.getName2());
 			     RESULT = t;
 			   :}
 			   
@@ -470,9 +477,9 @@ BasicType ::=       T_INT
     ;
 
 
-OptModifiers ::= 	PointerList
+OptModifiers ::= 	PointerList:_1
 					{:
-					  RESULT = new PointerType("pointer", 4);
+					  RESULT = _1;
 					:}
 	|				T_LBRACKET ConstExpr:_1 T_RBRACKET
 					{:
@@ -488,12 +495,22 @@ OptPointerList ::= 	PointerList
     ;
 
 
-PointerList ::=    Pointer
-    |               PointerList Pointer
+PointerList ::=    Pointer:_1
+				   {:
+				     RESULT = _1;
+				   :}
+    |              PointerList:_1 Pointer:_2
+    			   {:
+    			     ((PointerType)_2).setElementType(_1);
+    			     RESULT = _2;
+    			   :}
     ;
 
 
-Pointer ::=        T_STAR
+Pointer ::=        T_STAR:_1
+				   {:
+				     RESULT = new PointerType("pointer", 4);
+				   :}
     ;
 
 
@@ -810,7 +827,6 @@ DeleteStmt ::=  T_DELETE Designator T_SEMI
 	;
 
 
-
 WritePairList ::=   WritePair
     |               WritePairList T_OSTREAM WritePair
     ;
@@ -856,10 +872,10 @@ Expr ::=         Designator:_1 T_ASSIGN Expr:_2
                  {:
                    RESULT = ((MyParser) parser).DoAssignExpr (_1, _2);
                  :}
-    |               Expr0:_1
-                    {:
-			RESULT = _1;
-                    :}
+    |            Expr0:_1
+                 {:
+			       RESULT = _1;
+                 :}
     ;
 
 
@@ -867,10 +883,10 @@ Expr0 ::=        Expr0:_1 T_OR Expr1:_3
                  {:
 					RESULT = ((MyParser) parser).DoBinaryExpr(_1, new OrOp(), _3);
                  :}
-    |               Expr1:_1
-                    {:
-			RESULT = _1;
-                    :}
+    |            Expr1:_1
+                 {:
+			       RESULT = _1;
+                 :}
     ;
 
 
@@ -878,10 +894,10 @@ Expr1 ::=        Expr1:_1 T_AND Expr2:_3
                  {:
                    RESULT = ((MyParser) parser).DoBinaryExpr(_1, new AndOp(), _3);
                  :}
-    |               Expr2:_1
-                    {:
-			RESULT = _1;
-                    :}
+    |            Expr2:_1
+                 {:
+			       RESULT = _1;
+                 :}
     ;
 
 
@@ -889,10 +905,10 @@ Expr2 ::=        Expr2:_1 T_BAR Expr3:_3
                  {:
 					RESULT = ((MyParser) parser).DoBinaryExpr(_1, new BwOrOp(), _3);
                  :}
-    |               Expr3:_1
-                    {:
-                        RESULT = _1;
-                    :}
+    |            Expr3:_1
+                 {:
+                    RESULT = _1;
+                 :}
     ;
 
 
@@ -900,10 +916,10 @@ Expr3 ::=        Expr3:_1 T_CARET Expr4:_3
                  {:
 			       RESULT = ((MyParser) parser).DoBinaryExpr(_1, new BwXorOp(), _3);
                  :}
-    |               Expr4:_1
-                    {:
-                        RESULT = _1;
-                    :}
+    |            Expr4:_1
+                 {:
+                   RESULT = _1;
+                 :}
     ;
 
 
@@ -911,10 +927,10 @@ Expr4 ::=        Expr4:_1 T_AMPERSAND Expr5:_3
                  {:
 			       RESULT = ((MyParser) parser).DoBinaryExpr(_1, new BwAndOp(), _3);
                  :}
-    |               Expr5:_1
-                    {:
-                        RESULT = _1;
-                    :}
+    |            Expr5:_1
+                 {:
+                      RESULT = _1;
+                 :}
     ;
 
 
@@ -1061,9 +1077,9 @@ IncDecOp ::=        T_PLUSPLUS
 
 
 Designator ::= T_STAR Designator:_1
-                    {:
-			RESULT = _1;
-                    :}
+               {:
+                 RESULT = ((MyParser) parser).doDereferenceCheck(_1);
+               :}
     |   T_AMPERSAND Designator:_1
         {:
             //Argument pass by reference
@@ -1123,9 +1139,10 @@ Designator2 ::=     Designator2:_1 T_DOT T_ID:_3
                         //Check#11
                         RESULT = ((MyParser) parser).DoDesignator2_Array (_1, _2);
                     :}
-    |               Designator2:_1 T_ARROW T_ID
+    |               Designator2:_1 T_ARROW T_ID:_2
                     {:
-                        RESULT = _1;
+                       //Struct dereference
+                        RESULT = ((MyParser) parser).DoArrowOp(_1,_2);
                     :}
     |               Designator2:_1 IncDecOp:_2
                     {:

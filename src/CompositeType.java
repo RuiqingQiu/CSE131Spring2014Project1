@@ -11,6 +11,6 @@ public abstract class CompositeType extends Type{
 	public void setElementType(Type t){
 		this.ElementType = t.clone();
 	}
-	private Type ElementType;
+	protected Type ElementType;
 
 }

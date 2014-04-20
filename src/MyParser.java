@@ -166,6 +166,25 @@ class MyParser extends parser
 		m_symtab.closeScope ();
 	}
 	
+	void
+	DoAutoDeclaration(String id, STO sto){
+		//Check redeclare error
+		if (m_symtab.accessLocal (id) != null)
+		{
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
+		}
+		
+		//Create a VarSTO
+		VarSTO v = new VarSTO (id);
+		//get the type from the sto
+		v.setType(sto.getType().clone());
+		//Regular declare, l-value
+		v.setIsAddressable(true);
+		v.setIsModifiable(true);
+		m_symtab.insert(v);
+	}
+	
 	
 	//----------------------------------------------------------------
 	//
@@ -203,7 +222,7 @@ class MyParser extends parser
 				//If it's  global scope
 				if(m_symtab.getLevel() == 1){
 					if(stoList.elementAt(i).getInit() != null){
-						if(!(stoList.elementAt(i).getInit() instanceof ConstSTO)){
+						if(!(stoList.elementAt(i).getInit().isConst())){
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
 							return;
@@ -227,13 +246,19 @@ class MyParser extends parser
 			if(stoList.elementAt(i).getType() != null){
 				if(stoList.elementAt(i).getType().isArray()){
 					((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
+					//Set name to be the element type with array size
+					((CompositeType)stoList.elementAt(i).getType()).setName(type.getName()+"[" + 
+							((ArrayType)(stoList.elementAt(i).getType())).getArraySize() + "]");
 					sto.setType(stoList.elementAt(i).getType());
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
 					sto.setIsModifiable(false);
 				}
 				else if(stoList.elementAt(i).getType().isPointer()){
-					((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
+					((PointerType)stoList.elementAt(i).getType()).setElementType(type);
+					//Get name of the pointer
+					((PointerType)stoList.elementAt(i).getType()).setName(
+							((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*");
 					sto.setType(stoList.elementAt(i).getType());
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
@@ -246,7 +271,6 @@ class MyParser extends parser
 				sto.setIsAddressable(true);
 				sto.setIsModifiable(true);
 			}
-			
 			m_symtab.insert (sto);
 		}
 	}
@@ -416,7 +440,48 @@ class MyParser extends parser
 				return null;
 		}
 	}
-
+	
+	/*
+	 * this function is for dereference an object
+	 */
+	STO
+	doDereferenceCheck(STO deref){
+		if(!(deref.getType().isPointer())){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error15_Receiver, deref.getType().getName()));
+			return new ErrorSTO("pointer dereference error");
+		}
+		//The dereference operator is used on pointer
+		else{
+			//Return an sto of the element type
+			Type t = ((PointerType)deref.getType()).getElementType().clone();
+			ExprSTO sto = new ExprSTO("pointer dereference", t);
+			return sto;
+		}
+	}
+	
+	STO
+	DoArrowOp(STO ptr, String fieldName){
+		//Check if the arrow's left is a pointer to a struct
+		if(!(ptr.getType().isPointer())){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error15_ReceiverArrow, ptr.getType().getName()));
+			return new ErrorSTO("struct pointer arrow error");
+		}
+		//left side is good, check there's field x and get the exprSTO with the type x
+		else{
+			if(!((PointerType)ptr.getType()).getElementType().isStruct()){
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error15_ReceiverArrow, ptr.getType().getName()));
+				return new ErrorSTO("struct pointer arrow error");
+			}else{
+				VarSTO sto = new VarSTO("tmp", ((PointerType)ptr.getType()).getElementType());
+				Type t = (DoDesignator2_Dot(sto, fieldName)).getType();
+				ExprSTO ret = new ExprSTO("pointer to struct arrow", t);
+				return ret;
+			}
+		}
+	}
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -667,6 +732,7 @@ class MyParser extends parser
 	void DoWhileStmt(){
 		this.m_symtab.inWhileLoop(true);
 	}
+	
 	STO
 	DoIfWhileExpr(STO expr)
 	{
@@ -750,6 +816,9 @@ class MyParser extends parser
 	STO
 	DoDesignator2_Dot (STO sto, String strID)
 	{
+		if(sto.isError()){
+			return sto;
+		}
 		// Good place to do the struct checks
         //check the type of sto is a struct type
 		if(!(sto.getType().isStruct())){
@@ -868,6 +937,7 @@ class MyParser extends parser
 		}
 		return (sto);
 	}
+	
 	//Check #0, global variable check
 	STO
 	DoDesignator3_Global_ID (String strID)
