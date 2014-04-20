@@ -11,7 +11,11 @@ public class DecOp extends UnaryOp{
 			else
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error2_Lval,  "--"));
 			
-		} else{
+		}
+		else if(aType.isPointer()){
+			return new ExprSTO("DecOp",aType);
+		}
+		else{
 			return new ErrorSTO(Formatter.toString(ErrorMsg.error2_Type, aType.getName(), "--"));
 		}
 	}

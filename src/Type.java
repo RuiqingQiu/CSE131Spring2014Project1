@@ -73,6 +73,7 @@ abstract class Type
 	public boolean isArray() {return false;}
 	public boolean isPointer() {return false;}
 	public boolean isStruct() {return false;}
+	public boolean isNullPointer() {return false;}
 	//----------------------------------------------------------------
 	//	Name of the Type (e.g., int, bool, or some typedef
 	//----------------------------------------------------------------

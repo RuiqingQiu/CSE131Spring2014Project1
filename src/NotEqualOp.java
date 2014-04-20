@@ -27,6 +27,24 @@ public class NotEqualOp extends ComparisonOp{
 			}
 			return new ExprSTO("NotEqualOp", new BoolType("bool", 1));
 		}
+		//Check #17 to support pointer type
+		else if(aType.isPointer() || bType.isPointer()){
+			if(aType.isPointer() && bType.isPointer()){
+				//Check if both are nullptr, if so return ConstSTO 
+				if(aType.isNullPointer() && bType.isNullPointer()){
+					ConstSTO tmp = new ConstSTO("false", new BoolType("bool", 4));
+					tmp.setValue(0.0);
+					return tmp;
+				}
+				//Not both null, do equivalent check
+				else{
+					return new ExprSTO("NotEqualOp", new BoolType("bool",4));
+				}
+			}
+			else{
+				return new ErrorSTO(Formatter.toString(ErrorMsg.error17_Expr,"!=",aType.getName(), bType.getName()));
+			}
+		}
 		else{
 			return new ErrorSTO(Formatter.toString(ErrorMsg.error1b_Expr, aType.getName(), "!=", bType.getName()));
 		}

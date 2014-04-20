@@ -14,4 +14,5 @@ public class NullPointerType extends PointerType {
 		}
 	}
 
+	public boolean isNullPointer() {return true;}
 }

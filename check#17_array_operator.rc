@@ -1,13 +1,37 @@
 function : void main(){
   int* x;
   int* y;
+  bool* b;
+  
+  bool flag3 = b == y;
+  
+  //First error
+  int flag4 = b != y;
   
   bool flag = x == y;
   bool flag2 = x != y;
   
   y = ++x;
   x = y++;
+  y = --x;
+  x = y--;
+  
+  int *a = nullptr;
+  int *c = nullptr;
+  bool flag6 = a == c;
   
   x = nullptr;
   
+  x = y;
+  
+  float * test1;
+  test1 = x;
+  bool flag6 = test1 == 1;
+  bool flag7 = test1 != 1;
+  bool flag5 = x == nullptr;
+  
+  int* p = nullptr;
+  int i = 3;
+  bool flag8 = p == i;
+  bool flag9 = p != i;
 }

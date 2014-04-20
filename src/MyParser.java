@@ -186,7 +186,7 @@ class MyParser extends parser
 	}
 	
 	void
-	DoNewDeleteStmtCheck(STO sto){
+	DoNewStmtCheck(STO sto){
 		//error should be generated if 
 	    //type of sto is not a modifiable l-val
 		if(!(sto.isModLValue())){
@@ -199,10 +199,25 @@ class MyParser extends parser
 		if(!(sto.getType().isPointer())){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error16_New,sto.getType().getName()));
-		
 		}
 	}
 	
+	void
+	DoDeleteStmtCheck(STO sto){
+		//error should be generated if 
+	    //type of sto is not a modifiable l-val
+		if(!(sto.isModLValue())){
+			m_nNumErrors++;
+			m_errors.print (ErrorMsg.error16_Delete_var);
+			return;
+		}
+		
+		//type of sto is not a valid pointer type
+		if(!(sto.getType().isPointer())){
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error16_Delete,sto.getType().getName()));
+		}
+	}
 	
 	//----------------------------------------------------------------
 	//

@@ -24,6 +24,15 @@ public class PointerType extends PointerGroupType {
 			return false;
 	}
 	
+	public boolean isEquivalentTo(Type t){
+		if(t.isPointer()){
+			//Check if the pointer type is the same as the array type
+			return this.getElementType().isEquivalentTo(((PointerType)t).getElementType());
+		}
+		else	
+			return false;
+	}
+	
 	public String getPrintedName(){
 		
 		if(this.getElementType().isPointer()){

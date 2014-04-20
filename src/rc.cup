@@ -823,7 +823,7 @@ WriteStmt ::=       T_COUT T_OSTREAM WritePairList T_SEMI
 NewStmt  ::= 	T_NEW Designator:_1 T_SEMI
                 {: 
                    //Check the VarSTO is valid for new statement
-                    ((MyParser) parser).DoNewDeleteStmtCheck(_1);      
+                    ((MyParser) parser).DoNewStmtCheck(_1);      
                          
                 :} 
 	;
@@ -831,7 +831,7 @@ NewStmt  ::= 	T_NEW Designator:_1 T_SEMI
 DeleteStmt ::=  T_DELETE Designator:_1 T_SEMI
                 {: 
                     //Check the VarSTO is valid for delete statement
-                    ((MyParser) parser).DoNewDeleteStmtCheck(_1);  
+                    ((MyParser) parser).DoDeleteStmtCheck(_1);  
                 :}
 	;
 
@@ -1216,7 +1216,7 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_NULLPTR
                     {:
-                        RESULT = new ConstSTO ("nullptr");
+                        RESULT = new ConstSTO ("nullptr", new NullPointerType("nullptr", 4));
                     :}
     |               T_COLONCOLON T_ID:_1
     				//Check #0 global variable check
