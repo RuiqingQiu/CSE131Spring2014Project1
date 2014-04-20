@@ -14,6 +14,16 @@ public class PointerType extends PointerGroupType {
 		return true;
 	}
 	
+	@Override
+	public boolean isAssignableTo(Type t) {
+		if(t.isPointer()){
+			//Check if the pointer type is the same as the array type
+			return this.getElementType().isAssignableTo(((PointerType)t).getElementType());
+		}
+		else	
+			return false;
+	}
+	
 	public String getPrintedName(){
 		
 		if(this.getElementType().isPointer()){
@@ -29,13 +39,19 @@ public class PointerType extends PointerGroupType {
 		}
 		else{
 			if(this.getElementType().isPointer()){
-				((PointerType)this.getElementType()).setElementType(t);
+				((PointerType)this.getElementType()).setElementType(t.clone());
 			}
 			else{
 				this.ElementType = t.clone();
 			}
 		}
-			
-				
+	}
+	public Type getPointerBaseType(){
+		if(this.getElementType().isPointer()){
+			return ((PointerType)this.getElementType()).getPointerBaseType();
+		}
+		else{
+			return this.ElementType;
+		}
 	}
 }

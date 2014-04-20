@@ -1,0 +1,15 @@
+//Detect undeclared gloabl identifiers
+int myX;
+function: void foo(){
+  int x;
+  int i =  5 + ::x;//error, cannot find x in the global scope
+  
+  auto y = 5;
+  int z = y + 3;
+  static auto b = true;
+  bool c = b;
+  
+  const auto f = 1.0;
+  float h = f + 2.0;
+  int g = f + 3.0;
+}

@@ -1,5 +1,11 @@
-int [20] a;
+structdef MYS{
+  int x;
+};
 function : void main(){
-  int* b = a;
-  int b = a;
+  MYS* ptr;
+  float* ptr2;
+  float z = 1.0;
+  int y = 1;
+  (*ptr).x = y;
+  *ptr2 = z;
 }
