@@ -2,14 +2,22 @@
 int myX;
 function: void foo(){
   int x;
+  //First error
   int i =  5 + ::x;//error, cannot find x in the global scope
   
   auto y = 5;
   int z = y + 3;
+
   static auto b = true;
   bool c = b;
   
   const auto f = 1.0;
   float h = f + 2.0;
+  //second error
   int g = f + 3.0;
+  
+  auto test1 = 1;
+  float test2 = test1;
+  bool flag = test1 == test2;
+  flag = test1++;
 }
