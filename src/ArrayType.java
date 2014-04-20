@@ -22,12 +22,6 @@ public class ArrayType extends CompositeType{
 		return false;
 	}
 
-	//Override the getName method for ArrayType
-	public String getName ()
-	{
-		return this.getElementType().getName() + "[" + this.ArraySize + "]";
-	}
-	
 	public int getArraySize(){
 		return this.ArraySize;
 	}

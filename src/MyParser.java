@@ -203,7 +203,7 @@ class MyParser extends parser
 				//If it's  global scope
 				if(m_symtab.getLevel() == 1){
 					if(stoList.elementAt(i).getInit() != null){
-						if(!(stoList.elementAt(i).getInit() instanceof ConstSTO)){
+						if(!(stoList.elementAt(i).getInit().isConst())){
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
 							return;
@@ -227,13 +227,19 @@ class MyParser extends parser
 			if(stoList.elementAt(i).getType() != null){
 				if(stoList.elementAt(i).getType().isArray()){
 					((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
+					//Set name to be the element type with array size
+					((CompositeType)stoList.elementAt(i).getType()).setName(type.getName()+"[" + 
+							((ArrayType)(stoList.elementAt(i).getType())).getArraySize() + "]");
 					sto.setType(stoList.elementAt(i).getType());
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
 					sto.setIsModifiable(false);
 				}
 				else if(stoList.elementAt(i).getType().isPointer()){
-					((CompositeType)stoList.elementAt(i).getType()).setElementType(type);
+					((PointerType)stoList.elementAt(i).getType()).setElementType(type);
+					//Get name of the pointer
+					((PointerType)stoList.elementAt(i).getType()).setName(
+							((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*");
 					sto.setType(stoList.elementAt(i).getType());
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
@@ -246,7 +252,6 @@ class MyParser extends parser
 				sto.setIsAddressable(true);
 				sto.setIsModifiable(true);
 			}
-			
 			m_symtab.insert (sto);
 		}
 	}

@@ -1,0 +1,11 @@
+structdef MYS {
+  int x;
+};
+MYS *ptr;
+
+function : void main(){
+  int y;
+  int*** intPtr;
+  intPtr = y;
+  y = (*ptr).x;
+}

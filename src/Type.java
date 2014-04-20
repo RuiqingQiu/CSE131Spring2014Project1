@@ -32,9 +32,6 @@ abstract class Type
 	{
 		m_typeName = str;
 	}
-	public String getName2(){
-		return m_typeName;
-	}
 	public Type clone(){
 		return null;
 	}

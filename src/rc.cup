@@ -137,8 +137,8 @@ non terminal
 
     ArrElemsList,
 
-    PointerList,
-    Pointer,
+
+
 	OptPointerList
     ;
 
@@ -179,7 +179,9 @@ non terminal Type
     UndecoratedType,
     ReturnType,
     DeclareType,
-    OptModifiers
+    OptModifiers, 
+    Pointer,   
+    PointerList
     ;
     	
 non terminal Vector
@@ -426,11 +428,8 @@ SubType ::=    QualIdent:_1
 			     //Get the basic type out of TypedefSTO
 			     //modifiy the previous type and set its name to be the correct typedef ID
 			     Type t = _1.getType().clone();
-			     System.out.println(_1.getName());
 				 t.setName(_1.getName());
-			   
 			     //This should be ARR
-			     System.out.println("check : " + t.getName2());
 			     RESULT = t;
 			   :}
 			   
@@ -470,9 +469,9 @@ BasicType ::=       T_INT
     ;
 
 
-OptModifiers ::= 	PointerList
+OptModifiers ::= 	PointerList:_1
 					{:
-					  RESULT = new PointerType("pointer", 4);
+					  RESULT = _1;
 					:}
 	|				T_LBRACKET ConstExpr:_1 T_RBRACKET
 					{:
@@ -488,12 +487,22 @@ OptPointerList ::= 	PointerList
     ;
 
 
-PointerList ::=    Pointer
-    |               PointerList Pointer
+PointerList ::=    Pointer:_1
+				   {:
+				     RESULT = _1;
+				   :}
+    |              PointerList:_1 Pointer:_2
+    			   {:
+    			     ((PointerType)_2).setElementType(_1);
+    			     RESULT = _2;
+    			   :}
     ;
 
 
-Pointer ::=        T_STAR
+Pointer ::=        T_STAR:_1
+				   {:
+				     RESULT = new PointerType("pointer", 4);
+				   :}
     ;
 
 
