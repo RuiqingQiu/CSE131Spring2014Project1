@@ -185,6 +185,22 @@ class MyParser extends parser
 		m_symtab.insert(v);
 	}
 	
+	void
+	DoNewDeleteStmtCheck(STO sto){
+		//error should be generated if 
+	    //type of sto is not a modifiable l-val
+		if(!(sto.isModLValue())){
+			m_nNumErrors++;
+			m_errors.print (ErrorMsg.error16_New_var);
+		}
+		
+		//type of sto is not a valid pointer type
+		if(!(sto.getType().isPointer())){
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error16_New,sto.getType().getName()));
+		}
+	}
+	
 	
 	//----------------------------------------------------------------
 	//
