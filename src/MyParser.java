@@ -437,6 +437,8 @@ class MyParser extends parser
 			//Return an sto of the element type
 			Type t = ((PointerType)deref.getType()).getElementType().clone();
 			ExprSTO sto = new ExprSTO("pointer dereference", t);
+			sto.setIsAddressable(true);
+			sto.setIsModifiable(true);
 			return sto;
 		}
 	}
@@ -459,6 +461,8 @@ class MyParser extends parser
 				VarSTO sto = new VarSTO("tmp", ((PointerType)ptr.getType()).getElementType());
 				Type t = (DoDesignator2_Dot(sto, fieldName)).getType();
 				ExprSTO ret = new ExprSTO("pointer to struct arrow", t);
+				ret.setIsAddressable(true);
+				ret.setIsModifiable(true);
 				return ret;
 			}
 		}
@@ -823,7 +827,10 @@ class MyParser extends parser
 		    return new ErrorSTO("ERROR");
 		}
 		//no error occur, return the StructSTO
-		return new ExprSTO("dodes_dot", target.getType());
+		ExprSTO ret = new ExprSTO("dodes_dot", target.getType());
+		ret.setIsModifiable(true);
+		ret.setIsAddressable(true);
+		return ret;
 	}
 
 
