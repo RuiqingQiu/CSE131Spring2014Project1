@@ -1071,13 +1071,15 @@ IncDecOp ::=        T_PLUSPLUS
 
 Designator ::= T_STAR Designator:_1
                {:
+                 //Dereference operation
                  RESULT = ((MyParser) parser).doDereferenceCheck(_1);
                :}
-    |   T_AMPERSAND Designator:_1
-        {:
-            //Argument pass by reference
-			RESULT = _1;
-        :}
+           |   T_AMPERSAND Designator:_1
+               {:
+                 //Addressof operation
+                 //Argument pass by reference
+			     RESULT = ((MyParser) parser).doAddressOfCheck(_1);
+               :}
     |   UnarySign:_2 Designator:_1
         {:
             if(_2.equals("+"))

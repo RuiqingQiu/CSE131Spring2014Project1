@@ -180,6 +180,23 @@ class MyParser extends parser
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
 			String id = lstIDs.elementAt (i);
+			Type tmp = null;
+			if(stoList.elementAt(i).getType() == null){
+				//stoList.elementAt(i).setType(type.clone());
+				tmp = type.clone();
+			}
+			else if(stoList.elementAt(i).getType().isArray()){
+				tmp = new ArrayType(type.getName()+"[" + 
+							((ArrayType)(stoList.elementAt(i).getType())).getArraySize() + "]", 0);
+				((ArrayType)stoList.elementAt(i).getType()).setElementType(type.clone());
+			}
+			else if(stoList.elementAt(i).getType().isPointer()){
+				((PointerType)stoList.elementAt(i).getType()).setElementType(type.clone());
+				tmp = new PointerType(((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*", 4);
+				((PointerType)tmp).setElementType(type.clone());
+			}
+			else{
+			}
 			//Check redeclare error
 			if (m_symtab.accessLocal (id) != null)
 			{
@@ -215,9 +232,10 @@ class MyParser extends parser
 			//Check if the init type is assignable to Type
 			if(stoList.elementAt(i).getInit() != null){
 				//If the init expression is not assignable to type declared
-				if(!(stoList.elementAt(i).getInit().getType().isAssignableTo(type))){
+				
+				if(!(stoList.elementAt(i).getInit().getType().isAssignableTo(tmp))){
 					m_nNumErrors++;
-					m_errors.print (Formatter.toString(ErrorMsg.error8_Assign,stoList.elementAt(i).getInit().getType().getName(), type.getName()));
+					m_errors.print (Formatter.toString(ErrorMsg.error8_Assign,stoList.elementAt(i).getInit().getType().getName(), tmp.getName()));
 				    return;
 				}
 			}
@@ -467,6 +485,18 @@ class MyParser extends parser
 			}
 		}
 	}
+	
+	STO
+	doAddressOfCheck(STO target){
+		Type newType = new PointerType(target.getType().getName()+"*", 4);
+		((PointerType)newType).setElementType(target.getType());
+		ExprSTO ret = new ExprSTO("pointer to struct arrow", newType);
+		//Addressof results in a R-value
+		ret.setIsAddressable(false);
+		ret.setIsModifiable(false);
+		return ret;
+	}
+	
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
