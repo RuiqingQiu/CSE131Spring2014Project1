@@ -1,0 +1,23 @@
+function : void main(){
+  int* x;
+  new x;
+  delete x;
+  
+  int y = 1;
+  //First error, not a valid pointer type
+  new y;
+  //Second error
+  delete y;
+  
+  int [10] arr;
+  //third error
+  new arr;
+  //fourth error
+  delete arr;
+  
+  //Error, not l-val
+  new 1;
+  
+  //Error
+  delete arr[1];
+}

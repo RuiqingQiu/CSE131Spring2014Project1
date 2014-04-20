@@ -823,7 +823,8 @@ WriteStmt ::=       T_COUT T_OSTREAM WritePairList T_SEMI
 NewStmt  ::= 	T_NEW Designator:_1 T_SEMI
                 {: 
                    //Check the VarSTO is valid for new statement
-                    ((MyParser) parser).DoNewDeleteStmtCheck(_1);           
+                    ((MyParser) parser).DoNewDeleteStmtCheck(_1);      
+                         
                 :} 
 	;
 

@@ -192,12 +192,14 @@ class MyParser extends parser
 		if(!(sto.isModLValue())){
 			m_nNumErrors++;
 			m_errors.print (ErrorMsg.error16_New_var);
+			return;
 		}
 		
 		//type of sto is not a valid pointer type
 		if(!(sto.getType().isPointer())){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error16_New,sto.getType().getName()));
+		
 		}
 	}
 	
