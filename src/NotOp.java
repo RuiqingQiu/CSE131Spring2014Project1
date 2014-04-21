@@ -6,7 +6,7 @@ public class NotOp extends UnaryOp{
 		//Not must have bool operand
 		if(aType instanceof BoolType){
 			if(a instanceof ConstSTO){
-				ConstSTO c = new ConstSTO("", new BoolType("bool", 1));
+				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(!((ConstSTO)a).getBoolValue())
 					c.setValue(1.0);
 				else

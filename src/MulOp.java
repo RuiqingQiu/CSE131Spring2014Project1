@@ -24,7 +24,7 @@ public class MulOp extends ArithmeticOp{
 				c.setValue(x);
 				return c;
 			}
-			return new ExprSTO("MulOp", new FloatType("Float", 32));
+			return new ExprSTO("MulOp", new FloatType("Float", 4));
 		}
 	}
 }
