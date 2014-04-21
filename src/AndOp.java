@@ -8,7 +8,7 @@ public class AndOp extends BooleanOp {
 		//Both operands must be bool type
 		if (aType instanceof BoolType && bType instanceof BoolType) {
 			if(a instanceof ConstSTO && b instanceof ConstSTO){
-				ConstSTO c = new ConstSTO("", new BoolType("bool", 1));
+				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(((ConstSTO)a).getBoolValue() && ((ConstSTO)b).getBoolValue())
 					c.setValue(1.0);
 				else

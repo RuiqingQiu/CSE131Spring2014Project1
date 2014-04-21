@@ -8,24 +8,24 @@ public class NotEqualOp extends ComparisonOp{
 		//The operand must be either both numeric or both bool
 		if (aType instanceof NumericType && bType instanceof NumericType) {
 			if(a instanceof ConstSTO && b instanceof ConstSTO){
-				ConstSTO c = new ConstSTO("", new BoolType("bool", 1));
+				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(((ConstSTO)a).getFloatValue() != ((ConstSTO)b).getFloatValue())
 					c.setValue(1.0);
 				else
 					c.setValue(0.0);
 				return c;
 			}
-			return new ExprSTO("NotEqualOp", new BoolType("bool", 1));
+			return new ExprSTO("NotEqualOp", new BoolType("bool", 4));
 		} else if(aType instanceof BoolType && bType instanceof BoolType) {
 			if(a instanceof ConstSTO && b instanceof ConstSTO){
-				ConstSTO c = new ConstSTO("", new BoolType("bool", 1));
+				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(((ConstSTO)a).getBoolValue() != ((ConstSTO)b).getBoolValue())
 					c.setValue(1.0);
 				else
 					c.setValue(0.0);
 				return c;
 			}
-			return new ExprSTO("NotEqualOp", new BoolType("bool", 1));
+			return new ExprSTO("NotEqualOp", new BoolType("bool", 4));
 		}
 		//Check #17 to support pointer type
 		else if(aType.isPointer() || bType.isPointer()){

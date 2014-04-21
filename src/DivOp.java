@@ -34,7 +34,7 @@ public class DivOp extends ArithmeticOp{
 				c.setValue(x);
 				return c;
 			}
-			return new ExprSTO("DivOp", new FloatType("Float", 32));
+			return new ExprSTO("DivOp", new FloatType("Float", 4));
 		}
 	}
 }

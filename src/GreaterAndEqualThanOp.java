@@ -12,14 +12,14 @@ public class GreaterAndEqualThanOp extends BooleanOp {
 		}
 		else {
 			if(a instanceof ConstSTO && b instanceof ConstSTO){
-				ConstSTO c = new ConstSTO("", new BoolType("bool", 1));
+				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(((ConstSTO)a).getFloatValue() >= ((ConstSTO)b).getFloatValue())
 					c.setValue(1.0);
 				else
 					c.setValue(0.0);
 				return c;
 			}
-			return new ExprSTO("GreaterAndEqualThanOp", new BoolType("Bool", 1));
+			return new ExprSTO("GreaterAndEqualThanOp", new BoolType("bool", 4));
 		}
 	}
 }
