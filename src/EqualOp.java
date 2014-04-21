@@ -16,7 +16,7 @@ public class EqualOp extends ComparisonOp{
 				return c;
 			}
 			return new ExprSTO("EqualOp", new BoolType("bool", 4));
-
+         
 		} else if(aType instanceof BoolType && bType instanceof BoolType) {
 			if(a instanceof ConstSTO && b instanceof ConstSTO){
 				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
@@ -39,11 +39,26 @@ public class EqualOp extends ComparisonOp{
 					return tmp;
 					
 				}
-				//Not both null, do equivalent check
 				else{
+				  //Not both null, do equivalent check
+		          //bType still can be nullptr and a still can be nullptr
+			      if(bType.isNullPointer() || aType.isNullPointer()){
+			    	//then it should be false since they are not equal
+			        ConstSTO tmp = new ConstSTO("false", new BoolType("bool", 4));
+				    tmp.setValue(0.0);
+				    return tmp;
+			      }
+			      //a and b are not nullptr, need to check if basetype equals
+			      else{ 
+				    //System.out.println("bType base type is " + ((PointerType)bType).getPointerBaseType());
+					if(!(((PointerType)aType).getPointerBaseType().isEquivalentTo(((PointerType)bType).getPointerBaseType()))){
+						return new ErrorSTO(Formatter.toString(ErrorMsg.error17_Expr,"==",aType.getName(), bType.getName()));
+					}
+			      }
+					//otherwise it is correct return ExprSTO
 					return new ExprSTO("EqualOp", new BoolType("bool",4));
 				}
-			}
+			 }
 			//Error message from check #17, since one is pointer type and the other is not
 			else{
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error17_Expr,"==",aType.getName(), bType.getName()));

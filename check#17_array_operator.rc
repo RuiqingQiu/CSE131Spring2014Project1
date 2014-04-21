@@ -1,13 +1,20 @@
+typedef int INTEGER;
+structdef MYS{
+  int i;
+  float f;
+};
 function : void main(){
-  int* x;
+  int* x;  
   int* y;
   bool* b;
   
+  //Should fail since ptr should be structurally equivalence
   bool flag3 = b == y;
   
   //First error
   int flag4 = b != y;
   
+  //Pass this two cases
   bool flag = x == y;
   bool flag2 = x != y;
   
@@ -25,7 +32,8 @@ function : void main(){
   x = y;
   
   float * test1;
-  test1 = x;
+  test1 = x;  //int ptr assign to float ptr, should ok
+  
   bool flag6 = test1 == 1;
   bool flag7 = test1 != 1;
   bool flag5 = x == nullptr;
@@ -34,5 +42,24 @@ function : void main(){
   int i = 3;
   bool flag8 = p == i;
   bool flag9 = p != i;
+  
+  
+  //Test float ptr against int ptr
+  int* iPtr;
+  float* fPtr;
+  //Fail
+  bool flag10 = iPtr == fPtr;
+ 
+  //Test bool ptr against struct ptr
+  MYS* sPtr;
+  bool* bPtr;
+  bool flag11 = sPtr == bPtr;
+  
+  //Test bool ptr against typedef ptr
+  INTEGER* tPtr;
+  bool flag12 = tPtr == bPtr;
+  //Pass
+  bool flag13 = iPtr == tPtr;
+  
   
 }

@@ -28,6 +28,20 @@ function : void main(){
   typedef int[3] INT3;
   INT3 [4] arr2;    //  sizeOf = 4 * 12 = 48;
   x = sizeof(arr2);
+  
+  //Test against type
+  
+  //Should pass
+  x = sizeof(bool);
+  x = sizeof(int);
+  x = sizeof(float);
+  x = sizeof(INT3);
+  
+  
+  //Should fail for not a type
+  x = sizeof(boolean);
+  x = sizeof(error);
+  
   //Fail 1
   x = sizeof(1);
   //Fail 2
