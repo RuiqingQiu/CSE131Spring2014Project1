@@ -3,7 +3,7 @@ public class BoolType extends BasicType {
 
 	public BoolType(String strName, int size) {
 		super(strName, size);
-		this.setSize(1);
+		this.setSize(4);
 	}
 	public boolean isBool(){return true;}
 	@Override

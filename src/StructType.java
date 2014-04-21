@@ -31,6 +31,14 @@ public class StructType extends CompositeType{
 		}
 	}
 	
+	public int getStructSize(){
+		int total = 0;
+		for(STO s : fields){
+			total += s.getType().getSize();
+		}
+		return total;
+	}
+	
 	public Vector<STO> getField(){
 		return this.fields;
 	}

@@ -409,12 +409,26 @@ Type ::=         SubType:_1 OptModifiers:_2
 				 {:
 				   //If there's modifiers
 				   if(_2 != null){
-				     if(_2 instanceof ErrorType){
+				     if(_2.isError()){
 				       RESULT = _2;
 				     }
 				     else{
 				       ((CompositeType)_2).setElementType(_1);
 				       RESULT = _2;
+				       if(_2.isArray()){
+				         ((CompositeType)_2).setName(_1.getName()+"[" + 
+							((ArrayType)(_2)).getArraySize() + "]");
+					     int size = 0;
+					     for(int j = 0; j < ((ArrayType)(_2)).getArraySize(); j++){
+						   size += _1.getSize();
+					     }
+					     ((ArrayType)_2).setSize(size);
+				       }
+				       else if(_2.isPointer()){
+					     //Get name of the pointer
+					     ((PointerType)_2).setName(
+							((PointerType)_2).getPrintedName() + "*");
+					   }
 				     }
 				   }
 				   else{
@@ -437,7 +451,6 @@ SubType ::=    QualIdent:_1
 			     //modifiy the previous type and set its name to be the correct typedef ID
 			     Type t = _1.getType().clone();
 				 t.setName(_1.getName());
-			     //This should be ARR
 			     RESULT = t;
 			   :}
 			   
@@ -1115,14 +1128,14 @@ Designator ::= T_STAR Designator:_1
         {:
             RESULT = ((MyParser) parser).DoUnaryExpr(_1, new NotOp());
         :}
-    |               T_SIZEOF T_LPAREN Designator:_2 T_RPAREN
-                    {:
-			RESULT = new ConstSTO("sizeof variable - fix me");
-                    :}
-    |               T_SIZEOF T_LPAREN Type:_2 T_RPAREN
-                    {:
-			RESULT = new ConstSTO("sizeof type - fix me");
-                    :}
+    |   T_SIZEOF T_LPAREN Designator:_2 T_RPAREN
+        {:
+		  RESULT = ((MyParser) parser).DoSizeOfDes(_2);
+        :}
+    |   T_SIZEOF T_LPAREN Type:_2 T_RPAREN
+        {:
+	      RESULT = ((MyParser) parser).DoSizeOfType(_2);
+        :}
     |               T_LPAREN Type T_RPAREN Designator:_2
                     {:
 			RESULT = _2;
