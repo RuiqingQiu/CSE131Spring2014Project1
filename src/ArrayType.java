@@ -20,9 +20,21 @@ public class ArrayType extends CompositeType{
 
 	@Override
 	public boolean isEquivalentTo(Type t) {
-		return false;
+		if(t.isArray()){
+			//It's an array and element type is the same, return true
+			if(this.getElementType().isEquivalentTo(((ArrayType)t).getElementType()))
+				return true;
+			//If the element type is not the same
+			else
+				return false;
+		}else{
+			return false;
+		}
 	}
 
+	/*
+	 * How many elements does it contain
+	 */
 	public int getArraySize(){
 		return this.ArraySize;
 	}

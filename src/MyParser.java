@@ -300,6 +300,11 @@ class MyParser extends parser
 					//Set name to be the element type with array size
 					((CompositeType)stoList.elementAt(i).getType()).setName(type.getName()+"[" + 
 							((ArrayType)(stoList.elementAt(i).getType())).getArraySize() + "]");
+					int size = 0;
+					for(int j = 0; j < ((ArrayType)(stoList.elementAt(i).getType())).getArraySize(); j++){
+						size += type.getSize();
+					}
+					((ArrayType)stoList.elementAt(i).getType()).setSize(size);
 					sto.setType(stoList.elementAt(i).getType());
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
@@ -445,12 +450,17 @@ class MyParser extends parser
 		}
 		StructType st = new StructType("struct", size);
 		st.setField(structFields);
+		//Set the size of the struct
+		st.setSize(st.getStructSize());
 		m_symtab.access(m_symtab.getStruct().getName()).setType(st);
+		
+		
 	}
 	void 
 	DoStructdefDeclEnd(){
 		m_symtab.setStruct(null);
 		m_symtab.setStructDefineComplete(true);
+		
 	}
     
 	STO
@@ -607,6 +617,18 @@ class MyParser extends parser
 		else
 			//Add all the param to the symbal table and FuncSTO
 			for(STO s : params){
+				//Check #19, all formal param are variables, which are mod l-val
+				s.setIsAddressable(true);
+				s.setIsModifiable(true);
+				if(s.getType().isArray()){
+					//May need to fix
+					s.getType().setSize(((ArrayType)s.getType()).getArraySize() 
+							* ((ArrayType)s.getType()).getElementType().getSize());
+					//Set name
+					((ArrayType)s.getType()).setName(((ArrayType)s.getType()).getElementType().getName()+"[" + 
+							((ArrayType)(s.getType())).getArraySize() + "]");
+					
+				}
 				m_symtab.getFunc().addParameter(s);
 				m_symtab.insert(s);
 			}
@@ -793,11 +815,54 @@ class MyParser extends parser
 			m_errors.print (result.getName());
 			return result;
 		}
-		leftHandSide.setIsAddressable(false);
-		leftHandSide.setIsModifiable(false);
-		return leftHandSide;
+		ExprSTO result = new ExprSTO(leftHandSide.getName() + " = " + rightHandSide.getName());
+		result.setType(leftHandSide.getType().clone());
+		result.setIsAddressable(false);
+		result.setIsModifiable(false);
+		return result;
 	}
 
+	STO
+	DoSizeOfDes(STO var){
+		if(var.isError()){
+			return var;
+		}
+		//Check if the operand is addressable
+		if(!(var.getIsAddressable())){
+			m_nNumErrors++;
+			m_errors.print (ErrorMsg.error19_Sizeof);
+			return new ErrorSTO("sizeof not addressable");
+		}
+		else{
+			//System.out.println("Type : " + var.getType());
+			int size = var.getType().getSize();
+			ConstSTO ret = new ConstSTO(var.getName()+"'s size");
+			System.out.println("Size : " + size);
+			ret.setValue(size);
+			ret.setType(new IntType("int", 4));
+			return ret; 
+		}
+	}
+	
+	STO
+	DoSizeOfType(Type t){
+		if(t.isError()){
+			return new ErrorSTO("sizeof error type");
+		}
+		if(t.isError()){
+			m_nNumErrors++;
+			m_errors.print (ErrorMsg.error19_Sizeof);
+			return new ErrorSTO("sizeof not a type");
+		}
+		else{
+			int size = t.getSize();
+			ConstSTO ret = new ConstSTO(t.getName()+"'s size");
+			ret.setValue(size);
+			ret.setType(new IntType("int", 4));
+			return ret;
+		}
+	}
+	
 	void DoWhileStmt(){
 		this.m_symtab.inWhileLoop(true);
 	}
@@ -839,7 +904,7 @@ class MyParser extends parser
 			for(int i = 0; i < arguments.size(); i++){
 				if (params.get(i).getType().isReference()){
 					//pass by reference, argument type is not equivalent to the parameter type
-					if(!arguments.get(i).getType().isEquivalentTo(params.get(i).getType())){
+					if(!arguments.get(i).getType().isEquivalentTo(params.get(i).getType())){						
 						m_nNumErrors++;
 						m_errors.print (Formatter.toString(ErrorMsg.error5r_Call, 
 						  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
@@ -848,10 +913,16 @@ class MyParser extends parser
 					
 					//pass by reference, argument is not a modifiable L-value
 					if(!arguments.get(i).isModLValue()){
-						m_nNumErrors++;
-						m_errors.print (Formatter.toString(ErrorMsg.error5c_Call, 
-								params.get(i).getName(), params.get(i).getType().getName()));
-						return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
+						//If it's an array name, should be a mod l-val
+						if(arguments.get(i).getType().isArray()){
+							
+						}
+						else{
+							m_nNumErrors++;
+							m_errors.print (Formatter.toString(ErrorMsg.error5c_Call, 
+									params.get(i).getName(), params.get(i).getType().getName()));
+							return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
+						}
 					}
 					
 					

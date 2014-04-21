@@ -23,4 +23,15 @@ function : void main(){
   x = sizeof(y); // should be 4
   x = sizeof(z); // should be 16
   x = sizeof(t); // should be 8
+  
+  int[3]  arr;    // total sizeOf is 4*3 = 12
+  typedef int[3] INT3;
+  INT3 [4] arr2;    //  sizeOf = 4 * 12 = 48;
+  x = sizeof(arr2);
+  //Fail 1
+  x = sizeof(1);
+  //Fail 2
+  x = sizeof(int[-1]);
+  //Fail 3
+  //x = sizeof();
 }
