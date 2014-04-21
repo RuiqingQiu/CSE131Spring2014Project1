@@ -17,4 +17,8 @@ function : void main(){
   //Value of type float is not assignable to type int
   i = f1;
 
+  int a;
+  float c;
+  a = a+++++a;
+  (c = a) = 5;
 }

@@ -793,6 +793,8 @@ class MyParser extends parser
 			m_errors.print (result.getName());
 			return result;
 		}
+		leftHandSide.setIsAddressable(false);
+		leftHandSide.setIsModifiable(false);
 		return leftHandSide;
 	}
 

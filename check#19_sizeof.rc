@@ -1,0 +1,26 @@
+typedef float FOO;
+structdef MS{
+  int a,b;
+};
+
+int x;
+const float y = 55.5;
+bool[4] z;
+MS t;
+
+function: void foo(bool[4] &p1,bool *p2){
+  x = sizeof(p1);  //should be 16
+  x = sizeof(p2);  //should be 4
+}
+
+function : void main(){
+  foo(z,z);
+  x = sizeof(FOO); // should be 4
+  x = sizeof(MS); // should be 8
+  x = sizeof(float ***); // should be 4
+  x = sizeof(int[3]); // should be 12
+  x = sizeof(x); // should be 4
+  x = sizeof(y); // should be 4
+  x = sizeof(z); // should be 16
+  x = sizeof(t); // should be 8
+}
