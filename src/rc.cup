@@ -1168,6 +1168,7 @@ Designator ::= T_STAR Designator:_1
         :}
     |   T_LPAREN Type T_RPAREN Designator:_2
         {:
+          //Check 20 Type cast
 		  RESULT = _2;
         :}
     |   IncDecOp:_1 Designator:_2
