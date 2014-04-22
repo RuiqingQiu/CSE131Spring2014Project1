@@ -1,7 +1,7 @@
 typedef funcptr : int (int x, int y) MYPTRALIAS;
-MYPTRALIAS myPtr1, myPtr2;
+MYPTRALIAS myPtr1, myPtr2; // two function pointers
 typedef funcptr : int (int&x, int &y) TEST;
-TEST ptr1;
+TEST ptr1;  
 
 function : int addition(int x, int y){
   return x + y;
@@ -16,10 +16,12 @@ function : int& test(int x, int& y){
   return x - y;
 }
 
+//Fail 2 requires a result expr, none found
 function : int* test3(float*** x, bool* &y){
   return;
 }
 
+// Fail 3 return not a modifiable l-val
 function : int* & test2(int ******x, int& y){
   int a = 1;
   return &a;

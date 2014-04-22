@@ -2,6 +2,7 @@ int **x;
 typedef float* PTR;
 PTR y;
 PTR *z;
+//funcptr : int (int x, int y) foo;
 
 function : void main(){
   typedef float[2] FARR;
@@ -16,4 +17,7 @@ function : void main(){
   
   //Okay
   FA2 *fa2p = fa2a3;
+  
+  //foo++;
+  //foo--;
 }
