@@ -553,6 +553,7 @@ class MyParser extends parser
 		Type newType = new PointerType(target.getType().getName()+"*", 4);
 		((PointerType)newType).setElementType(target.getType());
 		ExprSTO ret = new ExprSTO("pointer to struct arrow", newType);
+		ret.setType(newType.clone());
 		//Addressof results in a R-value
 		ret.setIsAddressable(false);
 		ret.setIsModifiable(false);
@@ -676,9 +677,9 @@ class MyParser extends parser
 		}
 		else{
 			//no expr is specified and the return type is not void
-			if(!(m_symtab.getFunc().getReturnType() instanceof VoidType)){
+			if(!(m_symtab.getFunc().getReturnType().isVoid())){
 				//Return should not be void but is void
-				if(t instanceof VoidType){
+				if(t.isVoid()){
 					m_nNumErrors++;
 					m_errors.print (ErrorMsg.error6a_Return_expr);
 					return;
@@ -898,63 +899,113 @@ class MyParser extends parser
 	STO
 	DoFuncCall (STO sto, Vector<STO> arguments)
 	{
-		if (!sto.isFunc())
+		if (!sto.isFunc() && !sto.getType().isFuncPointer())
 		{
 			m_nNumErrors++;
 			m_errors.print (Formatter.toString(ErrorMsg.not_function, sto.getName()));
 			return (new ErrorSTO (sto.getName ()));
 		}
-		
-		//It's a FuncSTO, check number of arguments
-		FuncSTO tmp = (FuncSTO) sto;
-		//Check the number is the same
-		if(arguments.size() == tmp.getParameterNumbers()){
-			Vector<STO> params = (Vector<STO>) tmp.getParameterSTO().clone();
-			for(int i = 0; i < arguments.size(); i++){
-				if (params.get(i).getType().isReference()){
-					//pass by reference, argument type is not equivalent to the parameter type
-					if(!arguments.get(i).getType().isEquivalentTo(params.get(i).getType())){						
-						m_nNumErrors++;
-						m_errors.print (Formatter.toString(ErrorMsg.error5r_Call, 
-						  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
-						return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
-					}
-					
-					//pass by reference, argument is not a modifiable L-value
-					if(!arguments.get(i).isModLValue()){
-						//If it's an array name, should be a mod l-val
-						if(arguments.get(i).getType().isArray()){
-							
-						}
-						else{
+		if(sto.isFunc())
+		{
+			//It's a FuncSTO, check number of arguments
+			FuncSTO tmp = (FuncSTO) sto;
+			//Check the number is the same
+			if(arguments.size() == tmp.getParameterNumbers()){
+				Vector<STO> params = (Vector<STO>) tmp.getParameterSTO().clone();
+				for(int i = 0; i < arguments.size(); i++){
+					if (params.get(i).getType().isReference()){
+						//pass by reference, argument type is not equivalent to the parameter type
+						if(!arguments.get(i).getType().isEquivalentTo(params.get(i).getType())){						
 							m_nNumErrors++;
-							m_errors.print (Formatter.toString(ErrorMsg.error5c_Call, 
-									params.get(i).getName(), params.get(i).getType().getName()));
-							return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
+							m_errors.print (Formatter.toString(ErrorMsg.error5r_Call, 
+							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
+							return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
+						}
+						
+						//pass by reference, argument is not a modifiable L-value
+						if(!arguments.get(i).isModLValue()){
+							//If it's an array name, should be a mod l-val
+							if(arguments.get(i).getType().isArray()){
+								
+							}
+							else{
+								m_nNumErrors++;
+								m_errors.print (Formatter.toString(ErrorMsg.error5c_Call, 
+										params.get(i).getName(), params.get(i).getType().getName()));
+								return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
+							}
 						}
 					}
-					
-					
-					
-				}
-				//The argument is pass by value
-				else{
-					//If the type is not assignable
-					if(!arguments.get(i).getType().isAssignableTo(params.get(i).getType())){
-						m_nNumErrors++;
-						m_errors.print (Formatter.toString(ErrorMsg.error5a_Call, 
-						  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
-						return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
+					//The argument is pass by value
+					else{
+						//If the type is not assignable
+						if(!arguments.get(i).getType().isAssignableTo(params.get(i).getType())){
+							m_nNumErrors++;
+							m_errors.print (Formatter.toString(ErrorMsg.error5a_Call, 
+							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
+							return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
+						}
 					}
 				}
+			    //The function evaluates to return type
+			    return new ExprSTO("FuncCall", tmp.getReturnType());
 			}
-		    //The function evaluates to return type
-		    return new ExprSTO("FuncCall", tmp.getReturnType());
+			else{
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error5n_Call, arguments.size(), tmp.getParameterNumbers()));
+				return (new ErrorSTO ("DoFuncCall, arugment number"));
+			}
 		}
+		//Here if the sto is varSTO and type is FunctionPointerType
 		else{
-			m_nNumErrors++;
-			m_errors.print (Formatter.toString(ErrorMsg.error5n_Call, arguments.size(), tmp.getParameterNumbers()));
-			return (new ErrorSTO ("DoFuncCall, arugment number"));
+			//It's a FuncSTO, check number of arguments
+			FunctionPointerType t = ((FunctionPointerType)sto.getType());
+			//Check the number is the same
+			if(arguments.size() == t.getParameterNumbers()){
+				Vector<STO> params = (Vector<STO>) t.getParameters().clone();
+				for(int i = 0; i < arguments.size(); i++){
+					if (params.get(i).getType().isReference()){
+						//pass by reference, argument type is not equivalent to the parameter type
+						if(!arguments.get(i).getType().isEquivalentTo(params.get(i).getType())){						
+							m_nNumErrors++;
+							m_errors.print (Formatter.toString(ErrorMsg.error5r_Call, 
+							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
+							return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
+						}
+						
+						//pass by reference, argument is not a modifiable L-value
+						if(!arguments.get(i).isModLValue()){
+							//If it's an array name, should be a mod l-val
+							if(arguments.get(i).getType().isArray()){
+								
+							}
+							else{
+								m_nNumErrors++;
+								m_errors.print (Formatter.toString(ErrorMsg.error5c_Call, 
+										params.get(i).getName(), params.get(i).getType().getName()));
+								return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
+							}
+						}
+					}
+					//The argument is pass by value
+					else{
+						//If the type is not assignable
+						if(!arguments.get(i).getType().isAssignableTo(params.get(i).getType())){
+							m_nNumErrors++;
+							m_errors.print (Formatter.toString(ErrorMsg.error5a_Call, 
+							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
+							return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
+						}
+					}
+				}
+			    //The function evaluates to return type
+			    return new ExprSTO("FuncCall", t.getReturnType());
+			}
+			else{
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error5n_Call, arguments.size(), t.getParameterNumbers()));
+				return (new ErrorSTO ("DoFuncCall, arugment number"));
+			}
 		}
 	}
 

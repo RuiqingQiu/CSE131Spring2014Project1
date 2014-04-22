@@ -68,7 +68,7 @@ public class FunctionPointerType extends PointerGroupType {
 			if(i == this.parameters.size()-1){
 				paramList += s.getType().getName();
 				if(s.getType().isReference())
-					paramList += "& "+ s.getName();
+					paramList += " &"+ s.getName();
 				else
 					paramList += " " + s.getName();
 			}
@@ -76,7 +76,7 @@ public class FunctionPointerType extends PointerGroupType {
 				
 				paramList += s.getType().getName();
 				if(s.getType().isReference())
-					paramList += "& "+ s.getName();
+					paramList += " &"+ s.getName();
 				else
 					paramList += " " + s.getName() + ", ";
 			}

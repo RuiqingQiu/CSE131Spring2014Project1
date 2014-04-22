@@ -16,8 +16,19 @@ function : int& test(int x, int& y){
   return x - y;
 }
 
+function : int* test3(float*** x, bool* &y){
+  return;
+}
+
+function : int* & test2(int ******x, int& y){
+  int a = 1;
+  return &a;
+}
+
 function : int main(){
   myPtr1 = test;
+  myPtr1 = test2;
+  myPtr1 = test3;
   if(myPtr1 == nullptr){
     myPtr1 = addition;
   }

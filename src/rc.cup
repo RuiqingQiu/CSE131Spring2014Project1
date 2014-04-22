@@ -135,11 +135,9 @@ non terminal
     Equality,
     Relation,
 
-    ArrElemsList,
+    ArrElemsList
 
 
-
-	OptPointerList
     ;
 
 non terminal String    
@@ -181,7 +179,8 @@ non terminal Type
     DeclareType,
     OptModifiers, 
     Pointer,   
-    PointerList
+    PointerList,
+	OptPointerList
     ;
     	
 non terminal Vector
@@ -513,7 +512,10 @@ OptModifiers ::= 	PointerList:_1
     |               /* empty */
     ;
 	
-OptPointerList ::= 	PointerList
+OptPointerList ::= 	PointerList: _1
+					{:
+					  RESULT = _1;
+					:}
     |               /* empty */
     ;
 
@@ -537,10 +539,16 @@ Pointer ::=        T_STAR:_1
     ;
 
 
-ReturnType ::=      SubType:_1 OptPointerList
+ReturnType ::=      SubType:_1 OptPointerList:_2
                     {:
                         // You should determine the type and return it here
-                        RESULT = _1;
+                        if(_2 != null){
+                          ((PointerType)_2).setElementType(_1);
+                          _2.setName(((PointerType)_2).getPrintedName()+"*");
+                          RESULT = _2;
+                        }else{
+                          RESULT = _1;
+                        }
                     :}
     |               T_VOID
     				{:
