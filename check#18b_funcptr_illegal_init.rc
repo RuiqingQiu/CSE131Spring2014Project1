@@ -1,13 +1,15 @@
 function : int foo(){ return 0;}
 //Fail, global not known at compile time
 funcptr : int() fp1 = foo;
+funcptr : int* &(float x, int y, int z) fp3;
 
 function : void foo2(){}
-
+function : int* & foo3(float a, int b, int c, int d){return &b;}
 funcptr : int() fp2;
 function : void main(){
   funcptr : int() fp1 = foo;
   
   //Fail 2, not assignable
   funcptr : int() fp2 = foo2;
+  fp3 = foo3;
 }
