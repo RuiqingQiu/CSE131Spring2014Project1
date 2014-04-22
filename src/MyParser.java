@@ -309,17 +309,6 @@ class MyParser extends parser
 					sto.setIsAddressable(true);
 					sto.setIsModifiable(false);
 				}
-				else if(stoList.elementAt(i).getType().isFuncPointer()){
-					((FunctionPointerType)stoList.elementAt(i).getType()).setElementType(type);
-					//Get name of the pointer
-					((FunctionPointerType)stoList.elementAt(i).getType()).setName(
-							((FunctionPointerType)stoList.elementAt(i).getType()).getErrorName());
-					sto.setType(stoList.elementAt(i).getType());
-					System.out.println("enter");
-					//Array is addressable but not modifiable
-					sto.setIsAddressable(true);
-					sto.setIsModifiable(true);
-				}
 				else if(stoList.elementAt(i).getType().isPointer()){
 					((PointerType)stoList.elementAt(i).getType()).setElementType(type);
 					//Get name of the pointer
