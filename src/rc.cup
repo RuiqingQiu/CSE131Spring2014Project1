@@ -470,9 +470,14 @@ SubType ::=    QualIdent:_1
 			   {:
 			     //Get the basic type out of TypedefSTO
 			     //modifiy the previous type and set its name to be the correct typedef ID
-			     Type t = _1.getType().clone();
-				 t.setName(_1.getName());
-			     RESULT = t;
+			     if(_1.isError()){
+			       RESULT = new ErrorType("type not found", 4);
+			     }
+			     else{
+			       Type t = _1.getType().clone();
+				   t.setName(_1.getName());
+			       RESULT = t;
+			     }
 			   :}
 			   
     |               BasicType:_1

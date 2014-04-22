@@ -47,5 +47,7 @@ function : void main(){
   //Fail 2
   x = sizeof(int[-1]);
   //Fail 3
-  //x = sizeof();
+  x = sizeof(MYTYPE);
+  
+  
 }
