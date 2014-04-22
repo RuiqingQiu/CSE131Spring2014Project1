@@ -451,7 +451,19 @@ UndecoratedType ::= SubType:_1
 					{:
 					  RESULT = _1; 
 					:}
-    |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
+    |               T_FUNCPTR T_COLON ReturnType:_1 OptRef:_2 T_LPAREN OptParamList:_3 T_RPAREN
+    				{:
+    				  //Check#18b
+    				  //Store the information of the function pointer type and return
+    	    		  FunctionPointerType type = new FunctionPointerType("funcptr", 4);
+			    	  //If return by reference
+			    	  if(_2.equals("&"))
+						_1.setReference(true);
+					  type.setReturnType(_1);
+					  type.setParameters(_3);
+					  type.setName(type.getErrorName());
+					  RESULT = type;
+    				:}
     ;
 
 SubType ::=    QualIdent:_1

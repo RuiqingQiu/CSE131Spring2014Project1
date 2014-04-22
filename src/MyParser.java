@@ -247,8 +247,7 @@ class MyParser extends parser
 				tmp = new PointerType(((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*", 4);
 				((PointerType)tmp).setElementType(type.clone());
 			}
-			else{
-			}
+			
 			//Check redeclare error
 			if (m_symtab.accessLocal (id) != null)
 			{
@@ -309,6 +308,17 @@ class MyParser extends parser
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
 					sto.setIsModifiable(false);
+				}
+				else if(stoList.elementAt(i).getType().isFuncPointer()){
+					((FunctionPointerType)stoList.elementAt(i).getType()).setElementType(type);
+					//Get name of the pointer
+					((FunctionPointerType)stoList.elementAt(i).getType()).setName(
+							((FunctionPointerType)stoList.elementAt(i).getType()).getErrorName());
+					sto.setType(stoList.elementAt(i).getType());
+					System.out.println("enter");
+					//Array is addressable but not modifiable
+					sto.setIsAddressable(true);
+					sto.setIsModifiable(true);
 				}
 				else if(stoList.elementAt(i).getType().isPointer()){
 					((PointerType)stoList.elementAt(i).getType()).setElementType(type);
