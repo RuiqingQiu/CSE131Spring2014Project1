@@ -51,7 +51,7 @@ public class EqualOp extends ComparisonOp{
 			      //a and b are not nullptr, need to check if basetype equals
 			      else{ 
 				    //System.out.println("bType base type is " + ((PointerType)bType).getPointerBaseType());
-					if(!(((PointerType)aType).getPointerBaseType().isEquivalentTo(((PointerType)bType).getPointerBaseType()))){
+					if(!(((PointerType)aType).isEquivalentTo(((PointerType)bType)))){
 						return new ErrorSTO(Formatter.toString(ErrorMsg.error17_Expr,"==",aType.getName(), bType.getName()));
 					}
 			      }

@@ -1,0 +1,25 @@
+structdef MYSTRUCT{
+    int a,b;
+    bool c;
+    int[10] d;
+};
+structdef YOURSTRUCT{
+    int a,b;
+    bool c;
+    int[10] d;
+};
+
+typedef MYSTRUCT* PS;
+PS x;
+typedef MYSTRUCT MS2;
+YOURSTRUCT s3;
+
+function : int main() {
+
+    *x = s3; 
+// Value of type YOURSTRUCT not assignable to variable of type MS2.
+// or
+// Value of type YOURSTRUCT not assignable to variable of type MYSTRUCT.
+    return 0;
+}
+ 

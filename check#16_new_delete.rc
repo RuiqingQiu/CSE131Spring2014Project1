@@ -21,3 +21,11 @@ function : void main(){
   //Error
   delete arr[1];
 }
+
+function : int hello() {
+    int[2] arr;
+ 
+    delete arr;
+ 
+    return arr[0];
+}

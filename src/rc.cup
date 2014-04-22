@@ -435,7 +435,17 @@ Type ::=         SubType:_1 OptModifiers:_2
 				     RESULT = _1;
 				   }
 				 :}
-    |               T_FUNCPTR T_COLON ReturnType OptRef T_LPAREN OptParamList:_3 T_RPAREN
+    |    T_FUNCPTR T_COLON ReturnType:_1 OptRef:_2 T_LPAREN OptParamList:_3 T_RPAREN
+    	 {:
+    	    //Store the information of the function pointer type and return
+    	    FunctionPointerType type = new FunctionPointerType("funcptr", 4);
+    	    //If return by reference
+    	    if(_2.equals("&"))
+			  _1.setReference(true);
+		    type.setReturnType(_1);
+		    type.setParameters(_3);
+		    RESULT = type;
+    	 :}
     ;
 
 UndecoratedType ::= SubType:_1
@@ -459,10 +469,10 @@ SubType ::=    QualIdent:_1
     				  RESULT = _1;
     				:}
     |			DeclareType:_1
-    				{:
-    				  //Add for check#3c decltype keyword
-    				  RESULT = _1;
-    				:}
+    		    {:
+    			  //Add for check#3c decltype keyword
+    			  RESULT = _1;
+    			:}
     ;
 
 DeclareType ::=  T_DECLTYPE T_LPAREN Expr0:_1 T_RPAREN

@@ -61,5 +61,14 @@ function : void main(){
   //Pass
   bool flag13 = iPtr == tPtr;
   
+  //Should fail
+  int **iPtr2;
+  bool flag16 = iPtr == iPtr2;
   
+  bool flag15 = tPtr != bPtr;
+  //Pass
+  bool flag17 = iPtr != tPtr;
+  
+  //Should fail
+  bool flag14 = iPtr != iPtr2;
 }

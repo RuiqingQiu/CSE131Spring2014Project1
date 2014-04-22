@@ -414,7 +414,7 @@ class MyParser extends parser
 			//set the name of the TypedefSTO
 			TypedefSTO 	sto = new TypedefSTO (id);
 			
-			sto.setType(type);
+			sto.setType(type.clone());
 			m_symtab.insert (sto);
 		}
 	}
@@ -572,6 +572,13 @@ class MyParser extends parser
 		}
 	
 		FuncSTO sto = new FuncSTO (id);//initialize here so that we can insert parameter into the FuncSTO
+		
+		//FunctSTO are always FunctionPointerType
+		FunctionPointerType type = new FunctionPointerType("funcptr", 4);
+	   
+		//Set its return type
+		type.setReturnType(returnType);
+		sto.setType(type);
 		m_symtab.insert (sto);//inserted into current scope
 
 		m_symtab.openScope ();
@@ -586,10 +593,10 @@ class MyParser extends parser
 	void
 	DoFuncDecl_2 ()
 	{
-		
+		m_symtab.getFunc().getType().setName(((FunctionPointerType)(m_symtab.getFunc().getType())).getErrorName());
 		m_symtab.closeScope ();//close scope(pops top scope off)
 		//No top level return statement has been seen
-		if (m_symtab.getFunc().getTopLevelReturn() == false && !(m_symtab.getFunc().getReturnType() instanceof VoidType)){
+		if (m_symtab.getFunc().getTopLevelReturn() == false && !(m_symtab.getFunc().getReturnType().isVoid())){
 			m_nNumErrors++;
 			m_errors.print (ErrorMsg.error6c_Return_missing);
 		}
@@ -614,7 +621,7 @@ class MyParser extends parser
 		//If no arguments, return
 		if(params.size() == 0)
 			return;
-		else
+		else{
 			//Add all the param to the symbal table and FuncSTO
 			for(STO s : params){
 				//Check #19, all formal param are variables, which are mod l-val
@@ -629,10 +636,12 @@ class MyParser extends parser
 							((ArrayType)(s.getType())).getArraySize() + "]");
 					
 				}
+				//Add parameters to the type
+				((FunctionPointerType)(m_symtab.getFunc().getType())).addParameter(s);
 				m_symtab.getFunc().addParameter(s);
 				m_symtab.insert(s);
 			}
-	  // insert parameters here
+		}
 	}
 	
 	void

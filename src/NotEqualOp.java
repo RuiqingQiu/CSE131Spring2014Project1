@@ -38,6 +38,22 @@ public class NotEqualOp extends ComparisonOp{
 				}
 				//Not both null, do equivalent check
 				else{
+					//Not both null, do equivalent check
+			        //bType still can be nullptr and a still can be nullptr
+					if(bType.isNullPointer() || aType.isNullPointer()){
+				    	//then it should be false since they are not equal
+				        ConstSTO tmp = new ConstSTO("true", new BoolType("bool", 4));
+					    tmp.setValue(1.0);
+					    return tmp;
+				    }
+				    //a and b are not nullptr, need to check if basetype equals
+				    else{ 
+					    //System.out.println("bType base type is " + ((PointerType)bType).getPointerBaseType());
+						if(!(((PointerType)aType).isEquivalentTo(((PointerType)bType)))){
+							return new ErrorSTO(Formatter.toString(ErrorMsg.error17_Expr,"!=",aType.getName(), bType.getName()));
+						}
+				    }
+					//otherwise it is correct return ExprSTO
 					return new ExprSTO("NotEqualOp", new BoolType("bool",4));
 				}
 			}
