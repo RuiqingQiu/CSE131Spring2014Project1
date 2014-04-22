@@ -1,0 +1,11 @@
+function : void main(){
+  int x, y;
+  int *z;
+  const int w = 77;
+  z = &x;		//&x in this example is simply r-val
+  &x = nullptr; //error since not a modifiable l-val
+  y = *&x;		//*&x is essentially just x, so ok
+  *&x = y;		//the * reverse the &x, making it a mod l-val		
+  *&w = y;		//the * reverse the &w, making it a mod l-val
+  &*z = z;		//Error, result of address of is not a modfiable l-val
+}

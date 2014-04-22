@@ -1,0 +1,17 @@
+function : int add(int x, int y){
+  return x + y;
+}
+function : int add1(int &x, int y){
+  return x + y;
+}
+function : int* add2(int x, int y){
+  int result = x + y;
+  return &result;
+}
+function : void main(){
+  bool x = false;
+  int result = add((int)x , (int) x);
+  
+  //Fail
+  int result2 = add1((int)x, (int) x);
+}
