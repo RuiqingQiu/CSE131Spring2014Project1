@@ -219,6 +219,101 @@ class MyParser extends parser
 		}
 	}
 	
+	//Check#20 pass in the string and STO 
+	STO
+	DoCastCheck(Type t, STO s){
+		if(s.isError())
+			return s;
+		//only basic types and aliases to those types and pointers to any type
+		if(s.getType().isArray() || s.getType().isStruct() || s.getType().isFuncPointer()){
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error20_Cast,s.getType().getName(),t.getName()));
+		    return new ErrorSTO(ErrorMsg.error20_Cast);
+		}
+		
+		
+		//Check if STO is ConstSTO, if so, use casting rules
+		if(s.isConst()){
+			if(s.getType().isBool() && (t.isInt() || t.isFloat() || t.isPointer())){
+			    //if is a ConstSTO of type bool
+				if(((ConstSTO)s).getBoolValue()){
+				   //if true
+					ConstSTO tmp = new ConstSTO("type cast");
+					tmp.setType(t.clone());
+					tmp.setIsAddressable(false);
+					tmp.setIsModifiable(false);
+					tmp.setValue(1.0);
+					return tmp;
+			    }else{
+			    	//if is false
+			    	ConstSTO tmp = new ConstSTO("type cast");
+					tmp.setType(t.clone());
+					tmp.setValue(0.0);
+					tmp.setIsAddressable(false);
+					tmp.setIsModifiable(false);
+					return tmp;
+			    }
+			}
+			//else if want to cast to bool
+			else if((s.getType().isInt() || s.getType().isFloat() || s.getType().isPointer()) && t.isBool()){
+				  if(((ConstSTO)s).getValue() == 0.0){
+				  	//if equals to 0
+				  	ConstSTO tmp = new ConstSTO("type cast");
+				  	tmp.setType(t.clone());
+				  	tmp.setValue(0.0);
+				  	tmp.setIsAddressable(false);
+					tmp.setIsModifiable(false);
+				  	return tmp;
+				  }
+				  else{
+				  	//if equals to 1
+				  		ConstSTO tmp = new ConstSTO("type cast");
+				  		tmp.setType(t.clone());
+				  		tmp.setValue(1.0);
+				  		tmp.setIsAddressable(false);
+						tmp.setIsModifiable(false);
+				  		return tmp;
+				   }
+			     }
+			//else if want to cast a float to int or pointer type
+			//float --> int or pointer
+			else if (s.getType().isFloat() &&(t.isInt() || t.isPointer())){
+				ConstSTO tmp = new ConstSTO("type cast");
+			  	tmp.setType(t.clone());
+			  	tmp.setValue(((ConstSTO)s).getIntValue());
+			  	tmp.setIsAddressable(false);
+				tmp.setIsModifiable(false);
+			  	return tmp;
+			}
+			//int or pointer --> float
+			else if(t.isFloat() &&(s.getType().isInt() || s.getType().isPointer())){
+				ConstSTO tmp = new ConstSTO("type cast");
+			  	tmp.setType(t.clone());
+			  	tmp.setValue(((ConstSTO)s).getIntValue());
+			  	tmp.setIsAddressable(false);
+				tmp.setIsModifiable(false);
+			  	return tmp;	
+			}
+			// int <----> pointer
+			else{
+				ConstSTO tmp = new ConstSTO("type cast");
+			  	tmp.setType(t.clone());
+			  	//No change in value
+			  	tmp.setValue(((ConstSTO)s).getValue());
+			  	tmp.setIsAddressable(false);
+				tmp.setIsModifiable(false);
+			  	return tmp;	
+			}
+		}
+		//If not, return ExprSTO with type t
+		else{
+			ExprSTO sto = new ExprSTO("type cast",t.clone());
+			sto.setIsAddressable(false);
+			sto.setIsModifiable(false);
+			return sto;
+		}
+	}
+	
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

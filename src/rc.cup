@@ -1166,9 +1166,10 @@ Designator ::= T_STAR Designator:_1
         {:
 	      RESULT = ((MyParser) parser).DoSizeOfType(_2);
         :}
-    |   T_LPAREN Type T_RPAREN Designator:_2
+    |   T_LPAREN Type:_1 T_RPAREN Designator:_2
         {:
-		  RESULT = _2;
+        //Check 20 Type cast
+          RESULT = ((MyParser) parser).DoCastCheck(_1,_2);
         :}
     |   IncDecOp:_1 Designator:_2
         {:  

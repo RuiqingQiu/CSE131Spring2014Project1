@@ -1,0 +1,45 @@
+typedef float FOO;
+typedef FOO* FPTR;
+typedef int* IPTR;
+funcptr: int (int x, int y) foo;
+structdef MYS {
+  int x,b;
+};
+
+int x; 
+FOO y;
+FPTR z;
+int* intPtr;
+MYS myStruct;
+
+bool flag = true;
+
+function : int main(){
+  x = (int) y;
+  x = (int) (x + 4.9);
+  y = (FOO) (int) (65.3);
+  intPtr = (IPTR) z;
+  int x = (int)flag;
+  
+  int[3] arr;
+  //Fail
+  float[3] arr2= (float)arr;
+  //Fail
+  x = (int*)foo;
+  //Fail
+  x = (int)myStruct;
+  //Fail
+  x = (float)myStruct.a;
+  
+  //Fail
+  x = (float)myStruct.b;
+  
+  int w = 3;
+  //Pass, y is type FOO which has basic type float
+  y = (float)(w + 3);
+  const bool bo = true;
+  int[10] yArr;
+  z = yArr[(int)x];
+  
+  return 0;
+}
