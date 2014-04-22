@@ -13,6 +13,10 @@ public class DecOp extends UnaryOp{
 			
 		}
 		else if(aType.isPointer()){
+			//check if aType is a funcptr type
+			if(aType.isFuncPointer()){
+				return new ErrorSTO(Formatter.toString(ErrorMsg.error2_Type, aType.getName(), "--"));
+			}
 			return new ExprSTO("DecOp",aType);
 		}
 		else{

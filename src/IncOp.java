@@ -11,7 +11,11 @@ public class IncOp extends UnaryOp {
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error2_Lval,  "++"));
 		} 
 		else if(aType.isPointer()){
-			return new ExprSTO("IncOp",aType);
+			//check if aType is a functptr type
+			if(aType.isFuncPointer()){
+				return new ErrorSTO(Formatter.toString(ErrorMsg.error2_Type, aType.getName(), "++"));
+			}
+		    return new ExprSTO("IncOp",aType);
 		}
 		else{
 			return new ErrorSTO(Formatter.toString(ErrorMsg.error2_Type, aType.getName(), "++"));

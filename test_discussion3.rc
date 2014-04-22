@@ -2,7 +2,8 @@ int **x;
 typedef float* PTR;
 PTR y;
 PTR *z;
-//funcptr : int (int x, int y) foo;
+funcptr : int (int x, int y) foo;
+funcptr:  bool(int a1, float a2) boo;
 
 function : void main(){
   typedef float[2] FARR;
@@ -18,6 +19,14 @@ function : void main(){
   //Okay
   FA2 *fa2p = fa2a3;
   
-  //foo++;
-  //foo--;
+  foo++;
+  foo--;
+  ++foo;
+  --foo;
+
+  foo = nullptr;
+     
+  bool flag = boo == nullptr;
+  foo = boo; 
+  flag = nullptr != boo;
 }

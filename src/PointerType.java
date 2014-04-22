@@ -17,6 +17,8 @@ public class PointerType extends PointerGroupType {
 	@Override
 	public boolean isAssignableTo(Type t) {
 		if(t.isPointer()){
+			if(t.isNullPointer())
+				return false;
 			//Check if the pointer type is the same as the array type
 			return this.getElementType().isAssignableTo(((PointerType)t).getElementType());
 		}
@@ -26,6 +28,8 @@ public class PointerType extends PointerGroupType {
 	
 	public boolean isEquivalentTo(Type t){
 		if(t.isPointer()){
+			if(t.isNullPointer())
+				return false;
 			//Check if the pointer type is the same as the array type
 			return this.getElementType().isEquivalentTo(((PointerType)t).getElementType());
 		}
