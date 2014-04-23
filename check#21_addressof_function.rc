@@ -1,0 +1,15 @@
+function : int foo(){ return 0;}
+typedef funcptr : int() MYFP;
+MYFP MyFuncPtr;
+function : void main(){
+  MyFuncPtr = foo;
+  //This will be a function call to foo
+  MyFuncPtr();
+  
+  MYFP * MyFuncPtrPtr;
+  MyFuncPtrPtr = &foo; //Should be an error, since foo is an R-value
+  
+  MyFuncPtrPtr = &MyFuncPtr; //OK
+  
+  (*MyFuncPtrPtr)(); //This will be a function call to foo
+}

@@ -75,6 +75,7 @@ abstract class Type
 	public boolean isStruct() {return false;}
 	public boolean isNullPointer() {return false;}
 	public boolean isFuncPointer(){return false;}
+	public boolean isGeneralPointer(){return false;}
 	//----------------------------------------------------------------
 	//	Name of the Type (e.g., int, bool, or some typedef
 	//----------------------------------------------------------------

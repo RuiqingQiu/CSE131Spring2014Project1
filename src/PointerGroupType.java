@@ -6,7 +6,7 @@ public class PointerGroupType extends CompositeType{
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean isPointer(){
+	public boolean isGeneralPointer(){
 		return true;
 	}
 	@Override

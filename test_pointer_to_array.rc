@@ -1,0 +1,17 @@
+typedef int[2] A; //int[2]
+typedef A[3] B;	//int[3][2]
+B* test1;	//int[3][2]*
+typedef int[3] C; //int[3]
+function : void test(){
+  C** test2 = test1; //int[2]** =< int[3][2]*
+}
+
+structdef S {
+  int [5] y;
+};
+
+function : int main() { 
+  S inst;
+  inst.y++; /* [Why] Should this work? */
+  return 1;
+}

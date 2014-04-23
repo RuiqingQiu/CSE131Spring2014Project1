@@ -404,6 +404,9 @@ class MyParser extends parser
 					sto.setIsAddressable(true);
 					sto.setIsModifiable(false);
 				}
+				else if(stoList.elementAt(i).getType().isFuncPointer()){
+					
+				}
 				else if(stoList.elementAt(i).getType().isPointer()){
 					((PointerType)stoList.elementAt(i).getType()).setElementType(type);
 					//Get name of the pointer
@@ -644,6 +647,12 @@ class MyParser extends parser
 	
 	STO
 	doAddressOfCheck(STO target){
+		if(!(target.getIsAddressable())){
+			m_nNumErrors++;
+			ErrorSTO ret = new ErrorSTO(Formatter.toString(ErrorMsg.error21_AddressOf, target.getType().getName()));
+			m_errors.print(ret.getName());
+			return ret;
+		}
 		Type newType = new PointerType(target.getType().getName()+"*", 4);
 		((PointerType)newType).setElementType(target.getType());
 		ExprSTO ret = new ExprSTO("pointer to struct arrow", newType);
@@ -974,6 +983,9 @@ class MyParser extends parser
 	STO
 	DoIfWhileExpr(STO expr)
 	{
+		if(expr.isError()){
+			return expr;
+		}
 		if(expr.getType().isBool() || expr.getType().isInt())
 			return expr;
 		
