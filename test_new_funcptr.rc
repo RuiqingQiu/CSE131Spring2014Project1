@@ -1,0 +1,6 @@
+funcptr: int ()fp1;
+
+function : void main(){
+  new fp1;
+  delete fp1;
+}

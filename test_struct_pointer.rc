@@ -1,0 +1,39 @@
+structdef REC {
+    float r;
+    int [10] arr1;
+    float [10] arr;
+};
+typedef REC* REC1;
+typedef bool[100] BARR; 
+structdef REC2{
+  REC2* r2;
+  REC r;
+};
+
+bool [4] z;
+
+function : void foo(bool[5] &fp1, bool *p2){
+}
+function : int main() {
+    REC *p;
+    float r;
+    r = p->f2;
+    foo(z, z);
+    return 0;
+     
+    REC1 s1;
+    
+    //Pass
+    new s1;
+    delete s1;
+     
+     REC2 r2;
+     REC2* r2Ptr = r2.r2;
+     sizeof(REC);
+     sizeof(REC2);
+     sizeof(BARR);
+     new r2Ptr;
+     delete r2Ptr;
+
+}
+

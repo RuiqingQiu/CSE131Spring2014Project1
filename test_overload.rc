@@ -1,0 +1,11 @@
+int foo;
+int [10] a;
+int [10] b;
+function : int foo(){
+  return 1;
+}
+
+function : void main(){
+  foo = foo();
+}
+

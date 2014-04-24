@@ -18,6 +18,7 @@ class FuncSTO extends STO
                 // fields as necessary
 		this.parameters = new Vector<STO>();
 		this.top_level_return = false;
+		this.overloadedFuncs = new Vector<STO>();
 	}
 
 
@@ -64,7 +65,8 @@ class FuncSTO extends STO
 	public boolean getTopLevelReturn(){
 		return this.top_level_return;
 	}
-
+	
+	private Vector<STO> overloadedFuncs;
 //----------------------------------------------------------------
 //	Instance variables.
 //----------------------------------------------------------------

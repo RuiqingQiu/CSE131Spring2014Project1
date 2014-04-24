@@ -196,7 +196,7 @@ class MyParser extends parser
 		}
 		
 		//type of sto is not a valid pointer type
-		if(!(sto.getType().isPointer())){
+		if(!(sto.getType().isGeneralPointer())){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error16_New,sto.getType().getName()));
 		}
@@ -213,7 +213,7 @@ class MyParser extends parser
 		}
 		
 		//type of sto is not a valid pointer type
-		if(!(sto.getType().isPointer())){
+		if(!(sto.getType().isGeneralPointer())){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error16_Delete,sto.getType().getName()));
 		}
@@ -636,7 +636,11 @@ class MyParser extends parser
 				return new ErrorSTO("struct pointer arrow error");
 			}else{
 				VarSTO sto = new VarSTO("tmp", ((PointerType)ptr.getType()).getElementType());
-				Type t = (DoDesignator2_Dot(sto, fieldName)).getType();
+				STO s = (DoDesignator2_Dot(sto, fieldName));
+				Type t;
+				if(s.isError())
+					return s;
+				t = s.getType();
 				ExprSTO ret = new ExprSTO("pointer to struct arrow", t);
 				ret.setIsAddressable(true);
 				ret.setIsModifiable(true);
@@ -671,8 +675,17 @@ class MyParser extends parser
 	{
 		if (m_symtab.accessLocal (id) != null)
 		{
-			m_nNumErrors++;
-			m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
+			//Check if it's a valid overload
+			
+			//FuncSTO overloaded = (FuncSTO) m_symtab.accessLocal(id);
+			STO tmp = m_symtab.accessLocal(id);
+			if(tmp.isFunc()){
+				//Do overload
+			}
+			else{
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
+			}
 		}
 	
 		FuncSTO sto = new FuncSTO (id);//initialize here so that we can insert parameter into the FuncSTO
@@ -969,6 +982,7 @@ class MyParser extends parser
 		}
 		else{
 			int size = t.getSize();
+			System.out.println("size is : " + size);
 			ConstSTO ret = new ConstSTO(t.getName()+"'s size");
 			ret.setValue(size);
 			ret.setType(new IntType("int", 4));

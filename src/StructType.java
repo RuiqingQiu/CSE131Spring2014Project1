@@ -35,6 +35,7 @@ public class StructType extends CompositeType{
 		int total = 0;
 		for(STO s : fields){
 			total += s.getType().getSize();
+			
 		}
 		return total;
 	}

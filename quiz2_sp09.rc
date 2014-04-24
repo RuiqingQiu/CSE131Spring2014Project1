@@ -1,0 +1,29 @@
+function : void main(){
+  int a;
+  typedef int[10] ARR;
+  ARR*  b;
+  
+  a = (*b)[a];
+}
+
+function : void test(){
+  float a;
+  int b;
+  float c;
+  int d;
+  a = 5.5;
+  
+  if( c!= b){
+    c = (d % b) /a;
+  }
+}
+
+function : void test1(){
+  bool a;
+  bool b;
+  bool c;
+  if (c && (b != a)){
+    c = b;
+  }
+}
+
