@@ -2,12 +2,13 @@ structdef REC {
     float r;
     int [10] arr1;
     float [10] arr;
+    decltype(r) floatdec;
 };
 typedef REC* REC1;
 typedef bool[100] BARR; 
 structdef REC2{
   REC2* r2;
-  REC r;
+  REC r, j;
 };
 
 bool [4] z;
@@ -16,6 +17,9 @@ function : void foo(bool[5] &fp1, bool *p2){
 }
 function : int main() {
     REC *p;
+    decltype(p) jjj;
+    auto i = jjj->r;
+    int a = jjj->arr1[9];
     float r;
     r = p->f2;
     foo(z, z);
@@ -34,6 +38,9 @@ function : int main() {
      sizeof(BARR);
      new r2Ptr;
      delete r2Ptr;
-
+     p->arr1[3] = 8;
+     r2Ptr->r.arr1[9] = 8;
+     int * ptr11 = r2Ptr->r.arr1;
+     r2Ptr->r.floatdec = true;
 }
 

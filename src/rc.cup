@@ -361,6 +361,7 @@ FieldList ::=     UndecoratedType:_1 IdList:_2 T_SEMI
 				       else if(tmp.getType().isStruct()){				         
 				       }
 				       else if(tmp.getType().isArray()){
+				         ((ArrayType)tmp.getType()).setElementType(_1.clone());
 				         tmp.getType().setSize(((ArrayType)tmp.getType()).getArraySize() 
 							* (_1.getSize()));
 					     //Set name

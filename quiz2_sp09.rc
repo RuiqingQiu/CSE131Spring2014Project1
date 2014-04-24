@@ -27,3 +27,10 @@ function : void test1(){
   }
 }
 
+function : int f() {
+    return;
+}
+
+function : int main1() { 
+    return 0;
+}

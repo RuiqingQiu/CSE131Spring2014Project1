@@ -1019,6 +1019,7 @@ class MyParser extends parser
 	STO
 	DoFuncCall (STO sto, Vector<STO> arguments)
 	{
+		boolean errorArgument = false;
 		if (!sto.isFunc() && !sto.getType().isFuncPointer())
 		{
 			m_nNumErrors++;
@@ -1039,7 +1040,8 @@ class MyParser extends parser
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error5r_Call, 
 							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
-							return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
+							errorArgument = true;
+							//return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
 						}
 						
 						//pass by reference, argument is not a modifiable L-value
@@ -1052,7 +1054,9 @@ class MyParser extends parser
 								m_nNumErrors++;
 								m_errors.print (Formatter.toString(ErrorMsg.error5c_Call, 
 										params.get(i).getName(), params.get(i).getType().getName()));
-								return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
+								errorArgument = true;
+
+								//return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
 							}
 						}
 					}
@@ -1063,17 +1067,20 @@ class MyParser extends parser
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error5a_Call, 
 							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
-							return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
+							errorArgument = true;
+							//return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
 						}
 					}
 				}
+				if(errorArgument)
+					return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
 			    //The function evaluates to return type
 			    return new ExprSTO("FuncCall", tmp.getReturnType());
 			}
 			else{
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString(ErrorMsg.error5n_Call, arguments.size(), tmp.getParameterNumbers()));
-				return (new ErrorSTO ("DoFuncCall, arugment number"));
+				return (new ErrorSTO ("DoFuncCall, argument number"));
 			}
 		}
 		//Here if the sto is varSTO and type is FunctionPointerType

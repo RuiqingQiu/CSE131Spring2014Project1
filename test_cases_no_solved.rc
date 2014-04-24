@@ -1,2 +1,4 @@
-
-int c = 1.2 & 0x2 || 1 & 2.0;
+function : void main()
+{
+  int c = 1.2 & 0x2 || 1 & 2.0;
+}
