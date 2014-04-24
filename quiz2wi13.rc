@@ -21,4 +21,8 @@ function : void main(){
   float c;
   a = a+++++a;
   (c = a) = 5;
+  
+  bool a1;
+  bool boo = a1  = (a1 = false);
+   
 }
