@@ -1286,6 +1286,11 @@ class MyParser extends parser
 		if(indexExpr.isError() ){
 			return indexExpr;
 		}
+		if(nameSto.getType().isNullPointer()){
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11t_ArrExp,nameSto.getType().getName()));	
+			return new ErrorSTO("error");
+		}
 		// Good place to do the array checks
 		//Check the type of designator precding any [] operator is not an array or pointer type
 		if(!(nameSto.getType().isArray()) && !(nameSto.getType().isPointer())){
