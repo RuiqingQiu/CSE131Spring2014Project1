@@ -5,10 +5,10 @@ public class LessThanOp extends ComparisonOp{
 	STO checkOperands(STO a, STO b) {
 		Type aType = a.getType();
 		Type bType = b.getType();
-		if (!(aType.isNumeric()) || !(bType.isNumeric())) {
-			// error
-			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,"bool", "<"));
-		}
+		if(!aType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,aType.getName(), "<"));
+		else if(!bType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,bType.getName(), "<"));
 		else {
 			if(a.isConst() && b.isConst()){
 				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));

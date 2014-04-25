@@ -1302,8 +1302,8 @@ class MyParser extends parser
 		}
 		//Check if the index expression is a constant, an error should generate if the index is 
 		//outside the bounds of the array
-		if(nameSto.getType() instanceof ArrayType){
-			if(indexExpr instanceof ConstSTO){
+		if(nameSto.getType().isArray()){
+			if(indexExpr.isConst()){
 				if(((ConstSTO) indexExpr).getIntValue() >= ((ArrayType)nameSto.getType()).getArraySize() || 
 				   ((ConstSTO) indexExpr).getIntValue() < 0){
 					m_nNumErrors++;
