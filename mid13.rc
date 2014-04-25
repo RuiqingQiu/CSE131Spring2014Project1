@@ -4,7 +4,9 @@ int a = 0123;
 const int c = 0X240;
 const float d = c ^ c;
 float * e = nullptr;
+float [4] farr;
 function : float & foo(){
+  e = farr;
   return e[-9000];
   //First error
   auto f = &(++a);

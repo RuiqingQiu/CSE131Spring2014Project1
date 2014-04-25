@@ -1,0 +1,76 @@
+int i;
+bool b;
+float f;
+int * ip;
+bool * bp;
+float * fp;
+int [10] ia;
+bool [10] ba;
+float [10] fa;
+
+typedef int IT;
+typedef bool BT;
+typedef float* FT;
+
+typedef FT FFT;
+typedef BT[8] BTA;
+typedef BTA* BTAI;
+typedef FT* FTP;
+typedef FTP[10] FPTA;
+
+structdef S1{
+  int is;
+  bool bs;
+  BTAI p;
+  FPTA pp;
+  S1 * ssp;
+};
+S1 st1;
+S1* st2;
+
+function: int & foo1(int a ){ return a;}
+function: int foo2(int a){return a;}
+function: int * foo3(int a){ return &a;}
+
+function : void main() {
+bool i;
+int f, [5]ib, *fa, [10]ibb, f3, *faa;
+f = b; // Error: bool not assignable to float;
+f = (bool)::i; // Error: bool is not assignable to int;
+i =  i; 
+i = ::i; // int cannot assignable to bool
+f = i;
+
+BT bt;
+f = (int[10])bt; //  Error: type BT cannot cast to Array
+f = (bool) st1; 
+
+int iss = ((((st1.ssp)->ssp)->ssp)->ssp)->is;
+
+int* newPtr;
+new newPtr;
+//=========================First Part =============================//
+
+FT ft1 = 1.0;
+FT ft1;
+float f2 = ft1 + 2.0; // Error: cannot operate + for float* 
+float f2 = *ft1 + ::f;
+(*(st1.p))[5] = true;
+(*(st1.p))[-10] = 1; // ? Array index not < 0
+*(*((st1.pp)[5])) = true;
+
+1=2=3=4; // 1 not modifiable 
+
+int a1 = 1;
+int a3 = 2;
+
+float c = a1/3.0 + a3/4.5;
+
+int c88 = 1.7&0x2 || 1&2.0;
+
+exit(true);
+exit(0);
+// Function point cannot be cast 
+
+
+}

@@ -1,0 +1,12 @@
+structdef A {
+  int a;
+};
+structdef B {
+  int a;
+};
+static int x, y, z;
+function : void main(){
+  A a;
+  B b;
+  
+}

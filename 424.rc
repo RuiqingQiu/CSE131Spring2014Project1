@@ -6,15 +6,32 @@ structdef MYS{
 static int x,y,z;
 
 typedef int INT;
+typedef INT INTT;
+typedef INTT* INTTPTR;
+typedef MYS[10] MYS1;
+typedef MYS1[20] MYS2; 
+
 //const float f = 1.0;
 //static float* floatPtr;
 function : void test1(){
+    MYS2 b;
+    MYS mys1;
+    b[19][8] = mys1;
+    
+    //index out of bounds
+    b[20][2] = mys1;
+    b[20][-1] = mys1;
+    
+    INTTPTR ptr;
+    INTT* intt;
+    ptr = intt;
+    
     INT a = 1;
-    bool boo = a;
-	float f2;
+    bool boo = a;    //INT not assginable to constant variable of type bool
+	float f2;        
 	decltype(a) test;
 	//Pass
-	test = f2;
+	test = f2;  //float not assignable to variable of type INT
 }
 
 
@@ -22,7 +39,6 @@ function : void test1(){
 typedef int[7] ARR;
 ARR[6] arr1;
 
-//int[6]* arr = arr1;
 
 typedef MYS P;
 typedef int INTEGER;

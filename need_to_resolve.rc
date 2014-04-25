@@ -13,5 +13,5 @@ function : MYS2 foo(){
   MYS s;
   MYS3 x;
   //Fail 
-  return x;
+  return s;
 }

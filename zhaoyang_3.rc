@@ -1,0 +1,31 @@
+structdef S {
+	S* a;
+	int[5] b;
+	float c;
+	bool* d;
+};
+structdef S2 {
+	S* a;
+	int[5] b;
+	float c;
+	bool* d;
+};
+int a;
+function : int& func(){
+	return *(int*)a;
+}
+function : int& func2(bool a){
+	S* s1;
+	return *(int*)s1->a->a->b[a-4];
+}
+function : void main(){
+	S* s1;
+	decltype (s1->a) s2;
+	*s1 = s2;
+	S2 s21 = *s2;
+	return;
+}
+
+function : void foo(){
+  int *a, *b;
+}
