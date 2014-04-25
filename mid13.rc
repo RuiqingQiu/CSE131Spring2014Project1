@@ -1,0 +1,18 @@
+int a = 0123;
+//First error
+//boolean b = true && false;
+const int c = 0X240;
+const float d = c ^ c;
+float * e = nullptr;
+function : float & foo(){
+  return e[-9000];
+  //First error
+  auto f = &(++a);
+  //Second error
+  return a;
+  a = sizeof(e[c]);
+  return *&foo();
+  return *e;
+  //fourth error
+  int [3] g = {0,1,2,3};
+}
