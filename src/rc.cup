@@ -1199,8 +1199,7 @@ Designator ::= T_STAR Designator:_1
               else{
                 ExprSTO ret = new ExprSTO(_1.getName(), _1.getType());
                 RESULT = ret;
-              }
-			  
+              }  
 			}
 			else{
 			  if(_1.isConst()){

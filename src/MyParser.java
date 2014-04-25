@@ -200,7 +200,7 @@ class MyParser extends parser
 			m_errors.print (ErrorMsg.error16_New_var);
 			return;
 		}
-		if(sto.getType().isNullPointer()){
+		if(sto.getType().isNullPointer() || sto.getType().isFuncPointer()){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error16_New,sto.getType().getName()));
 			return;
@@ -224,9 +224,9 @@ class MyParser extends parser
 			m_errors.print (ErrorMsg.error16_Delete_var);
 			return;
 		}
-		if(sto.getType().isNullPointer()){
+		if(sto.getType().isNullPointer() || sto.getType().isFuncPointer()){
 			m_nNumErrors++;
-			m_errors.print(Formatter.toString(ErrorMsg.error16_New,sto.getType().getName()));
+			m_errors.print(Formatter.toString(ErrorMsg.error16_Delete,sto.getType().getName()));
 			return;
 		}
 		//type of sto is not a valid pointer type
