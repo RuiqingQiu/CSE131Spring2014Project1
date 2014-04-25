@@ -15,6 +15,9 @@ public class ModOp extends ArithmeticOp{
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,bType.getName(), "%","int"));
 		} else{
 			if(a.isConst() && b.isConst()){
+				if(((ConstSTO)b).getIntValue() == 0){
+					return new ErrorSTO(ErrorMsg.error8_Arithmetic);
+				}
 				ConstSTO c = new ConstSTO("", aType);
 				c.setValue(((ConstSTO)a).getIntValue() % ((ConstSTO)b).getIntValue());
 				return c;	
