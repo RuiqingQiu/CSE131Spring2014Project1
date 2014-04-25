@@ -1,0 +1,17 @@
+structdef MYS{
+  int y;
+};
+structdef MYS3{
+  int y;
+};
+typedef MYS MYS2;
+function : void main(){
+  int *p;
+  int* ptr = (int *) &p; 
+}
+function : MYS2 foo(){
+  MYS s;
+  MYS3 x;
+  //Fail 
+  return x;
+}

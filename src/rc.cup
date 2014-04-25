@@ -486,7 +486,7 @@ SubType ::=    QualIdent:_1
 			     }
 			     else{
 			       Type t = _1.getType().clone();
-				   t.setName(_1.getName());
+				   t.setName(_1.getType().getName());
 			       RESULT = t;
 			     }
 			   :}

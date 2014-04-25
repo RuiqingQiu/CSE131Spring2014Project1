@@ -168,6 +168,9 @@ class MyParser extends parser
 	
 	void
 	DoAutoDeclaration(String id, STO sto){
+		if(sto.isError()){
+			return;
+		}
 		//Check redeclare error
 		if (m_symtab.accessLocal (id) != null)
 		{
@@ -531,8 +534,8 @@ class MyParser extends parser
 		}
 
 		TypedefSTO 	sto = new TypedefSTO (id);
-		StructType st = new StructType("struct", 0);
-		sto.setType(st);
+		StructType st = new StructType(id, 0);
+		sto.setType(st.clone());
 		m_symtab.insert (sto);
 		m_symtab.setStruct(sto);
 		m_symtab.setStructDefineComplete(false);
@@ -545,7 +548,7 @@ class MyParser extends parser
 		for(STO s : structFields){
 			size += s.getType().getSize();
 		}
-		StructType st = new StructType("struct", size);
+		StructType st = (StructType) m_symtab.getStruct().getType();
 		st.setField(structFields);
 		//Set the size of the struct
 		st.setSize(st.getStructSize());
@@ -604,6 +607,9 @@ class MyParser extends parser
 	 */
 	STO
 	doDereferenceCheck(STO deref){
+		if(deref.isError()){
+			return deref;
+		}
 		if(!(deref.getType().isPointer())){
 			m_nNumErrors++;
 			m_errors.print (Formatter.toString(ErrorMsg.error15_Receiver, deref.getType().getName()));
@@ -763,6 +769,9 @@ class MyParser extends parser
 	
 	void
 	DoReturnCheck(STO s){
+		if(s.isError()){
+			return;
+		}
 		Type t = s.getType();
 		if (m_symtab.getFunc () == null)
 		{
@@ -1075,6 +1084,13 @@ class MyParser extends parser
 				if(errorArgument)
 					return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
 			    //The function evaluates to return type
+				//Return by reference, return a mod l-val
+				if(tmp.getReturnType().isReference()){
+					ExprSTO ret = new ExprSTO("FuncCall", tmp.getReturnType());
+					ret.setIsAddressable(true);
+					ret.setIsModifiable(true);
+					return ret;
+				}
 			    return new ExprSTO("FuncCall", tmp.getReturnType());
 			}
 			else{
@@ -1126,6 +1142,13 @@ class MyParser extends parser
 					}
 				}
 			    //The function evaluates to return type
+				//Return by reference, return a mod l-val
+				if(t.getReturnType().isReference()){
+					ExprSTO ret = new ExprSTO("FuncCall", t.getReturnType());
+					ret.setIsAddressable(true);
+					ret.setIsModifiable(true);
+					return ret;
+				}
 			    return new ExprSTO("FuncCall", t.getReturnType());
 			}
 			else{
