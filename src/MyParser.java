@@ -224,25 +224,25 @@ class MyParser extends parser
 	
 	//Check#20 pass in the string and STO 
 	STO
-	DoCastCheck(Type t, STO s){
-		if(s.isError())
-			return s;
+	DoCastCheck(Type castToType, STO target){
+		if(target.isError())
+			return target;
 		//only basic types and aliases to those types and pointers to any type
-		if(s.getType().isArray() || s.getType().isStruct() || s.getType().isFuncPointer()){
+		if(target.getType().isArray() || target.getType().isStruct() || target.getType().isFuncPointer()){
 			m_nNumErrors++;
-			m_errors.print(Formatter.toString(ErrorMsg.error20_Cast,s.getType().getName(),t.getName()));
+			m_errors.print(Formatter.toString(ErrorMsg.error20_Cast,target.getType().getName(),castToType.getName()));
 		    return new ErrorSTO(ErrorMsg.error20_Cast);
 		}
 		
 		
 		//Check if STO is ConstSTO, if so, use casting rules
-		if(s.isConst()){
-			if(s.getType().isBool() && (t.isInt() || t.isFloat() || t.isPointer())){
+		if(target.isConst()){
+			if(target.getType().isBool() && (castToType.isInt() || castToType.isFloat() || castToType.isPointer())){
 			    //if is a ConstSTO of type bool
-				if(((ConstSTO)s).getBoolValue()){
+				if(((ConstSTO)target).getBoolValue()){
 				   //if true
 					ConstSTO tmp = new ConstSTO("type cast");
-					tmp.setType(t.clone());
+					tmp.setType(castToType.clone());
 					tmp.setIsAddressable(false);
 					tmp.setIsModifiable(false);
 					tmp.setValue(1.0);
@@ -250,7 +250,7 @@ class MyParser extends parser
 			    }else{
 			    	//if is false
 			    	ConstSTO tmp = new ConstSTO("type cast");
-					tmp.setType(t.clone());
+					tmp.setType(castToType.clone());
 					tmp.setValue(0.0);
 					tmp.setIsAddressable(false);
 					tmp.setIsModifiable(false);
@@ -258,11 +258,11 @@ class MyParser extends parser
 			    }
 			}
 			//else if want to cast to bool
-			else if((s.getType().isInt() || s.getType().isFloat() || s.getType().isPointer()) && t.isBool()){
-				  if(((ConstSTO)s).getValue() == 0.0){
+			else if((target.getType().isInt() || target.getType().isFloat() || target.getType().isPointer()) && castToType.isBool()){
+				  if(((ConstSTO)target).getValue() == 0.0){
 				  	//if equals to 0
 				  	ConstSTO tmp = new ConstSTO("type cast");
-				  	tmp.setType(t.clone());
+				  	tmp.setType(castToType.clone());
 				  	tmp.setValue(0.0);
 				  	tmp.setIsAddressable(false);
 					tmp.setIsModifiable(false);
@@ -271,7 +271,7 @@ class MyParser extends parser
 				  else{
 				  	//if equals to 1
 				  		ConstSTO tmp = new ConstSTO("type cast");
-				  		tmp.setType(t.clone());
+				  		tmp.setType(castToType.clone());
 				  		tmp.setValue(1.0);
 				  		tmp.setIsAddressable(false);
 						tmp.setIsModifiable(false);
@@ -280,19 +280,19 @@ class MyParser extends parser
 			     }
 			//else if want to cast a float to int or pointer type
 			//float --> int or pointer
-			else if (s.getType().isFloat() &&(t.isInt() || t.isPointer())){
+			else if (target.getType().isFloat() &&(castToType.isInt() || castToType.isPointer())){
 				ConstSTO tmp = new ConstSTO("type cast");
-			  	tmp.setType(t.clone());
-			  	tmp.setValue(((ConstSTO)s).getIntValue());
+			  	tmp.setType(castToType.clone());
+			  	tmp.setValue(((ConstSTO)target).getIntValue());
 			  	tmp.setIsAddressable(false);
 				tmp.setIsModifiable(false);
 			  	return tmp;
 			}
 			//int or pointer --> float
-			else if(t.isFloat() &&(s.getType().isInt() || s.getType().isPointer())){
+			else if(castToType.isFloat() &&(target.getType().isInt() || target.getType().isPointer())){
 				ConstSTO tmp = new ConstSTO("type cast");
-			  	tmp.setType(t.clone());
-			  	tmp.setValue(((ConstSTO)s).getIntValue());
+			  	tmp.setType(castToType.clone());
+			  	tmp.setValue(((ConstSTO)target).getIntValue());
 			  	tmp.setIsAddressable(false);
 				tmp.setIsModifiable(false);
 			  	return tmp;	
@@ -300,9 +300,9 @@ class MyParser extends parser
 			// int <----> pointer
 			else{
 				ConstSTO tmp = new ConstSTO("type cast");
-			  	tmp.setType(t.clone());
+			  	tmp.setType(castToType.clone());
 			  	//No change in value
-			  	tmp.setValue(((ConstSTO)s).getValue());
+			  	tmp.setValue(((ConstSTO)target).getValue());
 			  	tmp.setIsAddressable(false);
 				tmp.setIsModifiable(false);
 			  	return tmp;	
@@ -310,7 +310,7 @@ class MyParser extends parser
 		}
 		//If not, return ExprSTO with type t
 		else{
-			ExprSTO sto = new ExprSTO("type cast",t.clone());
+			ExprSTO sto = new ExprSTO("type cast",castToType.clone());
 			sto.setIsAddressable(false);
 			sto.setIsModifiable(false);
 			return sto;
@@ -769,10 +769,7 @@ class MyParser extends parser
 	
 	void
 	DoReturnCheck(STO s){
-		if(s.isError()){
-			return;
-		}
-		Type t = s.getType();
+		
 		if (m_symtab.getFunc () == null)
 		{
 			m_nNumErrors++;
@@ -784,6 +781,10 @@ class MyParser extends parser
 		if(m_symtab.getLevel() == 2){
 			m_symtab.getFunc().setTopLevelReturn(true);
 		}
+		if(s.isError()){
+			return;
+		}
+		Type t = s.getType();
 		//Check if the return type is by reference or value
 		if(m_symtab.getFunc().getReturnType().isReference()){
 		  //Check if the type of return expression is not equivalent to the return 

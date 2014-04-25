@@ -1271,12 +1271,14 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
     |               T_FALSE
                     {:
                         ConstSTO s = new ConstSTO ("false", new BoolType("bool",4));
-                        s.setValue(0);
+                        s.setValue(0.0);
                         RESULT = s;
                     :}
     |               T_NULLPTR
                     {:
-                        RESULT = new ConstSTO ("nullptr", new NullPointerType("nullptr", 4));
+                      	ConstSTO s = new ConstSTO ("nullptr", new NullPointerType("nullptr", 4));
+                      	s.setValue(0.0);
+                      	RESULT = s;
                     :}
     |               T_COLONCOLON T_ID:_1
     				//Check #0 global variable check
