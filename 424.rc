@@ -3,6 +3,11 @@ structdef MYS{
   int y;
 };
 
+const float f = 1.0;
+static float* floatPtr;
+
+int[6]** arr =  int[6][7];
+
 typedef MYS P;
 typedef int INTEGER;
 typedef funcptr : int() MYFP;
@@ -102,9 +107,7 @@ function : void main(){
      zPtr = (float)z;
      
      //This case doesn't pass
-     //fPtr = (float*)nullptr;
-     
-
+     fPtr = (float*)nullptr;
 }
 
 

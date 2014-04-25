@@ -1,3 +1,60 @@
-function : int& foo(int a){
+//return the address of an R-val, not ok
+/*
+function : int& test1(int a){
   return &(a+1);
 }
+
+//Should fail with not equivalence
+function : float& test2(int a){
+  return &a;
+}
+//Success case
+function : int& test3(float a){
+  return *(int*)&a;
+}
+*/
+
+const int x1 = 5;
+static int y1 = x1 + 5;
+
+structdef MYS{
+  int a,b;
+};
+
+
+function : int main(){
+ 
+  return main();
+} 
+
+//int* is not equivalent to the function return type
+function: MYS& test4(MYS a1){
+  int* a2;
+  return a2;
+}
+
+//not a mod l-val
+function: MYS& test4(MYS a1){
+  MYS mys;
+  return &mys;
+}
+
+//Pass
+function : void voidFunction(){}
+function : void test6(){
+  return voidFunction();
+}
+
+
+
+
+/*
+function: MYS& test4(MYS a1){
+  int* a2;
+  return a2;
+}
+
+function: int test5(){
+  int[10] arr;
+  float b = &arr;
+}*/
