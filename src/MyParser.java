@@ -330,7 +330,8 @@ class MyParser extends parser
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
 			String id = lstIDs.elementAt (i);
-			Type tmp = null;
+			//Type tmp = null;
+			Type tmp = type.clone();
 			if(stoList.elementAt(i).getType() == null){
 				//stoList.elementAt(i).setType(type.clone());
 				tmp = type.clone();
@@ -381,7 +382,6 @@ class MyParser extends parser
 			//Check if the init type is assignable to Type
 			if(stoList.elementAt(i).getInit() != null){
 				//If the init expression is not assignable to type declared
-				
 				if(!(stoList.elementAt(i).getInit().getType().isAssignableTo(tmp))){
 					m_nNumErrors++;
 					m_errors.print (Formatter.toString(ErrorMsg.error8_Assign,stoList.elementAt(i).getInit().getType().getName(), tmp.getName()));

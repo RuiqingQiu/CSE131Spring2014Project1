@@ -5,11 +5,12 @@ public class MinusOp extends ArithmeticOp{
 	STO checkOperands(STO a, STO b) {
 		Type aType = a.getType();
 		Type bType = b.getType();
-		if (!(aType instanceof NumericType) || !(bType  instanceof NumericType)) {
-			// error
-			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,"bool", "-"));
-		} else if (aType instanceof IntType && bType instanceof IntType) {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+		if(!aType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,aType.getName(), "-"));
+		else if(!bType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,bType.getName(), "-"));
+		else if (aType.isInt() && bType.isInt()) {
+			if(a.isConst() && b.isConst()){
 				int x = ((ConstSTO)a).getIntValue() - ((ConstSTO)b).getIntValue();
 				ConstSTO c = new ConstSTO("", aType);
 				c.setValue(x);
@@ -18,7 +19,7 @@ public class MinusOp extends ArithmeticOp{
 			//Calculate the value of two Ints
 			return new ExprSTO("MinusOp", aType);
 		} else {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+			if(a.isConst() && b.isConst()){
 				float x =  ((ConstSTO)a).getFloatValue() - ((ConstSTO)b).getFloatValue();
 				ConstSTO c = new ConstSTO("", aType);
 				

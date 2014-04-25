@@ -19,7 +19,7 @@ public class AndOp extends BooleanOp {
 		}
 		else {
 			// error
-			if(!(aType instanceof BoolType))
+			if(!(aType.isBool()))
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,aType.getName(), "&&", "bool"));
 			else
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,bType.getName(), "&&", "bool"));

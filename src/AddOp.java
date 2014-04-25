@@ -11,20 +11,19 @@ public class AddOp extends ArithmeticOp  {
 			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,aType.getName(), "+"));
 		else if(!bType.isNumeric())
 			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,bType.getName(), "+"));
-		else if (aType instanceof IntType && bType instanceof IntType) {
+		else if (aType.isInt() && bType.isInt()) {
 			if(a instanceof ConstSTO && b instanceof ConstSTO){
 				int x = ((ConstSTO)a).getIntValue() + ((ConstSTO)b).getIntValue();
-				ConstSTO c = new ConstSTO("", aType);
+				ConstSTO c = new ConstSTO("", aType.clone());
 				c.setValue(x);
 				return c;
 			}
 			//Calculate the value of two Ints
 			return new ExprSTO("AddOp", aType);
 		} else {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+			if(a.isConst()&& b.isConst()){
 				float x =  ((ConstSTO)a).getFloatValue() + ((ConstSTO)b).getFloatValue();
-				ConstSTO c = new ConstSTO("", aType);
-				
+				ConstSTO c = new ConstSTO("", aType.clone());
 				c.setValue(x);
 				return c;
 			}

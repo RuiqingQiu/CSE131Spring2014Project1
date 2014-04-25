@@ -16,7 +16,7 @@ public class BwAndOp extends BitwiseOp{
 		}
 		else {
 			// error
-			if(!(aType instanceof IntType))
+			if(!(aType.isInt()))
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,aType.getName(), "&", "int"));
 			else
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,bType.getName(), "&", "int"));
