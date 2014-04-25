@@ -363,7 +363,7 @@ class MyParser extends parser
 			//Check global or static initialized is known at compile time
 			if(stoList.elementAt(i).isStatic()){
 				//Special case where it's a funcptr
-				if(stoList.elementAt(i).isFunc()){
+				if(type.isFuncPointer()){
 					if(stoList.elementAt(i).getInit().isFunc()){
 						
 					}
@@ -382,7 +382,7 @@ class MyParser extends parser
 				//If it's  global scope
 				if(m_symtab.getLevel() == 1){
 					//Special case where it's a funcptr
-					if(stoList.elementAt(i).isFunc()){
+					if(type.isFuncPointer()){
 						if(stoList.elementAt(i).getInit().isFunc()){
 							
 						}
@@ -635,6 +635,11 @@ class MyParser extends parser
 	doDereferenceCheck(STO deref){
 		if(deref.isError()){
 			return deref;
+		}
+		if((deref.getType().isNullPointer())){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.error15_Receiver, deref.getType().getName()));
+			return new ErrorSTO("pointer dereference error");
 		}
 		if(!(deref.getType().isPointer())){
 			m_nNumErrors++;
