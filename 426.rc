@@ -1,0 +1,29 @@
+typedef int[19] ARR;
+typedef ARR[20] ARR2;
+
+function : void arrRefTest(ARR2& a){
+}
+function: void arrRefTest2(ARR& b){
+
+}
+function : void foo (int[19]& a){
+
+}
+function: void main(){
+  ARR2 test1;
+  ARR test2;
+  //Error, "426.rc": 
+  //Argument of type ARR not equivalent to reference parameter a, of type ARR2.
+  arrRefTest(test2);
+  arrRefTest2(test1[19]);
+  
+  //Error, "426.rc": 
+  //Argument of type ARR2 not equivalent to reference parameter b, of type ARR.
+  arrRefTest2(test1);
+  foo(test2);
+}
+
+
+
+function void arraySize(){
+}
