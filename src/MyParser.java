@@ -349,8 +349,8 @@ class MyParser extends parser
 			}
 			else if(stoList.elementAt(i).getType().isPointer()){
 				((PointerType)stoList.elementAt(i).getType()).setElementType(type.clone());
-				tmp = new PointerType(((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*", 4);
-				((PointerType)tmp).setElementType(type.clone());
+				tmp = ((PointerType)stoList.elementAt(i).getType()).clone();
+				tmp.setName(((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*");
 			}
 			
 			//Check redeclare error

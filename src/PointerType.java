@@ -52,7 +52,7 @@ public class PointerType extends PointerGroupType {
 		}
 		else{
 			if(this.getElementType().isPointer()){
-				((PointerType)this.getElementType()).setElementType(t.clone());
+				((PointerType)this.getElementType()).setElementType(t);
 			}
 			else{
 				this.ElementType = t.clone();
