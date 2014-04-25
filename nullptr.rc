@@ -1,0 +1,6 @@
+static int[10] aaa;
+static int * a = nullptr;
+function : void tmp(){
+  int* aa = ::aaa;
+  int* b = a;
+}

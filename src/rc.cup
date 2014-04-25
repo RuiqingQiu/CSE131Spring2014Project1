@@ -243,7 +243,7 @@ VarDecl ::=     OptStatic:_1 UndecoratedType:_2 IdListWOptInit:_3 T_SEMI
 	                           for(int i = 0; i < _3.size(); i++){
 	                             VarSTO s = (VarSTO)_3.elementAt(i);
 	                             s.setStatic(true);
-	                             s.setType(_2);
+	                             //s.setType(_2);
 	                             v.addElement(s);
 	                           }
 	                           ((MyParser) parser).DoVarDecl (v,_2);
@@ -269,7 +269,7 @@ ConstDecl ::=  OptStatic:_1 T_CONST UndecoratedType:_2 IdListWInit:_3 T_SEMI
                          for(int i = 0; i < _3.size(); i++){
                            VarSTO s = (VarSTO)_3.elementAt(i);
                            s.setStatic(true);
-                           s.setType(_2);
+                           //s.setType(_2);
                            v.addElement(s);
                          }
                          ((MyParser) parser).DoConstDecl (v, _2);
