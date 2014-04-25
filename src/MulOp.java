@@ -4,11 +4,11 @@ public class MulOp extends ArithmeticOp{
 	STO checkOperands(STO a, STO b) {
 		Type aType = a.getType();
 		Type bType = b.getType();
-		if (!(aType instanceof NumericType) || !(bType  instanceof NumericType)) {
+		if (!(aType.isNumeric()) || !(bType.isNumeric())) {
 			// error
 			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,"bool", "*"));
-		} else if (aType instanceof IntType && bType instanceof IntType) {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+		} else if (aType.isInt() && bType.isInt()) {
+			if(a.isConst() && b.isConst()){
 				int x = ((ConstSTO)a).getIntValue() * ((ConstSTO)b).getIntValue();
 				ConstSTO c = new ConstSTO("", aType);
 				c.setValue(x);
@@ -17,7 +17,7 @@ public class MulOp extends ArithmeticOp{
 			//Calculate the value of two Ints
 			return new ExprSTO("MulOp", aType);
 		} else {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+			if(a.isConst() && b.isConst()){
 				float x =  ((ConstSTO)a).getFloatValue() * ((ConstSTO)b).getFloatValue();
 				ConstSTO c = new ConstSTO("", aType);
 				

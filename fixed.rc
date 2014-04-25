@@ -4,4 +4,5 @@ function : void main(){
   int x = 1;
   foo(x, x);
   foo(2.0, 1);
+  decltype(x + false) y;
 }

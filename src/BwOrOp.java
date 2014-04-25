@@ -4,8 +4,8 @@ public class BwOrOp extends BitwiseOp{
 		Type aType = a.getType();
 		Type bType = b.getType();
 		//Both operands must be bool type
-		if (aType instanceof IntType && bType instanceof IntType) {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+		if (aType.isInt() && bType.isInt()) {
+			if(a.isConst() && b.isConst()){
 				int x = ((ConstSTO)a).getIntValue() | ((ConstSTO)b).getIntValue();
 				ConstSTO c = new ConstSTO("", aType);
 				c.setValue(x);

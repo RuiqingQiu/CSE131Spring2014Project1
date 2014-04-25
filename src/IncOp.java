@@ -4,7 +4,7 @@ public class IncOp extends UnaryOp {
 	@Override
 	STO checkOperands(STO a) {
 		Type aType = a.getType();
-		if (aType instanceof NumericType) {
+		if (aType.isNumeric()) {
 			if(a.getIsAddressable() == true && a.getIsModifiable() == true)
 				return new ExprSTO("IncOp", aType);
 			else

@@ -4,8 +4,8 @@ public class NotOp extends UnaryOp{
 	STO checkOperands(STO a) {
 		Type aType = a.getType();
 		//Not must have bool operand
-		if(aType instanceof BoolType){
-			if(a instanceof ConstSTO){
+		if(aType.isBool()){
+			if(a.isConst()){
 				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(!((ConstSTO)a).getBoolValue())
 					c.setValue(1.0);

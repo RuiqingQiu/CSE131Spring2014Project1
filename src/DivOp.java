@@ -6,12 +6,13 @@ public class DivOp extends ArithmeticOp{
 		Type aType = a.getType();
 		Type bType = b.getType();
 		//Both operands have to be numeric
-		if (!(aType instanceof NumericType) || !(bType  instanceof NumericType)) {
-			// error
-			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,"bool", "/"));
-		} else if (aType instanceof IntType && bType instanceof IntType) {
+		if(!aType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,aType.getName(), "/"));
+		else if(!bType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,bType.getName(), "/"));
+		else if (aType.isInt() && bType.isInt()) {
 			//Calculate the value of two Ints
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+			if(a.isConst() && b.isConst()){
 				//Check if dividing by 0
 				if(((ConstSTO)b).getIntValue() == 0){
 					return new ErrorSTO(ErrorMsg.error8_Arithmetic);
@@ -23,7 +24,7 @@ public class DivOp extends ArithmeticOp{
 			}
 			return new ExprSTO("DivOp", aType);
 		} else {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+			if(a.isConst() && b.isConst()){
 				//Check if dividing by 0
 				if(((ConstSTO)b).getFloatValue() == 0.0){
 					return new ErrorSTO(ErrorMsg.error8_Arithmetic);

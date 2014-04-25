@@ -6,8 +6,8 @@ public class OrOp extends BooleanOp {
 		Type aType = a.getType();
 		Type bType = b.getType();
 		//Both operands must be bool type
-		if (aType instanceof BoolType && bType instanceof BoolType) {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+		if (aType.isBool() && bType.isBool()) {
+			if(a.isConst() && b.isConst()){
 				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(((ConstSTO)a).getBoolValue() || ((ConstSTO)b).getBoolValue())
 					c.setValue(1.0);
@@ -19,7 +19,7 @@ public class OrOp extends BooleanOp {
 		}
 		else {
 			// error
-			if(!(aType instanceof BoolType))
+			if(!(aType.isBool()))
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,aType.getName(), "||", "bool"));
 			else
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,bType.getName(), "||", "bool"));

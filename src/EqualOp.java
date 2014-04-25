@@ -6,7 +6,7 @@ public class EqualOp extends ComparisonOp{
 		Type bType = b.getType();
 		
 		//The operand must be either both numeric or both bool
-		if (aType instanceof NumericType && bType instanceof NumericType) {
+		if (aType.isNumeric()&& bType.isNumeric()) {
 			if(a instanceof ConstSTO && b instanceof ConstSTO){
 				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(((ConstSTO)a).getFloatValue() == ((ConstSTO)b).getFloatValue())
@@ -17,8 +17,8 @@ public class EqualOp extends ComparisonOp{
 			}
 			return new ExprSTO("EqualOp", new BoolType("bool", 4));
          
-		} else if(aType instanceof BoolType && bType instanceof BoolType) {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+		} else if(aType.isBool() && bType.isBool()) {
+			if(a.isConst() && b.isConst()){
 				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(((ConstSTO)a).getBoolValue() == ((ConstSTO)b).getBoolValue())
 					c.setValue(1.0);

@@ -7,14 +7,14 @@ public class ModOp extends ArithmeticOp{
 		Type bType= b.getType();
 		
 		//Expected both of equivalent to int
-		if (!((aType instanceof IntType) && (bType  instanceof IntType))) {
+		if (!((aType.isInt()) && (bType.isInt()))) {
 			// error
-			if(!(aType instanceof IntType))
+			if(!(aType.isInt()))
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,aType.getName(), "%","int"));
 			else
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error1w_Expr,bType.getName(), "%","int"));
 		} else{
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+			if(a.isConst() && b.isConst()){
 				ConstSTO c = new ConstSTO("", aType);
 				c.setValue(((ConstSTO)a).getIntValue() % ((ConstSTO)b).getIntValue());
 				return c;	

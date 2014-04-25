@@ -6,12 +6,12 @@ public class LessAndEqualThanOp extends BooleanOp{
 		Type aType = a.getType();
 		Type bType = b.getType();
 		//both operands must be numeric
-		if (!(aType instanceof NumericType) || !(bType  instanceof NumericType)) {
+		if (!(aType.isNumeric()) || !(bType.isNumeric())) {
 			// error
 			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,"bool", "<="));
 		}
 		else {
-			if(a instanceof ConstSTO && b instanceof ConstSTO){
+			if(a.isConst() && b.isConst()){
 				ConstSTO c = new ConstSTO("", new BoolType("bool", 4));
 				if(((ConstSTO)a).getFloatValue() <= ((ConstSTO)b).getFloatValue())
 					c.setValue(1.0);
