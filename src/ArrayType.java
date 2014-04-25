@@ -22,8 +22,13 @@ public class ArrayType extends CompositeType{
 	public boolean isEquivalentTo(Type t) {
 		if(t.isArray()){
 			//It's an array and element type is the same, return true
-			if(this.getElementType().isEquivalentTo(((ArrayType)t).getElementType()))
-				return true;
+			if(this.getElementType().isEquivalentTo(((ArrayType)t).getElementType())){
+				if(this.getArraySize() == ((ArrayType)t).getArraySize())
+					return true;
+				else
+					return false;
+			}
+
 			//If the element type is not the same
 			else
 				return false;

@@ -1,1 +1,37 @@
-bool x = true < 1;
+/* less than must be numeric */
+structdef MYS{
+  int a;
+  float b;
+  bool c;
+};
+function: void main(){
+	int a;
+	float b;
+	bool c;
+	c= true < 1;  //Error
+	c = a < b;   
+	c = b < a;
+	c = c < c;   //Error
+	
+	MYS mys;
+	mys.c = mys.a < mys.b;//PASS
+	
+	//Test with ptrs
+	int* test1;
+	float* test2;
+	bool* test3;
+	
+	a = test1 < test2; // less than op still bool type
+	a = test3 < test2;
+	a = test2< test1;
+	a = test2 < (test1 + test2);
+	
+	int[10]arr1;
+	float[10]arr2;
+	bool[30]arr3;
+	
+	arr3[10] = arr1[3] < arr2[1];  //PASS,which it shold not pass
+	
+	
+	
+}

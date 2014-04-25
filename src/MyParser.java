@@ -760,7 +760,7 @@ class MyParser extends parser
 				//Check #19, all formal param are variables, which are mod l-val
 				s.setIsAddressable(true);
 				s.setIsModifiable(true);
-				if(s.getType().isArray()){
+				/*if(s.getType().isArray()){
 					//May need to fix
 					s.getType().setSize(((ArrayType)s.getType()).getArraySize() 
 							* ((ArrayType)s.getType()).getElementType().getSize());
@@ -769,7 +769,19 @@ class MyParser extends parser
 							((ArrayType)(s.getType())).getArraySize() + "]");
 					
 				}
+				else if(s.getType().isPointer()){
+					//Get name of the pointer
+					((PointerType)s.getType()).setName(
+							((PointerType)s.getType()).getPrintedName() + "*");
+				}*/
 				//Add parameters to the type
+				/*System.out.println("\n\n");
+				System.out.println(s);
+				System.out.println(s.getName());
+				System.out.println(s.getType());
+				System.out.println(s.getType().getName());
+				System.out.println("\n\n");
+				*/
 				((FunctionPointerType)(m_symtab.getFunc().getType())).addParameter(s);
 				m_symtab.getFunc().addParameter(s);
 				m_symtab.insert(s);
@@ -1054,6 +1066,9 @@ class MyParser extends parser
 			m_errors.print (Formatter.toString(ErrorMsg.not_function, sto.getName()));
 			return (new ErrorSTO (sto.getName ()));
 		}
+		if(sto.isError()){
+			return sto;
+		}
 		if(sto.isFunc())
 		{
 			//It's a FuncSTO, check number of arguments
@@ -1061,7 +1076,8 @@ class MyParser extends parser
 			//Check the number is the same
 			if(arguments.size() == tmp.getParameterNumbers()){
 				Vector<STO> params = (Vector<STO>) tmp.getParameterSTO().clone();
-				for(int i = 0; i < arguments.size(); i++){
+				for(int i = 0; i < arguments.size(); i++)
+				{
 					if (params.get(i).getType().isReference()){
 						//pass by reference, argument type is not equivalent to the parameter type
 						if(!arguments.get(i).getType().isEquivalentTo(params.get(i).getType())){						

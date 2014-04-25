@@ -26,10 +26,7 @@ typedef ARR ARR2;
 typedef int[10] INTARR;
 
 ARR z;
-<<<<<<< HEAD
-=======
 
->>>>>>> 24d8f68502b241a3eff046ad3f360358c830df94
 INTARR l;
 ARR[2] y; //array of array
 
@@ -49,17 +46,12 @@ function: void main(){
   z = l;
 }
 
-<<<<<<< HEAD
 ARR[2] y;
-=======
->>>>>>> 24d8f68502b241a3eff046ad3f360358c830df94
+
 
 ARR[2] test1;
 function : void test3(){
   z = 2.0;
 }
 int[++0] arr;
-<<<<<<< HEAD
 
-=======
->>>>>>> 24d8f68502b241a3eff046ad3f360358c830df94

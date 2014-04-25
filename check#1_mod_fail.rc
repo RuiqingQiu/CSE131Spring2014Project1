@@ -1,1 +1,32 @@
-int x = 2 % true;
+/* mod must be equivalent to int, and the result is int */
+const int c = 10;
+typedef int INT;
+typedef float FLOAT;
+function : void main(){
+	int x;
+	float y;
+	bool z;
+	x = 2 % true; //Error, not equivalent to int
+	x = false % 3; //Error
+	x = 4.0 % 3;     //Error
+	x = 50 % 90.234; //Error
+	x = 50 % *(int*)&y;  //pass
+	x = c % c;       //Pass
+	
+	/******  Test again Ptrs ********/
+	int* test1;
+	float* test2;
+	bool* test3;
+	INT test4;
+	FLOAT test5;
+	
+	z = *test1 % *test1;  //Error
+	x = *test1 % *test1;  //Pass
+	x = *test3 % *test2;  //Error
+	test4 = test4 % *test2; //Error
+	test5 = x % *test1;  //PASS
+	test4 = test5;      //PASS
+	test4 =*(int*)&(*test1 + *test2); //Fail
+	
+	
+}

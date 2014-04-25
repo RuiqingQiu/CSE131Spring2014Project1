@@ -492,12 +492,11 @@ SubType ::=    QualIdent:_1
 			     }
 			     else{
 			       Type t = _1.getType().clone();
-			       /*if(t.isStruct()){
-			         t.setName(_1.getType().getName());
-			       }
-			       else*/
-			       
+			       /*System.out.println(_1);
+			       System.out.println(_1.getName());
+			       */
 				   t.setName(_1.getName());
+				   //System.out.println(t.getName());
 			       RESULT = t;
 			     }
 			   :}

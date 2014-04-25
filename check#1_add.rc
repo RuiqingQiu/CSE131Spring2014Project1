@@ -1,1 +1,37 @@
-int x = true + 1;
+typedef int INT;
+typedef float FLOAT;
+typedef bool BOOL;
+function: void main(){
+	int x;
+	int* iPtr;
+	float* fPtr;
+	bool* booPtrs;
+	
+	x = true + 1; //Error one, incompatible
+    x = 0 / 0;
+    /******* This one has nullptr expcetion right now, need to fixed, it should an int ***********/
+    //x = 0 % 0;
+    
+	//+, - , * ,/ must be numeric types and resulting type is is int when both are int or float
+	x = iPtr + fPtr;    //Error
+	x = iPtr + booPtrs; //Error
+	x = fPtr + booPtrs;
+	
+	const int c = 10;
+	int[10] arr;
+	float[c+ 20] arr2;
+ 	x = arr + arr2;
+ 	
+ 	INT test1;
+ 	INT test4;
+ 	FLOAT test2;
+ 	BOOL test3;
+ 	
+ 	test4 = test1 + 0.0; //Error, float not assignable to int
+ 	test4 = test2 + 2.0;  
+ 	test4 = test3 + 1;  // Error 
+ 	
+ 	(test1 + test4) = test2; //Error, left hand side is not mod lval
+ 	test1 = &(test1 + test4);//Error, non-addressable
+ 	test1 = test2 = test3;    //Error, BOOL can not assigned to FLOAT
+}

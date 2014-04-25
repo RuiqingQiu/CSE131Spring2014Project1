@@ -2,7 +2,38 @@ function: bool bool_two_args(bool b,int i){
   return b;
 }
 
+typedef int[19] ARR;
+typedef ARR[20] ARR2;
+function : void 
+
+function : void arrRefTest(ARR2& a){
+}
+function: void arrRefTest2(ARR& b){
+}
+function : void arrRefTest3(int[19]& arr){
+}
 function: void main(){
+  ARR2 test1;
+  ARR test2;
+  int[19] test4;
+  
+  /*************** NEED TO BE FIEXED*******************/
+  arrRefTest(test2); // Should fail as ARR not equivalent to ref paramter ARR2
+  
+  arrRefTest3(test4);//Pass
+  arrRefTest3(test1);// Fail with the correct message
+  arrRefTest3(test2); //pass
+  arrRefTest3(test1[10]);//pass
+  
+  arrRefTest(test1); //Should pass
+  arrRefTest2(test2);//should pass
+  arrRefTest2(test1[10]);//should pass
+  arrRefTest2(test4);// Should pass
+  
+  /************** NEED TO BE FIEXED   *****************/
+  //should give incompatible type error
+  nullptr[2];
+  
   bool x = false;
   int y = 0;
   decltype(x+y) z;  //Error: incompatible type bool to binary operator +, numeric expected
@@ -14,5 +45,23 @@ function: void main(){
       }
     }
   }
+  int *t;
+  t = 5;// Error, value of type int not assignable to type int*
 }
+
+//Error, return required in function
+function : int foo(int x){
+  if(x>0){
+    return x;
+  }
+}
+  
+//Array can only be passed by reference
+function: int foo(int[10]& arr){
+  return arr;
+}
+
+
+
+
 
