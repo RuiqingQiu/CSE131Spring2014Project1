@@ -1190,7 +1190,10 @@ Designator ::= T_STAR Designator:_1
                :}
     |   UnarySign:_2 Designator:_1
         {:
-            if(_2.equals("+")){
+            if(_1.isError()){
+              RESULT = _1;
+            }
+            else if(_2.equals("+")){
               if(_1.isConst())
                 RESULT = _1;
               else{
