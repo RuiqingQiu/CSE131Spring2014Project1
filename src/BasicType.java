@@ -5,4 +5,5 @@ public abstract class BasicType extends Type {
 		super(strName, size);
 	}
 
+	
 }
