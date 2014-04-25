@@ -492,11 +492,12 @@ SubType ::=    QualIdent:_1
 			     }
 			     else{
 			       Type t = _1.getType().clone();
-			       if(t.isStruct()){
+			       /*if(t.isStruct()){
 			         t.setName(_1.getType().getName());
 			       }
-			       else
-				     t.setName(_1.getName());
+			       else*/
+			       
+				   t.setName(_1.getName());
 			       RESULT = t;
 			     }
 			   :}
@@ -515,10 +516,14 @@ SubType ::=    QualIdent:_1
 DeclareType ::=  T_DECLTYPE T_LPAREN Expr0:_1 T_RPAREN
 				 {:
 				    //System.out.println(t.getName());
-				    Type t = _1.getType().clone();				    
-				    t.setName(_1.getType().getName());
+				    if(_1.isError())
+				      RESULT = new ErrorType("decl error", 4);
+				    else{
+				      Type t = _1.getType().clone();				    
+				      t.setName(_1.getType().getName());
 				    
-				    RESULT = t;
+				      RESULT = t;
+				    }
 				     
 				 :}
 	;

@@ -18,34 +18,28 @@ function : void test1(){
     MYS mys1;
     b[19][8] = mys1;
     
-    //index out of bounds
-    b[20][2] = mys1;
-    b[20][-1] = mys1;
+    b[20][2] = mys1;  //index out of bounds
+    b[20][-1] = mys1; //index out of bounds
     
     INTTPTR ptr;
     INTT* intt;
     ptr = intt;
     
     INT a = 1;
-    bool boo = a;    //INT not assginable to constant variable of type bool
+    bool boo = a;    //Error, INT not assginable to constant variable of type bool
 	float f2;        
 	decltype(a) test;
-	//Pass
-	test = f2;  //float not assignable to variable of type INT
+	test = f2;      //Error, float not assignable to variable of type INT
 }
-
-
 
 typedef int[7] ARR;
 ARR[6] arr1;
-
 
 typedef MYS P;
 typedef int INTEGER;
 typedef funcptr : int() MYFP;
 
 funcptr : int() fp1;
-
 function : int foo1() { return 0;}
 
 //This one pass
@@ -67,11 +61,10 @@ function : void main(){
      //This should pass  - confirmed with tutor
      int* ptr = (int*)&p;
    
-     //Double check the error message
-     int* iPtr = &bar;  
+     int* iPtr = &bar; //Error, address of funcptr
      
      //this case is correct, cast function pointer to a int pointer
-     int *check1 = (int*)fp1;
+     int *check1 = (int*)fp1; //Error, function ptr cannot be casted
          
     //This should pass, cast a nullptr to an int type
 	//int i = (int)nullptr;
@@ -80,7 +73,7 @@ function : void main(){
 	float f = (float)(bool)check2;
 	
 	float* fPtr;
-    //This shoud fail, since (bool)check2 is not a pointer type
+    //This should fail, since (bool)check2 is not a pointer type
 	fPtr = (float*)(bool)check2;
 	
 	 MYFP MyFuncPtr;
@@ -88,7 +81,7 @@ function : void main(){
 	 MyFuncPtr();    //This will be a function call to function foo
    
      MYFP* MyFuncPtrPtr;
-     MyFuncPtrPtr = &foo1;   //should be an error since foo1 is R_value
+     MyFuncPtrPtr = &foo1;   //Error, address of funcptr,should be an error since foo1 is R_value
      MyFuncPtrPtr = &MyFuncPtr; //OK, since MyFuncPtr is a function ptr
      (*MyFuncPtrPtr)(); //This will be a function call to foo!
      
@@ -136,14 +129,7 @@ function : void main(){
      
      //int <--> pointer
      f = (float)zPtr;
-     zPtr = (float)z;
-     
-     //This case doesn't pass
+     zPtr = (float)z; // Error, type flaot is not assignable to int*
+
      fPtr = (float*)nullptr;
 }
-
-
-
-
-
-

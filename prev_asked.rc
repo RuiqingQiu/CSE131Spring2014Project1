@@ -5,7 +5,7 @@ function: bool bool_two_args(bool b,int i){
 function: void main(){
   bool x = false;
   int y = 0;
-  decltype(x+y) z;
-  int flag = bool_two_args(main(),2.0);
+  decltype(x+y) z;  //Error: incompatible type bool to binary operator +, numeric expected
+  int flag = bool_two_args(main(),2.0);  //two errors here
 }
 

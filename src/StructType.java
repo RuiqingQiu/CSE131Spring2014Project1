@@ -5,6 +5,7 @@ public class StructType extends CompositeType{
 
 	public StructType(String strName, int size) {
 		super(strName, size);
+		this.id = strName;
 		fields = new Vector<STO>();
 	}
 
@@ -17,7 +18,7 @@ public class StructType extends CompositeType{
 	public boolean isEquivalentTo(Type t) {
 		if(t.isStruct()){
 			//Check strict name equivalence
-			if(this.getName().equals(t.getName()))
+			if(this.id.equals(((StructType)t).id))
 				return true;
 			else
 				return false;
@@ -47,9 +48,11 @@ public class StructType extends CompositeType{
 	public Type clone(){
 		StructType t = new StructType(this.getName(), this.getSize());
 		t.fields = this.fields;
+		t.id = this.id;
 		return t;
 	}
 	
 	public boolean isStruct(){return true;}
 	private Vector<STO> fields;
+	private String id;
 }
