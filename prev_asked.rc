@@ -4,7 +4,6 @@ function: bool bool_two_args(bool b,int i){
 
 typedef int[19] ARR;
 typedef ARR[20] ARR2;
-function : void 
 
 function : void arrRefTest(ARR2& a){
 }
@@ -17,7 +16,10 @@ function: void main(){
   ARR test2;
   int[19] test4;
   
-  /*************** NEED TO BE FIEXED*******************/
+  /*
+    Error, "prev_asked.rc": 
+    Argument of type ARR not equivalent to reference parameter a, of type ARR2.
+  */
   arrRefTest(test2); // Should fail as ARR not equivalent to ref paramter ARR2
   
   arrRefTest3(test4);//Pass
@@ -36,20 +38,23 @@ function: void main(){
   
   bool x = false;
   int y = 0;
-  decltype(x+y) z;  //Error: incompatible type bool to binary operator +, numeric expected
+  decltype(x+y) z;  //Error, Incompatible type bool to binary operator +, numeric expected.
   int flag = bool_two_args(main(),2.0);  //two errors here
   
+  
   while(1){
+    //Error, bool or int required for conditional test, nullptr found.
     if(2.0){
+      //Error, bool or int required for conditional test, nullptr found.
       while(nullptr){
       }
     }
   }
   int *t;
-  t = 5;// Error, value of type int not assignable to type int*
+  t = 5;// Error, Value of type int not assignable to variable of type int*.
 }
 
-//Error, return required in function
+//Error, Return required in function, none found.
 function : int foo(int x){
   if(x>0){
     return x;
@@ -57,7 +62,8 @@ function : int foo(int x){
 }
   
 //Array can only be passed by reference
-function: int foo(int[10]& arr){
+//Error, Type of return expression (int[10]), not assignment compatible with function's return type (int).
+function: int boo(int[10]& arr){
   return arr;
 }
 

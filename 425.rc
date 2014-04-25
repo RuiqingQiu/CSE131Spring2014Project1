@@ -3,15 +3,20 @@ structdef MYSTRUCT{
 };
 structdef MYS{
   MYSTRUCT b;
+  /***** NEED TO BE FIXED *******/
   MYS[2] m;  //Is this OK?
   MYS* mys;
 };
 
 typedef float[10] ARR;
 function: void main(){
+
+  int **x;
+  x[1][2] = 5;//dereference unwraps a level of pointer
+  
   int[4] a;
   int*s = a;
-  int** t = a;  //This should be an error
+  int** t = a;  //This should be an error, but now passing
   typedef int[4] YARR;
   YARR[2] b;
   int** c = b;  //This also fail, but do not know why
