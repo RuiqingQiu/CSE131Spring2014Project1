@@ -1,0 +1,27 @@
+function: void foo(){}
+static funcptr : void()fp3332 = foo; //Report not known at compile time
+funcptr: void() fp1 = foo;  // Should pass
+funcptr : void(int x) fp2 = nullptr; 
+function: void main(){
+  new fp2;
+  delete fp2;
+  
+  //new nullptr;
+  //delete nullptr;
+  
+  bool test1;
+  int test3;
+  test1 = fp1 == nullptr;
+  test1 = fp1 != nullptr;
+  test1 = fp1 == fp2;
+  test1 = fp1 != fp2;
+  
+  int*test2 = (int*)nullptr;
+  
+  int* test4;
+  test4 = nullptr;
+  *test4;
+  
+  //Should throw an error?
+  *nullptr; 
+}

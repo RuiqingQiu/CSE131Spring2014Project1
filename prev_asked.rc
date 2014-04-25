@@ -4,6 +4,7 @@ function: bool bool_two_args(bool b,int i){
 
 typedef int[19] ARR;
 typedef ARR[20] ARR2;
+funcptr: int(int x, int y) fp;
 
 function : void arrRefTest(ARR2& a){
 }
@@ -32,8 +33,7 @@ function: void main(){
   arrRefTest2(test1[10]);//should pass
   arrRefTest2(test4);// Should pass
   
-  /************** NEED TO BE FIEXED   *****************/
-  //should give incompatible type error
+  //Error,Type of expression referenced by array subscript (nullptr) is not of array or pointer type.
   nullptr[2];
   
   bool x = false;
@@ -52,6 +52,14 @@ function: void main(){
   }
   int *t;
   t = 5;// Error, Value of type int not assignable to variable of type int*.
+ 
+  
+  bool test10; 
+  test10 = fp != nullptr;
+  test10 = fp == nullptr;
+  
+  const int test11 = 10;
+  y = sizeof(test11); 
 }
 
 //Error, Return required in function, none found.

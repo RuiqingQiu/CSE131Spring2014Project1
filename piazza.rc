@@ -1,0 +1,35 @@
+// PASS
+int* x15;
+int[5] a;
+typedef int[5] ARR;
+funcptr : void () z;
+typedef funcptr: int(int x, int y) FP;
+function: ARR foo15c(int x){
+	return x15;
+}
+function: int addition(int x, int y ){ return x + y; }
+
+function: void main(){
+  *a = 5;   //PASS, ArrayType is not a pointer type
+  x15 = a; //Assigan an array to pointer
+  *x15 = 5; //And dereference the pointer, assign 5
+  x15++; //pointer ++
+  --x15;// --pointer
+  x15--; //pointer --
+  ++x15;//++ pointer
+  
+  /*********** NEED TO BE FIXED  ***************/
+  ++x15--;//++pointer--, pointer-- result r-val so cannot do ++ rval
+  --x15++;
+  ++x15++;
+  --x15--;
+  
+  *z;  //PASS, cannot dereference a funcptr type
+  
+  //Array of Functptr
+  FP[10] funcPtrArr;
+  funcPtrArr[9] = addition;  //PASS since dereference funcPtrArr result funcptr
+  
+  
+  
+}
