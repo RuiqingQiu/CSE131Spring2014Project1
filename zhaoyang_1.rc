@@ -1,0 +1,24 @@
+static const auto  x = 1;
+static auto y = 1.0;
+//int[8] array2;
+int[10] array;
+int xx1 = 500;
+function: void foo(){
+auto z = array;
+	int x1 = x;
+	float y2 = y;
+	bool z2 = z;
+	int * p2;
+	auto p = p2;
+	p = &x1;
+	p = &x;
+	int h = &array;	
+	sizeof(nullptr);
+	float g =(*(int*)(x1+y2))++;
+	int* ip= (*&array);
+	ip++;
+	int* ip2 = (int*)(*((int *)&array))++;
+	
+	int * v = &(-xx1);
+	-xx1=1;
+}

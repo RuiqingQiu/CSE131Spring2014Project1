@@ -15,6 +15,7 @@ function : int& test3(float a){
 */
 
 const int x1 = 5;
+
 static int y1 = x1 + 5;
 
 structdef MYS{

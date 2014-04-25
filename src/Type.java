@@ -73,6 +73,7 @@ abstract class Type
 	public boolean isArray() {return false;}
 	public boolean isPointer() {return false;}
 	public boolean isStruct() {return false;}
+	public boolean isNumeric(){return false;}
 	public boolean isNullPointer() {return false;}
 	public boolean isFuncPointer(){return false;}
 	public boolean isGeneralPointer(){return false;}

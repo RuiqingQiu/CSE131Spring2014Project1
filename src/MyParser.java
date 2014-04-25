@@ -357,7 +357,7 @@ class MyParser extends parser
 			if(stoList.elementAt(i).isStatic()){
 				//If there's init
 				if(stoList.elementAt(i).getInit() != null){
-					if(!(stoList.elementAt(i).getInit() instanceof ConstSTO)){
+					if(!(stoList.elementAt(i).getInit().isConst())){
 						m_nNumErrors++;
 						m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
 						return;
@@ -475,7 +475,7 @@ class MyParser extends parser
 				return;
 			}
 			//check if the const init is known at compile time
-			if(!(STOlst.elementAt(i).getInit() instanceof ConstSTO)){
+			if(!(STOlst.elementAt(i).getInit().isConst())){
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString (ErrorMsg.error8b_CompileTime, id));
 				return;
@@ -963,6 +963,14 @@ class MyParser extends parser
 		if(var.isError()){
 			return var;
 		}
+		if(var.getType().isNullPointer()){
+			int size = var.getType().getSize();
+			ConstSTO ret = new ConstSTO(var.getName()+"'s size");
+			//System.out.println("Size : " + size);
+			ret.setValue(size);
+			ret.setType(new IntType("int", 4));
+			return ret; 
+		}
 		//Check if the operand is addressable
 		if(!(var.getIsAddressable())){
 			m_nNumErrors++;
@@ -992,7 +1000,7 @@ class MyParser extends parser
 		}
 		else{
 			int size = t.getSize();
-			System.out.println("size is : " + size);
+			//System.out.println("size is : " + size);
 			ConstSTO ret = new ConstSTO(t.getName()+"'s size");
 			ret.setValue(size);
 			ret.setType(new IntType("int", 4));
