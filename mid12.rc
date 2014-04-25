@@ -1,0 +1,21 @@
+int x = 123;
+const int y = 420;
+//error 1, z is not known at compile time
+const float z = x + y;
+const float w = y * y;
+int * v = nullptr;
+
+function : int main(){
+  return v[-50];
+  //undeclared identifier z
+  return z;
+  
+  //Not mod l-val  - this is now passed
+  v = &(-x);
+  
+  return sizeof(int[y]);
+  return sizeof(AAA);
+  return sizeof(nullptr);
+  *&*&*&*&y = *&*&*&x;
+  return *v;
+}

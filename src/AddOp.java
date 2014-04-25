@@ -6,10 +6,12 @@ public class AddOp extends ArithmeticOp  {
 	STO checkOperands(STO a, STO b) {
 		Type aType = a.getType();
 		Type bType = b.getType();
-		if (!(aType instanceof NumericType) || !(bType  instanceof NumericType)) {
-			// error
-			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,"bool", "+"));
-		} else if (aType instanceof IntType && bType instanceof IntType) {
+		
+		if(!aType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,aType.getName(), "+"));
+		else if(!bType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,bType.getName(), "+"));
+		else if (aType instanceof IntType && bType instanceof IntType) {
 			if(a instanceof ConstSTO && b instanceof ConstSTO){
 				int x = ((ConstSTO)a).getIntValue() + ((ConstSTO)b).getIntValue();
 				ConstSTO c = new ConstSTO("", aType);

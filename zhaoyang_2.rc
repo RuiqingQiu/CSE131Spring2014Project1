@@ -1,0 +1,25 @@
+typedef float FOO; 
+typedef FOO* FPTR; 
+typedef int* IPTR; 
+int x; 
+FOO y; 
+FPTR z; 
+int* intPtr; //26 
+ 
+function : int main() { 
+ x = &y; 
+ x = (int) (x + 4.9); 
+ y = (FOO) (int) (65.3); 
+ intPtr = (IPTR) z; 
+ x = (int)y;
+ y=y;
+ const int f1=1;
+ const float f2=2;
+ const int x2 = *(float*)f2;//test1   Initialization value of constant named f2* not known at compile time.
+ const int x3 = (int)f2+(float*)&f2;
+ //int[(float)f1+(int)f2] a;
+ int[2] a2;
+ x = a2[*(int*)f2];
+//int[10.0] b;
+ return 0; 
+} 

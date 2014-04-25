@@ -782,11 +782,16 @@ IdListWOptInit ::=  OptModifiers:_3 T_ID:_1 OptInit:_2
 
 IdListWInit ::=     OptModifiers T_ID:_1 T_ASSIGN ConstExpr:_2
                     {:
-                      VarSTO v = new VarSTO(_1);
-                      v.setInit(_2);
-                      v.setStatic(false);
-			          RESULT = new Vector ();
-			          RESULT.addElement (v);
+                      if(_2.isError()){
+                        RESULT = new Vector();
+                      }
+                      else{
+                        VarSTO v = new VarSTO(_1);
+                        v.setInit(_2);
+                        v.setStatic(false);
+			            RESULT = new Vector ();
+			            RESULT.addElement (v);
+			          }
                     :}
   //|       Do not need an extra rule since we are not doing constant arrays
     |               IdListWInit:_1 T_COMMA OptModifiers T_ID:_3 T_ASSIGN ConstExpr
@@ -1157,15 +1162,23 @@ Designator ::= T_STAR Designator:_1
                :}
     |   UnarySign:_2 Designator:_1
         {:
-            if(_2.equals("+"))
-			  RESULT = _1;
+            if(_2.equals("+")){
+              if(_1.isConst())
+                RESULT = _1;
+              else{
+                ExprSTO ret = new ExprSTO(_1.getName(), _1.getType());
+                RESULT = ret;
+              }
+			  
+			}
 			else{
-			  if(_1 instanceof ConstSTO){
+			  if(_1.isConst()){
 			    ((ConstSTO)_1).setValue(-(((ConstSTO)_1).getFloatValue()));
 			    RESULT = _1;
-			  }else if(_1 instanceof VarSTO){
+			  }else if(_1.isVar()){
 			    ((VarSTO)_1).setNegative(true);
-			    RESULT = _1;
+			    ExprSTO ret = new ExprSTO("-" + _1.getName(), _1.getType());
+			    RESULT = ret;
 			  }
 
 			}
