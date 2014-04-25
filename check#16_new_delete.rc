@@ -1,9 +1,21 @@
+funcptr: int(int x, int y )fp1;
+function: int addition(int a, int b ){
+  return 1;
+}
+
+structdef MYS{
+  int a ,b;
+};
+
 function : void main(){
   int* x;
+  
+  //Semantically correct
   new x;
   delete x;
   
   int y = 1;
+  
   //First error, not a valid pointer type
   new y;
   //Second error
@@ -24,8 +36,24 @@ function : void main(){
 
 function : int hello() {
     int[2] arr;
- 
-    delete arr;
- 
+    delete arr; //Error, not a mod lval
     return arr[0];
+    
+    //x is not a modifiable l-val should be print first and check if it is a valid pointer type
+    new addition;
+    delete addition;
+    
+    /********  Those should generate error, but right now passing *********/
+    new fp1;
+    delete fp1;
+    
+    MYS mys;
+    //Not a valid pointer type
+    new mys;
+    delete mys;
+    
+    MYS* mysPtr;
+    //Pass
+    new mysPtr;
+    delete mysPtr;
 }

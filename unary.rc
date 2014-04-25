@@ -10,5 +10,11 @@ function : int main()
 {
  i = 5;
  x = foo();
+ 
+ int a = +1;
+ int b = -1;
+ int c = 1;
+ int d = +10;
+ int e = -10;
  return 0;
 }

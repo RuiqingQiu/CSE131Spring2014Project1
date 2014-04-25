@@ -14,6 +14,10 @@ typedef MYS1[20] MYS2;
 //const float f = 1.0;
 //static float* floatPtr;
 function : void test1(){
+    //support hex value
+    int hex1 = 0x0011;
+    int hex2 = 012;
+    
     MYS2 b;
     MYS mys1;
     b[19][8] = mys1;

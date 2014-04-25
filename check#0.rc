@@ -1,5 +1,6 @@
 //Detect undeclared gloabl identifiers
 int myX;
+bool x;
 function: void foo(){
   int x;
   //First error
