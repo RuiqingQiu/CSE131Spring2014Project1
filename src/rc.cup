@@ -360,14 +360,25 @@ FieldList ::=     UndecoratedType:_1 IdList:_2 T_SEMI
 				       }
 				       else if(tmp.getType().isStruct()){				         
 				       }
+				       else if(tmp.getType().isArray()){
+				         ((ArrayType)tmp.getType()).setElementType(_1.clone());
+				         tmp.getType().setSize(((ArrayType)tmp.getType()).getArraySize() 
+							* (_1.getSize()));
+					     //Set name
+					     ((ArrayType)tmp.getType()).setName(_1.getName()+"[" + 
+							((ArrayType)(tmp.getType())).getArraySize() + "]");
+				       }
 				       else{
 				         ((CompositeType)(tmp.getType())).setElementType(_1);
+				         //check if is an array type ,set the size
+				         
 				       }
 				       v.addElement(tmp);
 				     }
 				     RESULT = v;
 				  :}
     ;
+
 
 
 FuncDef ::=    T_FUNCTION T_COLON ReturnType:_1 OptRef:_4 T_ID:_2
@@ -754,7 +765,7 @@ IdListWOptInit ::=  OptModifiers:_3 T_ID:_1 OptInit:_2
                     :}
     |               IdListWOptInit:_1 T_COMMA OptModifiers:_4 T_ID:_3 OptInit:_2
                     {:
-                        if(_2 instanceof ErrorSTO)
+                        if(_2.isError())
                           RESULT = new Vector();
                         else{
 	                        RESULT = _1;

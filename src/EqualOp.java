@@ -30,39 +30,36 @@ public class EqualOp extends ComparisonOp{
 
 		}
 		//Check #17 to support pointer type
-		else if(aType.isPointer() || bType.isPointer()){
-			if(aType.isPointer() && bType.isPointer()){
-				//Check if both are nullptr, if so return ConstSTO 
-				if(aType.isNullPointer() && bType.isNullPointer()){
-					ConstSTO tmp = new ConstSTO("true", new BoolType("bool", 4));
-					tmp.setValue(1.0);
+		//check if either operand is pointer
+		else if(aType.isGeneralPointer() || bType.isGeneralPointer())
+		{
+			//If both are regular pointer
+			if(aType.isNullPointer() && bType.isNullPointer()){
+				ConstSTO tmp = new ConstSTO("true", new BoolType("bool", 4));
+				tmp.setValue(1.0);
+				return tmp;
+			}
+			else if(aType.isGeneralPointer() && bType.isNullPointer()){
+				ExprSTO tmp = new ExprSTO(aType.getName() + " == " +bType.getName(), new BoolType("bool", 4));
+				return tmp;
+			}
+			else if(bType.isGeneralPointer() && aType.isNullPointer()){
+				ExprSTO tmp = new ExprSTO(aType.getName() + " == " +bType.getName(), new BoolType("bool", 4));
+				return tmp;
+			}
+			//There won't be a case where a is nullptr
+			else if(aType.isGeneralPointer() && bType.isGeneralPointer())
+			{
+				if(aType.isEquivalentTo(bType)){
+					ExprSTO tmp = new ExprSTO(aType.getName() + " == " +bType.getName(), new BoolType("bool", 4));
 					return tmp;
-					
+				}else{
+					return new ErrorSTO(Formatter.toString(ErrorMsg.error17_Expr,"==",aType.getName(), bType.getName()));
 				}
-				else{
-				  //Not both null, do equivalent check
-		          //bType still can be nullptr and a still can be nullptr
-			      if(bType.isNullPointer() || aType.isNullPointer()){
-			    	//then it should be false since they are not equal
-			        ConstSTO tmp = new ConstSTO("false", new BoolType("bool", 4));
-				    tmp.setValue(0.0);
-				    return tmp;
-			      }
-			      //a and b are not nullptr, need to check if basetype equals
-			      else{ 
-				    //System.out.println("bType base type is " + ((PointerType)bType).getPointerBaseType());
-					if(!(((PointerType)aType).isEquivalentTo(((PointerType)bType)))){
-						return new ErrorSTO(Formatter.toString(ErrorMsg.error17_Expr,"==",aType.getName(), bType.getName()));
-					}
-			      }
-					//otherwise it is correct return ExprSTO
-					return new ExprSTO("EqualOp", new BoolType("bool",4));
-				}
-			 }
+			}
 			//Error message from check #17, since one is pointer type and the other is not
 			else{
 				return new ErrorSTO(Formatter.toString(ErrorMsg.error17_Expr,"==",aType.getName(), bType.getName()));
-				
 			}
 		}
 		else{

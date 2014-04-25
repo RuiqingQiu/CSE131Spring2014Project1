@@ -1,0 +1,114 @@
+structdef MYS{
+  MYS[2] d;
+  int y;
+};
+
+typedef MYS P;
+typedef int INTEGER;
+typedef funcptr : int() MYFP;
+
+funcptr : int() fp1;
+
+function : int foo1() { return 0;}
+
+//This one pass
+function : int bar(){
+  INTEGER i;
+  return i;
+}
+
+function : MYS foo(){
+  P y;
+  //This should pass
+  return y;
+}
+
+
+function : void main(){
+     int *p;
+     
+     //This should pass  - confirmed with tutor
+     int* ptr = (int*)&p;
+   
+     //Double check the error message
+     int* iPtr = &bar;  
+     
+     //this case is correct, cast function pointer to a int pointer
+     int *check1 = (int*)fp1;
+         
+    //This should pass, cast a nullptr to an int type
+	//int i = (int)nullptr;
+	
+	int check2 = 30;
+	float f = (float)(bool)check2;
+	
+	float* fPtr;
+    //This shoud fail, since (bool)check2 is not a pointer type
+	fPtr = (float*)(bool)check2;
+	
+	 MYFP MyFuncPtr;
+	 MyFuncPtr = foo1;
+	 MyFuncPtr();    //This will be a function call to function foo
+   
+     MYFP* MyFuncPtrPtr;
+     MyFuncPtrPtr = &foo1;   //should be an error since foo1 is R_value
+     MyFuncPtrPtr = &MyFuncPtr; //OK, since MyFuncPtr is a function ptr
+     (*MyFuncPtrPtr)(); //This will be a function call to foo!
+     
+     INTEGER bigInt;
+     //Check casting
+     f = (float)bigInt;   //Pass
+     //Cannot cast funcptr, and pointers can be cast to any type
+     bool boo =(bool)fPtr;  //pass
+     bigInt = (int)fPtr;    //pass
+     
+     const bool b1 = true;
+     const bool b2 = false;
+     bool b3;
+     bool b4;
+     int[10] y;
+     int z;
+     float f1;
+     
+     const int z1 = 0;
+     const float f2 = 0.0;
+    
+     int* zPtr;
+     float* f1Ptr;
+     
+     //bool --> int, float or pointer
+     z = y[(int)b1]; //ths index into the array should be one
+     z = y[(int)b2];
+     f1 = (float)b1;
+     f1 = (float)b2;
+     zPtr = (int*)b1;
+     zPtr = (int*)b2;
+     f1Ptr = (float*)b1;
+     f1Ptr = (float*) b2;
+     
+     
+     //int, float OR pointer -- > bool
+     b3 = (bool)z;
+     b4 = (bool)f1;
+     b3 = (bool)zPtr;
+     b4 = (bool)f1Ptr;
+     
+     //float -> int OR pointer:
+     f1 = (float)z;
+     f1 = (float)zPtr;
+     
+     //int <--> pointer
+     f = (float)zPtr;
+     zPtr = (float)z;
+     
+     //This case doesn't pass
+     //fPtr = (float*)nullptr;
+     
+
+}
+
+
+
+
+
+

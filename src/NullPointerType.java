@@ -5,10 +5,8 @@ public class NullPointerType extends PointerType {
 		super("nullptr", 4);
 	}
 	
-
-	
 	public boolean isAssignableTo(Type t){
-		if(t.isPointer()){
+		if(t.isGeneralPointer()){
 			return true;
 		}
 		else{

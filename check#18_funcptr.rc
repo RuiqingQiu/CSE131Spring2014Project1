@@ -28,8 +28,11 @@ function : int* & test2(int ******x, int& y){
 }
 
 function : int main(){
+  //Fail 4
   myPtr1 = test;
+  //Fail 5
   myPtr1 = test2;
+  //Fail 6
   myPtr1 = test3;
   if(myPtr1 == nullptr){
     myPtr1 = addition;

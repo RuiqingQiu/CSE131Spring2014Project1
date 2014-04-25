@@ -5,6 +5,7 @@ function : int addition(int x, int y) {return x + y;}
 function : int subtraction(int x, int y) {return x - y;}
 
 function : int main(){
+
   if(ptr1 == nullptr){ 
     ptr1 = addition;
   }

@@ -196,7 +196,7 @@ class MyParser extends parser
 		}
 		
 		//type of sto is not a valid pointer type
-		if(!(sto.getType().isPointer())){
+		if(!(sto.getType().isGeneralPointer())){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error16_New,sto.getType().getName()));
 		}
@@ -213,7 +213,7 @@ class MyParser extends parser
 		}
 		
 		//type of sto is not a valid pointer type
-		if(!(sto.getType().isPointer())){
+		if(!(sto.getType().isGeneralPointer())){
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error16_Delete,sto.getType().getName()));
 		}
@@ -403,6 +403,9 @@ class MyParser extends parser
 					//Array is addressable but not modifiable
 					sto.setIsAddressable(true);
 					sto.setIsModifiable(false);
+				}
+				else if(stoList.elementAt(i).getType().isFuncPointer()){
+					
 				}
 				else if(stoList.elementAt(i).getType().isPointer()){
 					((PointerType)stoList.elementAt(i).getType()).setElementType(type);
@@ -633,7 +636,11 @@ class MyParser extends parser
 				return new ErrorSTO("struct pointer arrow error");
 			}else{
 				VarSTO sto = new VarSTO("tmp", ((PointerType)ptr.getType()).getElementType());
-				Type t = (DoDesignator2_Dot(sto, fieldName)).getType();
+				STO s = (DoDesignator2_Dot(sto, fieldName));
+				Type t;
+				if(s.isError())
+					return s;
+				t = s.getType();
 				ExprSTO ret = new ExprSTO("pointer to struct arrow", t);
 				ret.setIsAddressable(true);
 				ret.setIsModifiable(true);
@@ -644,6 +651,12 @@ class MyParser extends parser
 	
 	STO
 	doAddressOfCheck(STO target){
+		if(!(target.getIsAddressable())){
+			m_nNumErrors++;
+			ErrorSTO ret = new ErrorSTO(Formatter.toString(ErrorMsg.error21_AddressOf, target.getType().getName()));
+			m_errors.print(ret.getName());
+			return ret;
+		}
 		Type newType = new PointerType(target.getType().getName()+"*", 4);
 		((PointerType)newType).setElementType(target.getType());
 		ExprSTO ret = new ExprSTO("pointer to struct arrow", newType);
@@ -662,8 +675,17 @@ class MyParser extends parser
 	{
 		if (m_symtab.accessLocal (id) != null)
 		{
-			m_nNumErrors++;
-			m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
+			//Check if it's a valid overload
+			
+			//FuncSTO overloaded = (FuncSTO) m_symtab.accessLocal(id);
+			STO tmp = m_symtab.accessLocal(id);
+			if(tmp.isFunc()){
+				//Do overload
+			}
+			else{
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
+			}
 		}
 	
 		FuncSTO sto = new FuncSTO (id);//initialize here so that we can insert parameter into the FuncSTO
@@ -960,6 +982,7 @@ class MyParser extends parser
 		}
 		else{
 			int size = t.getSize();
+			System.out.println("size is : " + size);
 			ConstSTO ret = new ConstSTO(t.getName()+"'s size");
 			ret.setValue(size);
 			ret.setType(new IntType("int", 4));
@@ -974,6 +997,9 @@ class MyParser extends parser
 	STO
 	DoIfWhileExpr(STO expr)
 	{
+		if(expr.isError()){
+			return expr;
+		}
 		if(expr.getType().isBool() || expr.getType().isInt())
 			return expr;
 		
@@ -993,6 +1019,7 @@ class MyParser extends parser
 	STO
 	DoFuncCall (STO sto, Vector<STO> arguments)
 	{
+		boolean errorArgument = false;
 		if (!sto.isFunc() && !sto.getType().isFuncPointer())
 		{
 			m_nNumErrors++;
@@ -1013,7 +1040,8 @@ class MyParser extends parser
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error5r_Call, 
 							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
-							return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
+							errorArgument = true;
+							//return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
 						}
 						
 						//pass by reference, argument is not a modifiable L-value
@@ -1026,7 +1054,9 @@ class MyParser extends parser
 								m_nNumErrors++;
 								m_errors.print (Formatter.toString(ErrorMsg.error5c_Call, 
 										params.get(i).getName(), params.get(i).getType().getName()));
-								return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
+								errorArgument = true;
+
+								//return (new ErrorSTO ("DoFuncCall,  pass-by-reference L-value error"));
 							}
 						}
 					}
@@ -1037,17 +1067,20 @@ class MyParser extends parser
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error5a_Call, 
 							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
-							return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
+							errorArgument = true;
+							//return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
 						}
 					}
 				}
+				if(errorArgument)
+					return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
 			    //The function evaluates to return type
 			    return new ExprSTO("FuncCall", tmp.getReturnType());
 			}
 			else{
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString(ErrorMsg.error5n_Call, arguments.size(), tmp.getParameterNumbers()));
-				return (new ErrorSTO ("DoFuncCall, arugment number"));
+				return (new ErrorSTO ("DoFuncCall, argument number"));
 			}
 		}
 		//Here if the sto is varSTO and type is FunctionPointerType

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 int a;
 float b;
 typedef int INTEGER;
@@ -28,3 +29,40 @@ function: void main(){
   *(float*)&a = b; 
   *(MYS2*)&s1 =s3; 
  }
+=======
+function : void main(){
+  int x = 420;
+  float y = 4.20;
+  int * ptr1 = &x;
+  int * ptr2 = ptr1;
+  
+  
+  //Fail 1, left hand is r-val
+  &*ptr2 = ptr1;
+  ptr1 = *&ptr2;
+  *&ptr2 = ptr1;
+  //Fail 2, ++x result in r-val, not addressable
+  ptr2 = &++x;
+  
+  //Fail 3, type cast result in r-val, can't be on the left hand
+  (float *)ptr2 = &y;
+  
+  ptr2 = ++&x;
+  ++*(float *) &x;
+  ptr1 = &*ptr2; 
+}
+
+function : void foo(int x, float & y){}
+
+function : void test(){
+  int a;
+  float b;
+  
+  //Assignability error
+  foo(b, b);
+  //addressability error
+  foo(a, (a+b));
+  //Equivalence error
+  foo(a, a);
+}
+>>>>>>> 48b314b584649a0942a696515400c3c344205bc5

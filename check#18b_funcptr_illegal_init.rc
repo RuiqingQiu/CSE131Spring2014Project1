@@ -4,12 +4,22 @@ funcptr : int() fp1 = foo;
 funcptr : int* &(float x, int y, int z) fp3;
 
 function : void foo2(){}
-function : int* & foo3(float a, int b, int c, int d){return &b;}
+function : int* & foo3(float a, int b, int c, int d){
+  int * x = (int *)&b;
+  return x;
+}
+
+//Fail 2, return not a mod l-val
+function : int* & foo4(float a, int b, int c, int d){
+  return &b;
+}
+
 funcptr : int() fp2;
 function : void main(){
   funcptr : int() fp1 = foo;
   
-  //Fail 2, not assignable
+  //Fail 3, not assignable void not assignable to int
   funcptr : int() fp2 = foo2;
+  //Fail 4, argument not matching
   fp3 = foo3;
 }
