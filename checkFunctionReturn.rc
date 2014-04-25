@@ -12,21 +12,22 @@ function : float& test2(int a){
 function : int& test3(float a){
   return *(int*)&a;
 }
-*/
 
 const int x1 = 5;
-
 static int y1 = x1 + 5;
-
+*/
 structdef MYS{
   int a,b;
 };
 
+structdef MYS2{
+  int a,b;
+};
 
+/*Pass
 function : int main(){
- 
-  return main();
-} 
+	return main();
+}*/
 
 //int* is not equivalent to the function return type
 function: MYS& test4(MYS a1){
@@ -34,28 +35,113 @@ function: MYS& test4(MYS a1){
   return a2;
 }
 
-//not a mod l-val
-function: MYS& test4(MYS a1){
+//Pass
+function: MYS& test6(MYS a1){
   MYS mys;
-  return &mys;
+  return mys;
 }
 
 //Pass
 function : void voidFunction(){}
-function : void test6(){
+function : void test18(){
   return voidFunction();
 }
 
-
-
-
-/*
-function: MYS& test4(MYS a1){
-  int* a2;
-  return a2;
+function: float& test5(){
+	return (1.0 + 2.0);
 }
 
-function: int test5(){
-  int[10] arr;
-  float b = &arr;
-}*/
+//Check function return by value
+//Check for assignable
+function: int* test7(){
+  float b;
+  return b;
+}
+
+//MYS2 is not assignable to MYS
+function : MYS test8(){
+  MYS2 myStruct;
+  return myStruct;
+}
+
+//MYS2 is not assignable to MYS
+function : MYS* test16(){
+  MYS2 myStruct;
+  return myStruct;
+}
+
+//This should pass by return the address of the pointer points to bool a
+function: bool** test9(){
+  bool* a;
+  return &a;
+}
+
+//This should pass since array is assignable to bool*
+function : bool* test10(){
+  bool[10] boolArr;
+  return boolArr;
+}
+
+typedef MYS[10] MYSARRAY;
+//This should fail since pointer is not assignable to array
+function: MYSARRAY test11(){
+  MYS* ptr;
+  return ptr;
+}
+
+//This should not fail since array is assignable to pointer
+function: MYS* test12(){
+  MYSARRAY myArray;
+  return myArray;
+}
+
+//check equivalence
+function:int* test13(){
+  return nullptr;
+}
+
+function:int* test19(){
+  int* a  = nullptr;
+  return a;
+}
+
+//Not a mod-l val
+function:int& test14(){
+  return nullptr;
+}
+
+//This should pass since it is a reference to int pointer
+function:int*& test15(){
+  return nullptr;
+}
+
+//Pass
+function:int* test19(){
+  float* a  = nullptr;
+  return a;
+}
+
+//Fail
+function:int& test10(){
+  const int a = 10;
+  int b;
+  return a;
+  return b++;
+}
+
+//Function call
+function : void funcCall(){
+    //Not a mod l-val;
+	test19() = 10; 
+	//Not assignable
+	test15() = true;
+	&test13();
+	
+	1++;
+	//return by valud non-mod lval
+	test19()++;
+}
+
+
+
+

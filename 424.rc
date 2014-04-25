@@ -3,10 +3,23 @@ structdef MYS{
   int y;
 };
 
-const float f = 1.0;
-static float* floatPtr;
+static int x,y,z;
 
-int[6]** arr =  int[6][7];
+typedef int INT;
+//const float f = 1.0;
+//static float* floatPtr;
+function : void test1(){
+    INT a = 1;
+	float f2;
+	decltype(a) test;
+	//Pass
+	test = f2;
+}
+
+typedef int[7] ARR;
+ARR[6] arr1;
+
+//int[6]* arr = arr1;
 
 typedef MYS P;
 typedef int INTEGER;

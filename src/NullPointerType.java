@@ -13,6 +13,15 @@ public class NullPointerType extends PointerType {
 			return false;
 		}
 	}
+	
+	public boolean isEquivalentTo(Type t){
+		if(t.isGeneralPointer()){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 
 	public boolean isNullPointer() {return true;}
 }

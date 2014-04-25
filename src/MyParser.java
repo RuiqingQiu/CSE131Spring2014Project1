@@ -685,13 +685,14 @@ class MyParser extends parser
 			
 			//FuncSTO overloaded = (FuncSTO) m_symtab.accessLocal(id);
 			STO tmp = m_symtab.accessLocal(id);
-			if(tmp.isFunc()){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
+			/*if(tmp.isFunc()){
 				//Do overload
 			}
 			else{
-				m_nNumErrors++;
-				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
-			}
+				
+			}*/
 		}
 	
 		FuncSTO sto = new FuncSTO (id);//initialize here so that we can insert parameter into the FuncSTO
