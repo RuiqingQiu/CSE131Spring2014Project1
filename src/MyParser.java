@@ -599,6 +599,14 @@ class MyParser extends parser
 						Error = true;
 					}
 				}
+				else if(v.getType().isArray()){
+					//If the field declare is equal to the name of the current struct
+					if(((ArrayType)v.getType()).getElementType().getName().equals(m_symtab.getStruct().getName())){
+						m_nNumErrors++;
+						m_errors.print (Formatter.toString(ErrorMsg.error13b_Struct,v.getName()));
+						Error = true;
+					}
+				}
 			}
 			if(Error){
 				return new ErrorSTO("struct field error");
