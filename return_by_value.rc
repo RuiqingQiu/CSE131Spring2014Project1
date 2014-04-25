@@ -1,0 +1,4 @@
+function : int* test(){
+  float* a = nullptr;
+  return a;
+}

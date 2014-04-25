@@ -42,11 +42,11 @@ function : int main(){
   g(a1);//should be okay, structurally equivalence
   g(a2);//error, not structurally equivalence
   
-  a1 = a1;//error, arrays are not modifiable l-val and struct variables are mod L-vals, pass
+  a1 = a1;//error, arrays are not modifiable l-val
   
   
   r1 = r1; //okay, strict name equivalence, pass
-  r1 = r2; //error, struct strict name equivalence, pass
+  r1 = r2; //error, struct strict name equivalence
   
   /***** This case is failing right now *****/
   r3 = r1;// okay, loose name equivalent typedef then strict name 

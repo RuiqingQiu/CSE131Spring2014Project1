@@ -368,6 +368,12 @@ FieldList ::=     UndecoratedType:_1 IdList:_2 T_SEMI
 					     ((ArrayType)tmp.getType()).setName(_1.getName()+"[" + 
 							((ArrayType)(tmp.getType())).getArraySize() + "]");
 				       }
+				       else if(tmp.getType().isPointer()){
+				         ((PointerType)tmp.getType()).setElementType(_1.clone());
+					     //Get name of the pointer
+					     ((PointerType)tmp.getType()).setName(
+							((PointerType)tmp.getType()).getPrintedName() + "*");
+					   }
 				       else{
 				         ((CompositeType)(tmp.getType())).setElementType(_1);
 				         //check if is an array type ,set the size
@@ -486,7 +492,11 @@ SubType ::=    QualIdent:_1
 			     }
 			     else{
 			       Type t = _1.getType().clone();
-				   t.setName(_1.getType().getName());
+			       if(t.isStruct()){
+			         t.setName(_1.getType().getName());
+			       }
+			       else
+				     t.setName(_1.getName());
 			       RESULT = t;
 			     }
 			   :}
@@ -504,8 +514,10 @@ SubType ::=    QualIdent:_1
 
 DeclareType ::=  T_DECLTYPE T_LPAREN Expr0:_1 T_RPAREN
 				 {:
-				    Type t = _1.getType();				    
+				    //System.out.println(t.getName());
+				    Type t = _1.getType().clone();				    
 				    t.setName(_1.getType().getName());
+				    
 				    RESULT = t;
 				     
 				 :}
