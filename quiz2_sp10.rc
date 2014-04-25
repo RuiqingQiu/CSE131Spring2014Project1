@@ -1,0 +1,25 @@
+function: float foo1(float a) {int b; return b;}
+function: float foo2(float &a) {int b; return b;}
+function: float foo3(int a) {int b;return b;}
+
+int x;
+float y;
+
+function: void main(){
+  y = foo1(y); // No error
+  y = foo1( &y); //not assignable
+  y = foo3(y+x);//not assignable
+  y = foo2(foo1(y));//not a mod l-val
+  y = foo1(x+y);  //no error
+  y = foo1(x);  //no error
+  y = foo3((int)y);//no error
+  y = foo1(foo2(y)); //no error
+  y = foo1(42);//no error
+  y = foo2(x); //not equivalent
+  y = foo2(x+y); //not a mod l-val
+  y = foo3(x+y);  // not assgianble
+  y = foo1((float)x);  //no error
+  y = foo3(x+x);      //no error
+  y = foo2(foo1(y));  //not a mod l val
+  
+}

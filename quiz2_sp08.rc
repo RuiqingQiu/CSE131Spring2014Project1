@@ -1,3 +1,35 @@
+<<<<<<< HEAD
+int a;
+float b;
+typedef int INTEGER;
+structdef MYS{
+  int a ,b ;
+};
+structdef MYS2{
+  int a, b;
+};
+
+typedef funcptr : int (int x, int y) MYPTRALIAS;
+MYPTRALIAS myPtr1, myPtr2; // two function pointers
+
+function: void foo(int x, float &y)
+{}
+
+function: void main(){
+  b = (INTEGER)a;
+  new myPtr1;
+  delete myPtr1;
+  //b = (MYPTRALIAS)a;
+  MYS s1;
+  MYS2 s2;
+  MYS2 s3;
+  b = (MYS2)s1;
+  b = (int*)myPtr1;
+  *(int*)&b  = b;
+  *(float*)&a = b; 
+  *(MYS2*)&s1 =s3; 
+ }
+=======
 function : void main(){
   int x = 420;
   float y = 4.20;
@@ -33,3 +65,4 @@ function : void test(){
   //Equivalence error
   foo(a, a);
 }
+>>>>>>> 48b314b584649a0942a696515400c3c344205bc5
