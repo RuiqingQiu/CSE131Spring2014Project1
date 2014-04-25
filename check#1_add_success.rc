@@ -1,1 +1,33 @@
-int x = 1 + 1;
+int test1 = 1 + 1;  //pass
+//add float assigan to int
+int test2 = 1.0 + 1.0;  //Error, float cannot be assigned to int 
+bool test3 = -1 + (-39); //Error, int cannot be assigned to bool
+
+structdef MYS{
+  int a,b;
+  int [5] arr;
+  float * fPtr;
+  bool* boo;
+};
+function : void main(){
+  int* test4;
+  float* test5;
+  bool* test6;
+  int test7;
+  bool test8;
+  
+  test7 = *test4 + *test5;      //Error, float should not be assigned to int
+  test8 = *test6 + *test4; // Error, cannot perform add on bool and int
+  
+  test7 = test4 + test5; //Error, cannot perfore add on pointer types
+  int[10]arr;
+  int[20]arr1;
+  test7 = arr + arr1;  //Error, cannot perform add on array
+  test7 = arr[0] + arr1[19];
+  
+  MYS* mys;
+  test7 = mys->a + mys->b;
+  test7 = mys->arr[4] + *(mys->fPtr); //Error, not assignable to int
+  test8 = mys->a +*(mys->boo);  //Error, bool + int
+  test8 = mys->a <=  *(mys->fPtr);
+}

@@ -1,0 +1,17 @@
+funcptr : int(int x, int y) fp1;
+funcptr : float()fp2;
+funcptr:  int(int a, int b)fp3;
+funcptr: int*(int a, int b)fp4;
+
+function : void main(){
+	bool test1 = fp1 != fp2;  //Error, not equivalent
+	bool test2 = fp1 == fp2; // Error, not equivalent
+	bool test3 = fp1 == fp3; 
+	bool test4 = fp4 == fp1;
+	bool test8 = fp4 != fp1;
+	
+	bool test5 = fp1 != fp2;
+	bool test6 = fp1 != fp2;
+	bool test7 = fp1 != fp3;
+	
+}

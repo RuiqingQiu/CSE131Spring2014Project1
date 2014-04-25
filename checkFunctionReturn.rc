@@ -1,5 +1,6 @@
-static int[10] aaa;
+//static int[10] aaa;
 //static int x = false, bbb;
+
 function : void tmp(){
   int* aa = ::aaa;
 }
