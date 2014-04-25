@@ -1,0 +1,7 @@
+function : int foo (int&a, int b){return 1;}
+
+function : void main(){
+  int x = 1;
+  foo(x, x);
+  foo(2.0, 1);
+}
