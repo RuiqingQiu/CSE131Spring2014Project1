@@ -4,13 +4,12 @@ public class DecOp extends UnaryOp{
 	STO checkOperands(STO a) {
 		Type aType = a.getType();
 		//Check operand is numeric type
-		if (aType instanceof NumericType) {
+		if (aType.isNumeric()) {
 			//get if the operand is a modifiable L-value
 			if(a.getIsAddressable() == true && a.getIsModifiable() == true)
 				return new ExprSTO("DecOp", aType);
 			else
-				return new ErrorSTO(Formatter.toString(ErrorMsg.error2_Lval,  "--"));
-			
+				return new ErrorSTO(Formatter.toString(ErrorMsg.error2_Lval,  "--"));		
 		}
 		else if(aType.isPointer()){
 			//check if aType is a funcptr type

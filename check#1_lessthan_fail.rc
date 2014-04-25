@@ -30,7 +30,7 @@ function: void main(){
 	float[10]arr2;
 	bool[30]arr3;
 	
-	arr3[10] = arr1[3] < arr2[1];  //PASS,which it shold not pass
+	arr3[-(1++ + 2)] = arr1[3] < arr2[1];  //PASS,which it shold not pass
 	
 	
 	

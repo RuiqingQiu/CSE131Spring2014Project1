@@ -3,8 +3,8 @@ structdef MYSTRUCT{
 };
 structdef MYS{
   MYSTRUCT b;
-  /***** NEED TO BE FIXED *******/
-  MYS[2] m;  //Is this OK?
+  //Error,Size of field m cannot be determined at compile time.
+  MYS[2] m;  
   MYS* mys;
 };
 
@@ -16,7 +16,9 @@ function: void main(){
   
   int[4] a;
   int*s = a;
+  /********  NEED TO BE FIXED ***********/
   int** t = a;  //This should be an error, but now passing
+  
   typedef int[4] YARR;
   YARR[2] b;
   int** c = b;  //This also fail, but do not know why
@@ -25,6 +27,5 @@ function: void main(){
   int* test1;  
   test1 = &c; // Error
   test1 = &c[1]; // Error
-  //This should give an float not assinable to int
-  int test2 = c[2][9];// This should pass
+  int test2 = c[1][9];
 }
