@@ -362,8 +362,14 @@ class MyParser extends parser
 			
 			//Check global or static initialized is known at compile time
 			if(stoList.elementAt(i).isStatic()){
+				//Special case where it's a funcptr
+				if(stoList.elementAt(i).isFunc()){
+					if(stoList.elementAt(i).getInit().isFunc()){
+						
+					}
+				}
 				//If there's init
-				if(stoList.elementAt(i).getInit() != null){
+				else if(stoList.elementAt(i).getInit() != null){
 					if(!(stoList.elementAt(i).getInit().isConst())){
 						m_nNumErrors++;
 						m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
@@ -375,7 +381,13 @@ class MyParser extends parser
 			else{
 				//If it's  global scope
 				if(m_symtab.getLevel() == 1){
-					if(stoList.elementAt(i).getInit() != null){
+					//Special case where it's a funcptr
+					if(stoList.elementAt(i).isFunc()){
+						if(stoList.elementAt(i).getInit().isFunc()){
+							
+						}
+					}
+					else if(stoList.elementAt(i).getInit() != null){
 						if(!(stoList.elementAt(i).getInit().isConst())){
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
@@ -925,7 +937,7 @@ class MyParser extends parser
 			return b;
 		else{
 			STO result = o.checkOperands(a, b);
-		    if (result instanceof ErrorSTO) {
+		    if (result.isError()) {
 		    	result.setType(new ErrorType("error",8));
 		    	m_nNumErrors++;
 				m_errors.print (result.getName());
