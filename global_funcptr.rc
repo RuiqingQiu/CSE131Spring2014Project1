@@ -1,13 +1,13 @@
 function: void foo(){}
-static funcptr : void()fp3332 = foo; //Report not known at compile time
-funcptr: void() fp1 = foo;  // Should pass
+static funcptr : void()fp3332 = foo;
+funcptr: void() fp1 = foo;
 funcptr : void(int x) fp2 = nullptr; 
 function: void main(){
-  new fp2;
-  delete fp2;
+  new fp2;     //Error: Operand to "new" is not a modifiable L-value.
+  delete fp2;  //Error: Operand to "new" is not a modifiable L-value.
   
-  //new nullptr;
-  //delete nullptr;
+  new nullptr;    //Error: Operand to "new" is not a modifiable L-value.
+  delete nullptr; //Error: Operand to "new" is not a modifiable L-value.
   
   bool test1;
   int test3;
@@ -16,12 +16,13 @@ function: void main(){
   test1 = fp1 == fp2;
   test1 = fp1 != fp2;
   
+  
   int*test2 = (int*)nullptr;
   
   int* test4;
   test4 = nullptr;
   *test4;
   
-  //Should throw an error?
+  //Error,Incompatible type nullptr to unary dereference operator *, pointer expected.
   *nullptr; 
 }
