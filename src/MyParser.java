@@ -1069,6 +1069,7 @@ class MyParser extends parser
 							m_errors.print (Formatter.toString(ErrorMsg.error5r_Call, 
 							  arguments.get(i).getType().getName(), params.get(i).getName(), params.get(i).getType().getName()));
 							errorArgument = true;
+							continue;
 							//return (new ErrorSTO ("DoFuncCall,  pass-by-reference error"));
 						}
 						
