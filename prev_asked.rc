@@ -7,5 +7,12 @@ function: void main(){
   int y = 0;
   decltype(x+y) z;  //Error: incompatible type bool to binary operator +, numeric expected
   int flag = bool_two_args(main(),2.0);  //two errors here
+  
+  while(1){
+    if(2.0){
+      while(nullptr){
+      }
+    }
+  }
 }
 
