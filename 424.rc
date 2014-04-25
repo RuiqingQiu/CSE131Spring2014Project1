@@ -10,11 +10,14 @@ typedef int INT;
 //static float* floatPtr;
 function : void test1(){
     INT a = 1;
+    bool boo = a;
 	float f2;
 	decltype(a) test;
 	//Pass
 	test = f2;
 }
+
+
 
 typedef int[7] ARR;
 ARR[6] arr1;

@@ -1,3 +1,9 @@
+static int[10] aaa;
+//static int x = false, bbb;
+function : void tmp(){
+  int* aa = ::aaa;
+}
+
 //return the address of an R-val, not ok
 /*
 function : int& test1(int a){
@@ -100,7 +106,7 @@ function:int* test13(){
   return nullptr;
 }
 
-function:int* test19(){
+function:int* test21(){
   int* a  = nullptr;
   return a;
 }
@@ -122,15 +128,22 @@ function:int* test19(){
 }
 
 //Fail
-function:int& test10(){
+function:int& test22(){
   const int a = 10;
   int b;
   return a;
   return b++;
 }
 
+
+function: MYS* test20(){
+  MYS* m;
+  return m;
+}
+
 //Function call
 function : void funcCall(){
+    /*
     //Not a mod l-val;
 	test19() = 10; 
 	//Not assignable
@@ -139,7 +152,15 @@ function : void funcCall(){
 	
 	1++;
 	//return by valud non-mod lval
-	test19()++;
+	test21()++;
+    //test6 returns reference to MYS
+    test6().a++;
+    MYS mys;
+    test6(mys).a++;
+    //Cannot cast struct type
+    (int*)test6(mys);
+    ++(test20() -> a)--;
+    */ 
 }
 
 
