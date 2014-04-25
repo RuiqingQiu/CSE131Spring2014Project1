@@ -765,17 +765,29 @@ IdListWOptInit ::=  OptModifiers:_3 T_ID:_1 OptInit:_2
                     :}
     |               IdListWOptInit:_1 T_COMMA OptModifiers:_4 T_ID:_3 OptInit:_2
                     {:
-                        if(_2.isError())
-                          RESULT = new Vector();
-                        else{
-	                        RESULT = _1;
-	                        VarSTO v = new VarSTO(_3);
-	                        v.setInit(_2);
-	                        v.setStatic(false);
-	                        //If there's modifier
-	                        if(_4 != null)
-		                        v.setType(_4);
-	                        RESULT.addElement (v);
+                        if(_2 != null){
+	                        if(_2.isError())
+	                          RESULT = new Vector();
+	                        else{
+		                        RESULT = _1;
+		                        VarSTO v = new VarSTO(_3);
+		                        v.setInit(_2);
+		                        v.setStatic(false);
+		                        //If there's modifier
+		                        if(_4 != null)
+			                        v.setType(_4);
+		                        RESULT.addElement (v);
+		                    }
+		                }
+		                //No init applied
+	                    else{
+	                      RESULT = _1;
+		                  VarSTO v = new VarSTO(_3);
+		                  v.setStatic(false);
+		                  //If there's modifier
+		                  if(_4 != null)
+			                v.setType(_4);
+		                  RESULT.addElement (v);
 	                    }
                     :}
     ;
