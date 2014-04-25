@@ -954,8 +954,6 @@ class MyParser extends parser
 		//Check #3b
 		//Check if the expr is not assignable to the designator
 		if (!rightHandSide.getType().isAssignableTo(leftHandSide.getType())){
-			System.out.println(rightHandSide.getType().getName());
-			System.out.println(leftHandSide.getType().getName());
 			STO result = new ErrorSTO(Formatter.toString(ErrorMsg.error3b_Assign,rightHandSide.getType().getName(),
 					    leftHandSide.getType().getName()));
 			result.setType(new ErrorType("error",8));

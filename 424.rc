@@ -122,9 +122,3 @@ function : void main(){
      //This case doesn't pass
      fPtr = (float*)nullptr;
 }
-
-
-
-
-
-

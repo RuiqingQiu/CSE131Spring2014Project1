@@ -5,6 +5,8 @@ structdef MYS3{
   int y;
 };
 typedef MYS MYS2;
+typedef MYS2 MYS4;
+typedef MYS3 MYS5;
 function : void main(){
   int *p;
   int* ptr = (int *) &p; 
@@ -12,6 +14,10 @@ function : void main(){
 function : MYS2 foo(){
   MYS s;
   MYS3 x;
+  MYS4 j;
+  MYS5 i;
   //Fail 
   return s;
+  return x;
+  return i;
 }
