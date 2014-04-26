@@ -43,5 +43,10 @@ function : int main(){
   myPtr2 = myPtr1;
   cout << myPtr2(5,2) << endl;
   myPtr2 = nullptr;
+  
+  int a1 = 1;
+  int a2 = 1;
+  //Fail, not addressable
+  &subtraction(a1, a2);
   return 0;
 }

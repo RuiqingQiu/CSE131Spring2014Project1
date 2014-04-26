@@ -815,6 +815,7 @@ class MyParser extends parser
 				s.setIsModifiable(true);
 				((FunctionPointerType)(m_symtab.getFunc().getType())).addParameter(s);
 				m_symtab.getFunc().addParameter(s);
+				m_symtab.insert(s);
 			}
 			//we know the function is successfully overloaded and we can add to list
 			original.addOverloadFunc(needToBeCheckedFunc);
@@ -838,6 +839,15 @@ class MyParser extends parser
 				}
 				m_nNumErrors++;
 				m_errors.print (Formatter.toString(ErrorMsg.error22_Decl, needToBeCheckedFunc.getName()));
+				for(STO s : params)
+				{
+					//Check #19, all formal param are variables, which are mod l-val
+					s.setIsAddressable(true);
+					s.setIsModifiable(true);
+					((FunctionPointerType)(m_symtab.getFunc().getType())).addParameter(s);
+					m_symtab.getFunc().addParameter(s);
+					m_symtab.insert(s);
+				}
 				return;
 			}
 		}
@@ -848,6 +858,7 @@ class MyParser extends parser
 			s.setIsModifiable(true);
 			((FunctionPointerType)(m_symtab.getFunc().getType())).addParameter(s);
 			m_symtab.getFunc().addParameter(s);
+			m_symtab.insert(s);
 		}
 		//Enter here if it's valid
 		original.addOverloadFunc(needToBeCheckedFunc);
