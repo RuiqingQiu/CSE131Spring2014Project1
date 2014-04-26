@@ -1,4 +1,6 @@
 int myX; 
+typedef int INT;
+typedef float FLOAT;
 function: void foo()
 {
   const int x = 4;
@@ -12,7 +14,7 @@ function: void foo()
   
   while (- (4 + 1.5)){}
   while ( -(a + b) ) {} // bool or int condition required
+  while ( -(i + f) ) {} // bool or int condition required
  
   c = -(a + b);   // Error not assignable types Float to Bool
-  
 }
