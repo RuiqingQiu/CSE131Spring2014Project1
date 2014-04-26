@@ -33,7 +33,7 @@ function : float foo(float x, float y, float z){
 function : void foo(float x, float y, float z){
 }
 
-/*function : int main(){
+function : int main(){
   foo(1); //Error22_illegal
   return 0;
-}*/
+}

@@ -1194,10 +1194,63 @@ class MyParser extends parser
 		}
 		if(sto.isFunc())
 		{
-			//It's a FuncSTO, check number of arguments
-			FuncSTO tmp = (FuncSTO) sto;
-			//Check the number is the same
-			if(arguments.size() == tmp.getParameterNumbers()){
+			//Check if overloaded
+			if(((FuncSTO)sto).isOverloaded())
+			{
+				FuncSTO tmp = (FuncSTO) sto;
+				Vector<FuncSTO> candidates = tmp.getOverloadFuncList();
+				candidates.addElement(tmp);
+				
+				for(FuncSTO s : candidates){	
+					if(arguments.size() == tmp.getParameterNumbers()){
+						Vector<STO> params = (Vector<STO>) s.getParameterSTO().clone();
+						int count = 0;
+						if(params.size() != arguments.size()){
+							continue;
+						}
+						for(int i = 0; i < arguments.size(); i++)
+						{
+							//pass by reference, argument type is not equivalent to the parameter type
+							if(!arguments.get(i).getType().isEquivalentTo(params.get(i).getType())){						
+								break;
+							}
+							//pass by reference, argument is not a modifiable L-value
+							else if(params.get(i).getType().isReference() && !arguments.get(i).isModLValue()){
+								//If it's an array name, should be a mod l-val
+								if(arguments.get(i).getType().isArray()){
+									count++;
+								}
+								else{
+									break;
+								}
+							}
+							else{
+								count++;
+							}
+						}
+						//Check if a exact match
+						if(count == arguments.size()){
+							if(tmp.getReturnType().isReference()){
+								ExprSTO ret = new ExprSTO("FuncCall", tmp.getReturnType());
+								ret.setIsAddressable(true);
+								ret.setIsModifiable(true);
+								return ret;
+							}
+							//System.out.println("here");
+						    return new ExprSTO("FuncCall", tmp.getReturnType());
+						}
+					}//End of if statement check argument size and parameter size
+				}
+				//No good candidates
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error22_Illegal, sto.getName()));
+				return (new ErrorSTO (sto.getName ()));
+			}
+			else{
+			  //It's a FuncSTO, check number of arguments
+			  FuncSTO tmp = (FuncSTO) sto;
+			  //Check the number is the same
+			  if(arguments.size() == tmp.getParameterNumbers()){
 				Vector<STO> params = (Vector<STO>) tmp.getParameterSTO().clone();
 				for(int i = 0; i < arguments.size(); i++)
 				{
@@ -1258,6 +1311,7 @@ class MyParser extends parser
 				m_errors.print (Formatter.toString(ErrorMsg.error5n_Call, arguments.size(), tmp.getParameterNumbers()));
 				return (new ErrorSTO ("DoFuncCall, argument number"));
 			}
+		  }
 		}
 		//Here if the sto is varSTO and type is FunctionPointerType
 		else{
