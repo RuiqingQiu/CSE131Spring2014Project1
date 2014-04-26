@@ -23,7 +23,5 @@ function: void main(){
   foo(test2);
 }
 
-
-
 function void arraySize(){
 }

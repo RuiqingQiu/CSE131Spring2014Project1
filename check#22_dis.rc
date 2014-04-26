@@ -5,8 +5,10 @@ function : void foo(float x, int y){}
 
 function : int main(){
   foo(1); //map to second one
-  foo(1.7) //map to first one
-  foo(4, 8.8) //map to third one
-  foo(5, 6) // no match
-  foo(1, 2, 3) //no match
+  foo(1.7); //map to first one
+  foo(4, 8.8); //map to third one
+  foo(5, 6); // no match
+  foo(1, 2, 3); //no match
+  
+  return 1;
 }

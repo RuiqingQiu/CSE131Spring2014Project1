@@ -1096,6 +1096,35 @@ class MyParser extends parser
 			return result;
 			// Good place to do the assign check		
 		}
+		//
+		if(leftHandSide.getType().isFuncPointer() && rightHandSide.isFunc() && 
+				((FuncSTO)rightHandSide).isOverloaded()){
+			Vector<FuncSTO> candidates = ((FuncSTO)rightHandSide).getOverloadFuncList();
+			candidates.addElement((FuncSTO) rightHandSide);
+			for(int i = 0;i< candidates.size();i++){
+				FuncSTO tmp = candidates.get(i);
+				if(!(leftHandSide.getType().isEquivalentTo(tmp.getType()))){
+					//If not equivalent type, continue checking other candidates
+					continue;
+				}
+				else{
+					//if has equivalent type
+					ExprSTO result = new ExprSTO(leftHandSide.getName() + " = " + rightHandSide.getName());
+					result.setType(leftHandSide.getType().clone());
+					result.setIsAddressable(false);
+					result.setIsModifiable(false);
+					return result;
+				}
+			}
+			STO result = new ErrorSTO(Formatter.toString(ErrorMsg.error3b_Assign,rightHandSide.getType().getName(),
+				    leftHandSide.getType().getName()));
+			result.setType(new ErrorType("error",8));
+			m_nNumErrors++;
+			m_errors.print (result.getName());
+			return result;
+		}//end of if statement
+		
+		
 		//It's a good modifiable L-value
 		//Check #3b
 		//Check if the expr is not assignable to the designator

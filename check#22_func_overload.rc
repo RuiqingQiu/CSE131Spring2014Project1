@@ -34,8 +34,8 @@ function : void foo(float x, float y, float z){
 }
 
 function : int main(){
-  foo(1); //Error22_illegal
+  foo(1); //Error, Illegal call to overloaded function foo.
   foo(1.0, 2.0, 3.0);
-  foo(1.0, 2, 3.0);
+  foo(1.0, 2, 3.0); // Error ,Illegal call to overloaded function foo.
   return 0;
 }
