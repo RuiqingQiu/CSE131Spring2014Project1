@@ -23,7 +23,6 @@ function: void main(){
   
   int[4] a;
   int*s = a;
-  /********  NEED TO BE FIXED ***********/
   int** t = a;  //This should be an error, but now passing
   
   typedef int[4] YARR;
