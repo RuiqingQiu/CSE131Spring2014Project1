@@ -1,11 +1,27 @@
 int [10] a;
 function : void main(){
+  int x = 1 + 1.0;
   int x = a[1++ + (-2)];
   int x = a[1/2 * 3 - 1];
+  int x = a[1/2.0 * 3 - 1];
+  int x = a[1.0+ 3.0];
+  int x = a[1.1 + 3.1];
   const int y = 10;
   int x = a[y + 5];
   int x = a[-(1++ % 2)];
   int x = a[1/0 ^ 2];
   int j = a[-(-1) & 2];
   int x = a[1 % 0];
+  int x = a[012];
+  int x = a[0xA];
+  int x = a[-(-(-(-10)))];
+  
+  bool b = nullptr != nullptr;
+  
+  
+  
+  
+  int aa = 1 - 1.0;
+  int bb = 1 * 1.0;
+  int cc = 1/1.0;
 }

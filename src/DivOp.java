@@ -30,7 +30,7 @@ public class DivOp extends ArithmeticOp{
 					return new ErrorSTO(ErrorMsg.error8_Arithmetic);
 				}
 				float x =  ((ConstSTO)a).getFloatValue() / ((ConstSTO)b).getFloatValue();
-				ConstSTO c = new ConstSTO("", aType);
+				ConstSTO c = new ConstSTO("", new FloatType("float", 4));
 				
 				c.setValue(x);
 				return c;
