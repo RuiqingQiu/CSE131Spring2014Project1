@@ -18,7 +18,9 @@ class FuncSTO extends STO
                 // fields as necessary
 		this.parameters = new Vector<STO>();
 		this.top_level_return = false;
-		this.overloadedFuncs = new Vector<STO>();
+		this.overloadedFuncList = new Vector<FuncSTO>();
+		this.overloaded = false;
+		this.defineError = false;
 	}
 
 
@@ -66,7 +68,27 @@ class FuncSTO extends STO
 		return this.top_level_return;
 	}
 	
-	private Vector<STO> overloadedFuncs;
+	public boolean isOverloaded(){
+		return this.overloaded;
+	}
+	public void setOverloaded(boolean b){
+		this.overloaded = b;
+	}
+	
+	public void addOverloadFunc(FuncSTO f){
+		this.overloadedFuncList.addElement(f);
+	}
+	public Vector<FuncSTO> getOverloadFuncList(){
+		return this.overloadedFuncList;
+	}
+	
+	public boolean getDefineError(){
+		return this.defineError;
+	}
+	public void setDefineError(boolean b ){
+		this.defineError = b;
+	}
+	
 //----------------------------------------------------------------
 //	Instance variables.
 //----------------------------------------------------------------
@@ -76,5 +98,8 @@ class FuncSTO extends STO
 	
 	//For extra credit
 	private boolean overloaded;
+	private Vector<FuncSTO> overloadedFuncList;
+	
+	private boolean defineError;
 	
 }

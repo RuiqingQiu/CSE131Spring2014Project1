@@ -724,20 +724,32 @@ class MyParser extends parser
 	void
 	DoFuncDecl_1 (Type returnType, String id)
 	{
+		//Check if the function is already in the symbol table
 		if (m_symtab.accessLocal (id) != null)
 		{
 			//Check if it's a valid overload
-			
-			//FuncSTO overloaded = (FuncSTO) m_symtab.accessLocal(id);
 			STO tmp = m_symtab.accessLocal(id);
-			m_nNumErrors++;
-			m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
-			/*if(tmp.isFunc()){
-				//Do overload
+			
+			//Check if the id is a valid function
+			if(tmp.isFunc()){
+				//Mark as an overloaded func
+				FuncSTO overloaded =  new FuncSTO(id);
+				FunctionPointerType type = new FunctionPointerType("funcptr", 4);
+				type.setReturnType(returnType);
+				overloaded.setType(type);
+				((FuncSTO)tmp).setOverloaded(true);
+				overloaded.setOverloaded(true);
+				//((FuncSTO)tmp).addOverloadFunc(overloaded);	
+				m_symtab.openScope ();
+				m_symtab.setFunc (overloaded);
+				m_symtab.getFunc().setReturnType(returnType);
+				return;
 			}
 			else{
-				
-			}*/
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.redeclared_id, id));
+			}
+			//FuncSTO overloaded = (FuncSTO) m_symtab.accessLocal(id);
 		}
 	
 		FuncSTO sto = new FuncSTO (id);//initialize here so that we can insert parameter into the FuncSTO
@@ -749,7 +761,6 @@ class MyParser extends parser
 		type.setReturnType(returnType);
 		sto.setType(type);
 		m_symtab.insert (sto);//inserted into current scope
-
 		m_symtab.openScope ();
 		m_symtab.setFunc (sto);
 		m_symtab.getFunc().setReturnType(returnType);
@@ -762,6 +773,11 @@ class MyParser extends parser
 	void
 	DoFuncDecl_2 ()
 	{
+		if(m_symtab.getFunc().getDefineError()){
+			m_symtab.closeScope ();//close scope(pops top scope off)
+			m_symtab.setFunc (null);//Say we are back in outer scope
+			return;
+		}
 		m_symtab.getFunc().getType().setName(((FunctionPointerType)(m_symtab.getFunc().getType())).getErrorName());
 		m_symtab.closeScope ();//close scope(pops top scope off)
 		//No top level return statement has been seen
@@ -772,6 +788,70 @@ class MyParser extends parser
 		m_symtab.setFunc (null);//Say we are back in outer scope
 	}
 
+	private void overloadCheck(Vector<STO> params, String functionName){
+		FuncSTO needToBeCheckedFunc = m_symtab.getFunc();
+		
+		FuncSTO original = (FuncSTO)m_symtab.access(functionName);
+		Vector<FuncSTO> checkTarget = (Vector<FuncSTO>) original.getOverloadFuncList().clone();
+		checkTarget.addElement(original);
+		boolean valid = true;
+		Vector<FuncSTO> potential = new Vector<FuncSTO>();
+		for(int i = 0; i < checkTarget.size();i++){
+			FuncSTO tmp = checkTarget.get(i);
+			if(tmp.getParameterNumbers() != params.size()){
+				continue;
+			}
+			else{
+				//Add to the potential 
+				potential.addElement(tmp);
+			}
+		}
+		//after the for loop we get the FuncSTO that has the same number of parameter
+		if(potential.size() == 0){			
+			for(STO s : params)
+			{
+				//Check #19, all formal param are variables, which are mod l-val
+				s.setIsAddressable(true);
+				s.setIsModifiable(true);
+				((FunctionPointerType)(m_symtab.getFunc().getType())).addParameter(s);
+				m_symtab.getFunc().addParameter(s);
+			}
+			//we know the function is successfully overloaded and we can add to list
+			original.addOverloadFunc(needToBeCheckedFunc);
+			return;
+		}
+		// there are same number of parameters, need to check equivalence
+		for(int i = 0; i< potential.size();i++){
+			FuncSTO tmp = potential.get(i);
+			Vector<STO> tmpList = tmp.getParameterSTO();
+			int count = 0;
+			for(int j = 0; j< tmpList.size();j++){
+				if(tmpList.get(j).getType().isEquivalentTo(params.get(j).getType())){
+					count++;
+				}
+			}
+			//Check if count equals to the size of the paramter list
+			if(count == tmpList.size()){
+				if(original.getOverloadFuncList().size() == 0){
+					original.setOverloaded(false);
+					needToBeCheckedFunc.setDefineError(true);
+				}
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error22_Decl, needToBeCheckedFunc.getName()));
+				return;
+			}
+		}
+		for(STO s : params)
+		{
+			//Check #19, all formal param are variables, which are mod l-val
+			s.setIsAddressable(true);
+			s.setIsModifiable(true);
+			((FunctionPointerType)(m_symtab.getFunc().getType())).addParameter(s);
+			m_symtab.getFunc().addParameter(s);
+		}
+		//Enter here if it's valid
+		original.addOverloadFunc(needToBeCheckedFunc);
+	}
 
 	//----------------------------------------------------------------
 	// DoFormalParams need to store all parameters to the FuncSTO and 
@@ -787,8 +867,12 @@ class MyParser extends parser
 			m_nNumErrors++;
 			m_errors.print ("internal: DoFormalParams says no proc!");
 		}
+		if(m_symtab.getFunc().isOverloaded()){
+			overloadCheck(params,m_symtab.getFunc().getName());
+			return;
+		}
 		//If no arguments, return
-		if(params.size() == 0)
+		else if(params.size() == 0)
 			return;
 		else{
 			//Add all the param to the symbal table and FuncSTO
@@ -834,7 +918,9 @@ class MyParser extends parser
 			m_errors.print ("internal: DoReturnCheck says no proc!");
 			return;
 		}
-		
+		/*if(m_symtab.getFunc().getDefineError())
+			return;
+		*/
 		//It's top level and a return statement is found
 		if(m_symtab.getLevel() == 2){
 			m_symtab.getFunc().setTopLevelReturn(true);
@@ -843,6 +929,7 @@ class MyParser extends parser
 			return;
 		}
 		Type t = s.getType();
+		//System.out.println(m_symtab.getFunc().getReturnType());
 		//Check if the return type is by reference or value
 		if(m_symtab.getFunc().getReturnType().isReference()){
 		  //Check if the type of return expression is not equivalent to the return 

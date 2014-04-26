@@ -13,3 +13,8 @@ function : void main(){
   
   (*MyFuncPtrPtr)(); //This will be a function call to foo
 }
+
+funcptr : void() p;
+function : void main2(){
+  p = foo;
+}

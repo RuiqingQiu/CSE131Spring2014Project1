@@ -2,16 +2,38 @@ function : float foo(float &x){
   return 1.0;
 }
 
-//Fail 1, redeclared 
+//Error, Duplicate declaration of overloaded function foo.
+//Type of return expression (float), not assignment compatible with function's return type (int).
 function : int foo(float x){
+  return 1.0;
+}
+
+//Pass
+function: bool foo(){
+  return true;
+}
+
+function : int foo(float* & x){
   return 1;
+}
+//Error
+function: int foo(float* x){
+  return 1;
+}
+//Error, Type of return expression (bool), not assignment compatible with function's return type (float).
+function: float foo(float x,float y){
+  return true;
 }
 
 function : float foo(float x, float y, float z){
   return 1.0;
 }
 
-function : int main(){
+//Error, Duplicate declaration of overloaded function foo.
+function : void foo(float x, float y, float z){
+}
+
+/*function : int main(){
   foo(1); //Error22_illegal
   return 0;
-}
+}*/

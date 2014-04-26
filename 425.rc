@@ -29,6 +29,7 @@ function: void main(){
   typedef int[4] YARR;
   YARR[2] b;
   int** c = b;  //This also fail, but do not know why
+  int* test = b[1];
   
   ARR[2] c; // c should have float[10][2]
   int* test1;  
