@@ -344,10 +344,8 @@ class MyParser extends parser
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
 			String id = lstIDs.elementAt (i);
-			//Type tmp = null;
 			Type tmp = type.clone();
 			if(stoList.elementAt(i).getType() == null){
-				//stoList.elementAt(i).setType(type.clone());
 				tmp = type.clone();
 			}
 			else if(stoList.elementAt(i).getType().isArray()){

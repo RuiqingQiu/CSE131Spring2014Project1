@@ -22,6 +22,3 @@ function: void main(){
   arrRefTest2(test1);
   foo(test2);
 }
-
-function void arraySize(){
-}

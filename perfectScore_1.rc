@@ -12,6 +12,8 @@ function: void foo()
   
   while (- (4 + 1.5)){}
   while ( -(a + b) ) {} // bool or int condition required
+  
+  if(-(a+b)){}
  
   c = -(a + b);   // Error not assignable types Float to Bool
   
