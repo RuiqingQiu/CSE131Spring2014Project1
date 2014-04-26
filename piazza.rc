@@ -22,11 +22,10 @@ function: void main(){
   &(x15++);//Error, Non-addressable argument of type int* to address-of operator.
   *x15++;
   
-  /*********** NEED TO BE FIXED  ***************/
-  ++(x15--);//++pointer--, pointer-- result r-val so cannot do ++ rval
-  (--x15)++;
-  ++x15++;
-  --x15--;
+  ++(x15--);//Error, Operand to ++ is not a modifiable L-value.
+  (--x15)++;//Error, Operand to ++ is not a modifiable L-value.
+  ++x15++;// Error,Operand to ++ is not a modifiable L-value.
+  --x15--;//Operand to -- is not a modifiable L-value.
   
   *z;  //PASS, cannot dereference a funcptr type
   
@@ -34,6 +33,7 @@ function: void main(){
   FP[10] funcPtrArr;
   funcPtrArr[9] = addition;  //PASS since dereference funcPtrArr result funcptr
   
-  
-  
+  int test1;
+  sizeof(1.3);  //Error, Invalid operand to sizeof. Not a type or not addressable.
+  test1 = sizeof(test1);
 }

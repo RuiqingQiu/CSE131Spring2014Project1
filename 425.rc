@@ -7,6 +7,13 @@ structdef MYS{
   MYS[2] m;  
   MYS* mys;
 };
+typedef int* INTPTR;
+typedef MYS* MYSPTR;
+
+structdef MYS2{
+  INTPTR[10] x;
+  MYSPTR[10] b;
+};
 
 typedef float[10] ARR;
 function: void main(){
