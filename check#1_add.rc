@@ -8,9 +8,9 @@ function: void main(){
 	bool* booPtrs;
 	
 	x = true + 1; //Error one, incompatible
-    x = 0 / 0;
-    /******* This one has nullptr expcetion right now, need to fixed, it should an int ***********/
-    //x = 0 % 0;
+    x = 0 / 0; // Error, Arithmetic exception occurred during constant folding.
+    x = 0;
+    x = 0 % 0;// Error, Arithmetic exception occurred during constant folding.
     
 	//+, - , * ,/ must be numeric types and resulting type is is int when both are int or float
 	x = iPtr + fPtr;    //Error

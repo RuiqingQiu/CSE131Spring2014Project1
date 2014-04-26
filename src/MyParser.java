@@ -370,15 +370,15 @@ class MyParser extends parser
 			
 			//Check global or static initialized is known at compile time
 			if(stoList.elementAt(i).isStatic()){
-				//Special case where it's a funcptr
-				if(type.isFuncPointer()){
-					if(stoList.elementAt(i).getInit().isFunc()){
-						
-					}
-				}
 				//If there's init
-				else if(stoList.elementAt(i).getInit() != null){
-					if(!(stoList.elementAt(i).getInit().isConst())){
+				if(stoList.elementAt(i).getInit() != null){
+					//Special case where it's a funcptr
+					if(type.isFuncPointer()){
+						if(stoList.elementAt(i).getInit().isFunc()){
+							
+						}
+					}
+					else if(!(stoList.elementAt(i).getInit().isConst())){
 						m_nNumErrors++;
 						m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
 						return;
@@ -389,14 +389,17 @@ class MyParser extends parser
 			else{
 				//If it's  global scope
 				if(m_symtab.getLevel() == 1){
-					//Special case where it's a funcptr
-					if(type.isFuncPointer()){
-						if(stoList.elementAt(i).getInit().isFunc()){
+					
+					if(stoList.elementAt(i).getInit() != null)
+					{
+						//Special case where it's a funcptr
+						if(type.isFuncPointer()){
 							
+							if(stoList.elementAt(i).getInit().isFunc()){
+								
+							}
 						}
-					}
-					else if(stoList.elementAt(i).getInit() != null){
-						if(!(stoList.elementAt(i).getInit().isConst())){
+						else if(!(stoList.elementAt(i).getInit().isConst())){
 							m_nNumErrors++;
 							m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
 							return;

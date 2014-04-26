@@ -13,14 +13,18 @@ function: void main(){
   *a = 5;   //PASS, ArrayType is not a pointer type
   x15 = a; //Assigan an array to pointer
   *x15 = 5; //And dereference the pointer, assign 5
+  
   x15++; //pointer ++
   --x15;// --pointer
   x15--; //pointer --
   ++x15;//++ pointer
   
+  &(x15++);//Error, Non-addressable argument of type int* to address-of operator.
+  *x15++;
+  
   /*********** NEED TO BE FIXED  ***************/
-  ++x15--;//++pointer--, pointer-- result r-val so cannot do ++ rval
-  --x15++;
+  ++(x15--);//++pointer--, pointer-- result r-val so cannot do ++ rval
+  (--x15)++;
   ++x15++;
   --x15--;
   
