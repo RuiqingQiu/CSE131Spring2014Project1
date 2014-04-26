@@ -1,1 +1,15 @@
-int a = 1 & 2;
+typedef int INTEGER;
+typedef float FLOAT;
+function : void main(){
+	int a = 1 & 2;
+	INTEGER b;
+	FLOAT c;
+	int test1;
+	test1 = 1 & b;
+	test1 = 1 & c; // Error, Incompatible type FLOAT to binary operator &, equivalent to int expected.
+	INTEGER* ptr;
+	test1 = *ptr & ptr; //Error, Incompatible type INTEGER* to binary operator &, equivalent to int expected.
+    test1 = (test1 + test1) & test1;
+    test1 = b & test1++;
+    test1 = (FLOAT)b & test1; // Error, Incompatible type FLOAT to binary operator &, equivalent to int expected.
+}

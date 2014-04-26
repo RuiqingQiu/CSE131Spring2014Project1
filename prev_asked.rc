@@ -1,3 +1,15 @@
+static int[10] test9;
+static funcptr: void() fp22;
+int x = 1;
+static int y = x;
+structdef MYS{
+  int a;
+};
+MYS test13;
+static MYS test12 = test13;
+static MYS* test14 = &test13;
+static MYS* test15 = nullptr;
+
 function: bool bool_two_args(bool b,int i){
   return b;
 }

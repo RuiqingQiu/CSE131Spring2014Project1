@@ -1,4 +1,25 @@
+funcptr: int(int x,int y)fp;
+typedef int INTEGER;
+structdef MYS{
+  int a;
+  float b;
+};
+function: void main(){
 bool a = true < 3;
 bool b = false > true;
 bool c = true <= 4;
 bool d = false >= 10.0;
+
+bool e;
+e = fp >= fp;
+e = fp <= fp;
+e = fp > fp;
+e = fp< fp;
+
+INTEGER test1;
+MYS mys;
+e = test1 >= test1;
+e = test1 >= mys.a;
+e = test1 <= mys.b;
+}
+

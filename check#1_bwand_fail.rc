@@ -1,2 +1,15 @@
-int a = 1 & true;
-int b = false & 2;
+function : void main(){
+    int a = 1 & true;
+	int b = false & 2;
+
+    int test1;
+    test1 = 012 &1;
+    test1 = 0x112 & 3;
+    
+    test1 = 0x112 & 3.5;
+    
+    test1 = -0x112 & +012;
+
+    test1 = -0x112 | -(-(-(-012)));
+    
+}

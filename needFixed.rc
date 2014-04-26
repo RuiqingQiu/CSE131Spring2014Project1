@@ -1,0 +1,16 @@
+ function: void main(){
+  int* x15;
+  x15++; //pointer ++
+  --x15;// --pointer
+  x15--; //pointer --
+  ++x15;//++ pointer
+  
+  &(x15++);//Error, Non-addressable argument of type int* to address-of operator.
+  *x15++;
+  
+  /*********** NEED TO BE FIXED  ***************/
+  ++(x15--);//++pointer--, pointer-- result r-val so cannot do ++ rval
+  (--x15)++;
+  ++x15++;
+  --x15--;
+}

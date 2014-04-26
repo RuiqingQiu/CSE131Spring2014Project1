@@ -1,2 +1,11 @@
-int a = 1 | true;
-int b = false | 2;
+typedef int INT;
+typedef float FLOAT;
+function: void main(){
+	int a = 1 | true;
+	int b = false | 2;
+	
+	while(nullptr){
+	  break;
+	}
+		
+}
