@@ -20,6 +20,7 @@ function : int foo(float* & x){
 function: int foo(float* x){
   return 1;
 }
+
 //Error, Type of return expression (bool), not assignment compatible with function's return type (float).
 function: float foo(float x,float y){
   return true;
