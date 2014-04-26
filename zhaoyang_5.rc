@@ -1,12 +1,24 @@
+//No error
 function : int test(int x, int y) {return x;}
+//No error
 function : int foo(float x, int y) { return 1; }
-function : float foo(int &x,int y) { return 1.0; } 
+
+//No error
+function : float foo(int &x,int y) { return 1.0;}
+//No error 
 function : int foo(int *x, int &y) { return 1;}
+//Error 1
 function : int & foo(float x, int y) { return y;}
+
 //function : int * foo(float x, int y) { return 1;}
+//Error 2
 function : float foo(float x, int y) { return 2.0;} // illegal declare 
+//Error 3
 function : float foo(int *x, int &y) { return (float)1; }
+//Error 4
 function : int foo(int z, int w) { return z;} // redeclare error
+
+//No error
 function : float goo(int x, int y ){ return 2.0;}
 funcptr : int & (int x, int y) fptr;
 funcptr : int () fptr1;
@@ -17,8 +29,11 @@ function : void main(){
 	int *z; 
 	typedef funcptr : int() MYFP; 
 	typedef funcptr : int(int i) MYFP2; 
+	//Error 5
 	fptr1 = foo; // Value of type funcptr : int (int z, int w) not assignable to variable of type funcptr : int ().
+	//Error 6
 	fptr = foo;
+	
 	foo(f, x);
 	foo();
 

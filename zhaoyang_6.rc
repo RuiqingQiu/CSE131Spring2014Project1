@@ -1,0 +1,32 @@
+function : int & foo(float x, int y) { return 1; } 
+function : float foo(int &x,int y) { return 1.0; }  
+function : int foo(int *x, int &y, int z) { return 1;} 
+function : int & foo(float x, int y) { return y;} 
+function : float foo(float x, int y) { return 2.0;} // illegal declare f i 
+function : float foo(int *x, int &y) { return (float)1; } 
+function : int foo(int z, int w) { return z;} // redeclare error i i
+function : float goo(int x, int y ){ return 2.0;} 
+funcptr : int & (int x, int y) fptr;
+funcptr : int () fptr1;
+function : void main(){
+	float f;
+	bool b;
+	int x, y; 
+	int *z; 
+	typedef funcptr : int() MYFP; 
+	typedef funcptr : int(int i) MYFP2; 
+	fptr1 = foo; // Value of type funcptr : int (int z, int w) not assignable to variable of type funcptr : int ().
+	fptr = foo;
+	foo(f, x);
+	foo();
+
+}
+
+function : void main(){
+	int * p = & foo(2.0 , 1);
+	float a;
+	foo(2.0,true);
+	int i;
+	float i2;
+	foo(p,i2,1);
+}
