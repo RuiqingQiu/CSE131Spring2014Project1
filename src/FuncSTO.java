@@ -73,4 +73,8 @@ class FuncSTO extends STO
 	private Type 		m_returnType;
 	private boolean     top_level_return;
 	private Vector<STO> parameters;
+	
+	//For extra credit
+	private boolean overloaded;
+	
 }

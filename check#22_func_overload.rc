@@ -1,6 +1,6 @@
-/*function : float foo(float &x){
+function : float foo(float &x){
   return 1.0;
-}*/
+}
 
 //Fail 1, redeclared 
 function : int foo(float x){
