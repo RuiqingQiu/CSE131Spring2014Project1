@@ -1,9 +1,0 @@
-function : int foo() {return 0;}
-
-funcptr : int() fp1 = foo; //variable declaration with init
-funcptr : int() fp2; //variable declaration without init
-funcptr : int() fp3 = nullptr; //can initialize to nullptr
-
-function : void main() {
-	fp2 = fp1; //Can initialize to other funcptrs
-}

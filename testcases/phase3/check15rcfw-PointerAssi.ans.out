@@ -1,5 +1,0 @@
-Error, "phase3/check15rcfw-PointerAssi.rc": 
-  Initialization value of type MYS* not assignable to constant/variable of type int*.
-Error, "phase3/check15rcfw-PointerAssi.rc": 
-  Initialization value of type MYS not assignable to constant/variable of type int*.
-Compile: failure.

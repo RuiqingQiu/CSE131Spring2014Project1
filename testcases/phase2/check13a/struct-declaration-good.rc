@@ -1,7 +1,0 @@
-structdef MYS {
-	int x;
-	float f, f1, f2, f3, f4;
-	bool b;
-	MYS* mys_ptr;
-	MYS* mys_ptr1;
-};

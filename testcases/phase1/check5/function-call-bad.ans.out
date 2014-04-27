@@ -1,5 +1,0 @@
-Error, "phase1/check5/function-call-bad.rc": 
-  Incompatible type bool to binary operator +, numeric expected.
-Error, "phase1/check5/function-call-bad.rc": 
-  Value of type void not assignable to variable of type int.
-Compile: failure.

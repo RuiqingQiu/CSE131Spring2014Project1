@@ -1,5 +1,0 @@
-Error, "phase1/check3a/illegal-assignment.rc": 
-  Left-hand operand is not assignable (not a modifiable L-value).
-Error, "phase1/check3a/illegal-assignment.rc": 
-  Left-hand operand is not assignable (not a modifiable L-value).
-Compile: failure.

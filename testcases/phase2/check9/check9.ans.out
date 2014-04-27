@@ -1,5 +1,0 @@
-Error, "phase2/check9/check9.rc": 
-  Value of type bool not assignable to variable of type INTEGER.
-Error, "phase2/check9/check9.rc": 
-  Value of type bool not assignable to variable of type INTEGER1.
-Compile: failure.

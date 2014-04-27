@@ -1,5 +1,0 @@
-Error, "phase2/check8/constant-folding.rc": 
-  Arithmetic exception occurred during constant folding.
-Error, "phase2/check8/constant-folding.rc": 
-  Initialization value of constant named j not known at compile time.
-Compile: failure.

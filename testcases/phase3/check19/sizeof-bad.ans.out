@@ -1,7 +1,0 @@
-Error, "phase3/check19/sizeof-bad.rc": 
-  Invalid operand to sizeof. Not a type or not addressable.
-Error, "phase3/check19/sizeof-bad.rc": 
-  Left-hand operand is not assignable (not a modifiable L-value).
-Error, "phase3/check19/sizeof-bad.rc": 
-  Argument passed to reference parameter x (type int) is not a modifiable L-value.
-Compile: failure.

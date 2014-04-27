@@ -1,3 +1,0 @@
-Error, "phase2/check8/divide-by-zero.rc": 
-  Arithmetic exception occurred during constant folding.
-Compile: failure.

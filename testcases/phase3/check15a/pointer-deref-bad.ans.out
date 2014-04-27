@@ -1,5 +1,0 @@
-Error, "phase3/check15a/pointer-deref-bad.rc": 
-  Incompatible type int to unary dereference operator *, pointer expected.
-Error, "phase3/check15a/pointer-deref-bad.rc": 
-  Incompatible type int to operator ->, pointer to struct expected.
-Compile: failure.

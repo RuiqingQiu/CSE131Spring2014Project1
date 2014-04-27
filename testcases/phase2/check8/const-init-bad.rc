@@ -1,7 +1,0 @@
-function : int foo(int x) {return x;} 
-function : int main() {
-	const int c = foo(5);
-	const int c = 4.0 + 2;
-	bool x = foo(5);
-	return 0;
-}

@@ -1,8 +1,0 @@
-typedef int FLOAT;
-FLOAT a;
-FLOAT b;
-typedef FLOAT BOOL;
-BOOL c;
-BOOL d;
-
-int x = c;

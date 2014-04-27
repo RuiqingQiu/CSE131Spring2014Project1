@@ -1,9 +1,0 @@
-Error, "phase3/check16ccbz-.rc": 
-  Type of new's operand must be of pointer type, int found.
-Error, "phase3/check16ccbz-.rc": 
-  Type of delete's operand must be of pointer type, bool found.
-Error, "phase3/check16ccbz-.rc": 
-  Operand to "new" is not a modifiable L-value.
-Error, "phase3/check16ccbz-.rc": 
-  Operand to "delete" is not a modifiable L-value.
-Compile: failure.

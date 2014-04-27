@@ -1,9 +1,0 @@
-Error, "phase1/check1/boolean-type-errors.rc": 
-  Incompatible type float to unary operator !, equivalent to bool expected.
-Error, "phase1/check1/boolean-type-errors.rc": 
-  Incompatible type int to unary operator !, equivalent to bool expected.
-Error, "phase1/check1/boolean-type-errors.rc": 
-  Incompatible type float to binary operator ||, equivalent to bool expected.
-Error, "phase1/check1/boolean-type-errors.rc": 
-  Incompatible type int to binary operator &&, equivalent to bool expected.
-Compile: failure.

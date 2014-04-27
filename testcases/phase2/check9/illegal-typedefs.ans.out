@@ -1,7 +1,0 @@
-Error, "phase2/check9/illegal-typedefs.rc": 
-  redeclared identifier 'INTEGER'.
-Error, "phase2/check9/illegal-typedefs.rc": 
-  redeclared identifier 'FLOAT'.
-Error, "": 
-  redeclared identifier 'BOOL'.
-Compile: failure.

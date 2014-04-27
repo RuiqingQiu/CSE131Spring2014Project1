@@ -1,7 +1,0 @@
-Error, "phase2/check8a/global-static-runtime-init-bad.rc": 
-  Initialization value of global/static variable named err1 not known at compile time.
-Error, "phase2/check8a/global-static-runtime-init-bad.rc": 
-  Initialization value of global/static variable named err2 not known at compile time.
-Error, "phase2/check8a/global-static-runtime-init-bad.rc": 
-  Initialization value of global/static variable named err3 not known at compile time.
-Compile: failure.

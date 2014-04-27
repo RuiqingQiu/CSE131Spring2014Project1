@@ -1,6 +1,0 @@
-function : int main() {
-	//auto x = 0x10;
-	int x = 0x10;
-	decltype (x++) y;
-	return 0;
-}

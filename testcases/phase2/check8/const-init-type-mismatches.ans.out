@@ -1,7 +1,0 @@
-Error, "phase2/check8/const-init-type-mismatches.rc": 
-  Initialization value of type float not assignable to constant/variable of type int.
-Error, "phase2/check8/const-init-type-mismatches.rc": 
-  Initialization value of type int not assignable to constant/variable of type bool.
-Error, "phase2/check8/const-init-type-mismatches.rc": 
-  Initialization value of type bool not assignable to constant/variable of type float.
-Compile: failure.

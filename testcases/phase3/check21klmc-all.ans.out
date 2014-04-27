@@ -1,7 +1,0 @@
-Error, "phase3/check21klmc-all.rc": 
-  Left-hand operand is not assignable (not a modifiable L-value).
-Error, "phase3/check21klmc-all.rc": 
-  Left-hand operand is not assignable (not a modifiable L-value).
-Error, "phase3/check21klmc-all.rc": 
-  Non-addressable argument of type funcptr : int () to address-of operator.
-Compile: failure.

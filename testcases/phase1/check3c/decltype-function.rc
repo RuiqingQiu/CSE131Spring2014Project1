@@ -1,7 +1,0 @@
-int x = 10;
-float y = 20;
-
-function : decltype(x+20.0) foo()
-{
-	return y;
-}

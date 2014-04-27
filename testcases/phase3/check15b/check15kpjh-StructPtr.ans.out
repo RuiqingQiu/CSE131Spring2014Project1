@@ -1,7 +1,0 @@
-Error, "phase3/check15b/check15kpjh-StructPtr.rc": 
-  Return required in function, none found.
-Error, "phase3/check15b/check15kpjh-StructPtr.rc": 
-  Type of return expression (int*), not assignment compatible with function's return type (int**************************).
-Error, "phase3/check15b/check15kpjh-StructPtr.rc": 
-  Type of return expression (ZAH*), not assignment compatible with function's return type (MYSTRUCT).
-Compile: failure.

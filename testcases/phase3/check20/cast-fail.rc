@@ -1,7 +1,0 @@
-//float to bool
-const float iamafloat = 3.14;
-bool boo1 = (bool)iamafloat;
-
-//pointer to bool
-const int* intptr = 2;
-bool boo2 = (bool)intptr;

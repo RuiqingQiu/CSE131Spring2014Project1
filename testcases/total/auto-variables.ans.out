@@ -1,7 +1,0 @@
-Error, "total/auto-variables.rc": 
-  Incompatible type bool to binary operator +, numeric expected.
-Error, "total/auto-variables.rc": 
-  Arithmetic exception occurred during constant folding.
-Error, "total/auto-variables.rc": 
-  Initialization value of constant named r not known at compile time.
-Compile: failure.

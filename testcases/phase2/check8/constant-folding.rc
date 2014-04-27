@@ -1,9 +1,0 @@
-function : void main() {
-    int one = 1;
-
-    // Arithmetic exception occurred during constant folding.
-    const int i = 1 / (1 + (0 - 1));
-
-    // Initialization value of constant named j not known at compile time.
-    const int j = 1 / (1 + (0 - one));
-}

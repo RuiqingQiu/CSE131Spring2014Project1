@@ -1,3 +1,0 @@
-Error, "phase3/check20/cast-funcptr.rc": 
-  Invalid type cast. Type FP1 to type FP2 is not supported.
-Compile: failure.

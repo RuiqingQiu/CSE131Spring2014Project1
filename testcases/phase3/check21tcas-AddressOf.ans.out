@@ -1,3 +1,0 @@
-Error, "phase3/check21tcas-AddressOf.rc": 
-  Non-addressable argument of type funcptr : int (int i) to address-of operator.
-Compile: failure.

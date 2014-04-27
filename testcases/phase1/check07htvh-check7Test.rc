@@ -1,9 +1,0 @@
-function : void main ()
-{
-	int a;
-	exit(5.5);
-	exit(1);
-	exit(true);
-}
-
-

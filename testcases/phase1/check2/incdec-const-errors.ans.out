@@ -1,3 +1,0 @@
-Error, "phase1/check2/incdec-const-errors.rc": 
-  Operand to ++ is not a modifiable L-value.
-Compile: failure.
