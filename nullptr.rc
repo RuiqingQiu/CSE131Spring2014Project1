@@ -1,6 +1,14 @@
 static int[10] aaa;
 static int * a = nullptr;
+
+function : int foo(int a){return 1;}
 function : void tmp(){
   int* aa = ::aaa;
   int* b = a;
+  
+  int foo;
+  int c;
+  int x = foo(1);  
+  int x = ::foo(true);
+  
 }

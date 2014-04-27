@@ -1,6 +1,9 @@
 int myX; 
+int *p;
+funcptr : void () fpt;
 function: void foo()
 {
+  p = fpt;
   const int x = 4;
   const float y = 1.5;
   //int y = 4;
@@ -15,6 +18,12 @@ function: void foo()
   
   if(-(a+b)){}
  
+  float fff = 2/0.0;
+  int g = 1 / ((int)nullptr);
+  bool b = 2 % 2.0;
   c = -(a + b);   // Error not assignable types Float to Bool
+  typedef int[3] C;
+  C cc;
+  cc = 1;
   
 }

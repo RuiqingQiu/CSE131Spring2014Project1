@@ -1320,6 +1320,8 @@ class MyParser extends parser
 					}
 					//The argument is pass by value
 					else{
+						if(arguments.get(i).isError())
+							return (new ErrorSTO ("DoFuncCall, pass-by-value error"));
 						//If the type is not assignable
 						if(!arguments.get(i).getType().isAssignableTo(params.get(i).getType())){
 							m_nNumErrors++;
