@@ -1,0 +1,45 @@
+
+	int l;// = (1 + 5);
+	const int gx = 7;
+	const int ggx = 0;
+	const int xx = 5++;
+	int yx = 5;
+	const int zx = yx;
+	int xxo = 6;
+	int yyx = 0;
+	
+	const int ax = 6 + xxo;
+	int bx = 6 + xxo;
+	float cx = xxo + 7;
+	const int hx = gx + gx; 	
+
+function : void main()
+{
+	const int b = (4 - 50 % 30) / 2;
+	const float c = b * 3.14;
+	const bool d = b != b || b == b;
+	const float e = b + c * 42.42;
+	const bool f = !d; 
+	const int a = -4 + -41;
+	const int g = -a - -1;
+	
+	l = 3;
+	const int bw = 1 | 2;
+	const int bww = 2 & 3;
+	const int bwww = 3 ^ 4;
+
+	xxo % yyx;
+	gx % ggx;
+	xxo / yyx;
+	gx / ggx;
+
+	// b == -8
+	// c == -25.12 
+	// d == true
+	// e == -1073.59
+	// a == -45
+	// g == 46
+
+}
+
+

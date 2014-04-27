@@ -1,0 +1,7 @@
+Error, "phase2/check11/array-function-usage-bad.rc": 
+  Argument of type INT not equivalent to reference parameter i, of type int[10].
+Error, "phase2/check11/array-function-usage-bad.rc": 
+  Argument of type ARR4[30] not equivalent to reference parameter arr, of type ARR4.
+Error, "phase2/check11/array-function-usage-bad.rc": 
+  Argument of type ARR4[30] not assignable to value parameter arr, of type ARR3*.
+Compile: failure.

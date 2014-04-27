@@ -1,0 +1,32 @@
+//function : void foo(  ) { return ; }
+//function : int foo1( int hello ) {return 5;}
+//function : void floatCheck( float can_be_int ) {}
+//function : void bar( int hi, bool test ) { /* do nothing */ }
+
+
+//function : int bazy() {return 0;}
+
+function : void main2() {
+
+	const int q = -5;
+	float[10] a;
+	float[10.0] b; // error, not equivalent to int
+	int x = 0;
+	int[x] c; //error, not known at compile time
+	int[q] d; //error, less than 0
+	
+	typedef float[10] ARR;
+	float[10] fng;
+	ARR bfuesfbuiewnbufewnf;
+	ARR[2] e;
+	ARR[-10] fenwifnmwnm;
+	
+	typedef ARR ARR2;
+	
+	ARR2[0] mfioesmfioew;
+	
+	
+	
+
+
+}

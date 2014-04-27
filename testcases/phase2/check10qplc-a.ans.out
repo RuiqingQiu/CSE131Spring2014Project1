@@ -1,0 +1,15 @@
+Error, "phase2/check10qplc-a.rc": 
+  Value of index expression not known at compile time.
+Error, "phase2/check10qplc-a.rc": 
+  Index expression value (-1) in array declaration must be > 0.
+Error, "phase2/check10qplc-a.rc": 
+  Index expression value (0) in array declaration must be > 0.
+Error, "phase2/check10qplc-a.rc": 
+  Index expression value (-2) in array declaration must be > 0.
+Error, "phase2/check10qplc-a.rc": 
+  Index expression value (0) in array declaration must be > 0.
+Error, "phase2/check10qplc-a.rc": 
+  undeclared identifier 'ZARR'.
+Error, "phase2/check10qplc-a.rc": 
+  Index expression value (0) in array declaration must be > 0.
+Compile: failure.

@@ -1,0 +1,7 @@
+Error, "phase1/check06rcfw-returncheck.rc": 
+  Return in function requires a result expression, none found.
+Error, "phase1/check06rcfw-returncheck.rc": 
+  Type of return expression (bool), not assignment compatible with function's return type (int).
+Error, "phase1/check06rcfw-returncheck.rc": 
+  Return required in function, none found.
+Compile: failure.

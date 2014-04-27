@@ -1,0 +1,81 @@
+/* check 10 array declaration */
+// pass
+int[3] array1;
+int[3+5*7] array2;
+const int x = 9;
+int[x] array3;
+
+typedef int INT;
+INT[3] array4;
+INT[3+5*7] array5;
+INT[x] array6;
+
+typedef float[3] ARRAY;
+ARRAY a;
+ARRAY[3] b;
+ARRAY[3+5*7] c;
+ARRAY[x] d;
+
+INT[5] e; // try to get earlier defined type
+
+// Index not equivalent to int
+typedef float FLOAT;
+typedef bool BOOL;
+
+int[1.2] arr1;
+float[2.3] arr2;
+bool[0.2] arr3;
+
+INT[1.2] arrA1;
+FLOAT[2.3] arrA2;
+BOOL[0.2] arrA3;
+
+typedef int[2.3] ARR1;
+ARRAY[3.5] arr; // try to get earlier defined type
+
+int[true] arr4;
+float[false] arr5;
+bool[true] arr6;
+
+INT[true] arrA4;
+FLOAT[false] arrA5;
+BOOL[true] arrA6;
+
+typedef int[true] ARR3;
+ARRAY[false] arr; // try to get earlier defined type
+
+// Index not known at compile time
+int y = 3;
+int[y] arr7;
+float[y] arr8;
+bool[y] arr9;
+int[x + y] arr10;
+float[x + y] arr11;
+bool[x + y] arr12;
+
+INT[y] arrA7;
+FLOAT[y] arrA8;
+BOOL[y] arrA9;
+INT[x + y] arrA10;
+FLOAT[x + y] arrA11;
+BOOL[x + y] arrA12;
+
+typedef int[y] ARR5;
+ARRAY[y] arrARR6; // try to get earlier defined type
+typedef int[x + y] ARR7;
+ARRAY[x + y] arrARR8; // try to get earlier defined type
+
+// value of Index <= 0
+int[-3] arr13;
+int[3+4-2*9] arr14;
+int[x - 23] arr15;
+
+INT[-3] arrA13;
+INT[3+4-2*9] arrA14;
+INT[x - 23] arrA15;
+
+typedef int[-19] ARR9;
+ARRAY[4-7] arrARR10; // try to get earlier defined type
+typedef int[2+4*1-30] ARR11;
+ARRAY[x-30] arrARR12; // try to get earlier defined type
+

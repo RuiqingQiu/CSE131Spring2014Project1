@@ -1,0 +1,68 @@
+//function : void foo(  ) { return ; }
+//function : int foo1( int hello ) {return 5;}
+//function : void floatCheck( float can_be_int ) {}
+//function : void bar( int hi, bool test ) { /* do nothing */ }
+
+
+//function : int bazy() {return 0;}
+
+function : void main2() {
+
+const float x = 2.0;
+
+const int c = (5+5)*5;
+
+const int d = 5;
+d = 10; //error, not modifiable l val
+
+//const int h = true; //error, type assignment
+
+const int y = 10/0; //error arithmetic exception
+
+c = x; //error, not modifiable l value
+
+x = c; //error not a modifiable l value
+
+int l = 1;
+int m = 2;
+int n = 0;
+int o =  3 + x;
+
+const float r = 3 + x; 
+
+const float u = 3.0;
+
+++u; // error not a modifiable l value
+
+++l;
+
+const int z = 4;
+
+const float p = z++ + 3; //error not a modifiable l value for z
+
+const int w = ++3;
+
+const bool untrue = !true;
+
+bool un = false;
+untrue = un;//error
+const bool sahil= true++ ;
+
+
+bool a,b,e;
+int q = 0, efsgesges = 1, enwjngfiewngoiewnoi = 5;
+q =5;
+
+int rgnsuignr = 0, ewnufiwniugnewe = true, enguwuiwngw = 0;//ERROR ASSIGNABLE OK?
+
+const int wnfoiq = 0, etnoiwngw = 1, emwiomwio = 3;
+
+int hello = 5;
+
+int hello2 = hello;
+
+auto i = 5;
+
+i = true;
+
+}

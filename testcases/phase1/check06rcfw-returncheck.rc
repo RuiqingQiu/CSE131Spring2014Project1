@@ -1,0 +1,16 @@
+function: int foo() {
+	bool b;
+	
+	if(true) {
+		return; // no return , error
+	}
+	
+	return b;
+}
+
+
+function : int main() { // return statement not inline with brackets, error
+ {{{{{ 
+ 		return 6; 
+ }}}}} 
+ }

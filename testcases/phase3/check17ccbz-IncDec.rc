@@ -1,0 +1,10 @@
+bool x;
+int* y;
+
+function : void main()
+{
+	x++;
+	**y++;	
+	--x;
+	**--y;
+}

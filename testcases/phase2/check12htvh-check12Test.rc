@@ -1,0 +1,54 @@
+function : void main()
+{
+	while(true)
+	{
+		while(true)
+		{
+			break;
+		}
+		
+		if (true)	
+		{
+			continue;
+		}
+
+		break;
+	}
+
+	break;
+	continue;
+	
+	if (true)
+	{
+		break;
+		continue;
+	}
+	
+	while(true)
+	{
+		while(true)
+		{
+			while(true)
+			{
+				while(true)
+				{
+					continue;
+					break;
+				}
+				
+				continue;	
+				break;
+			}
+			
+			continue;
+			break;
+		}
+		
+		continue;
+		break;
+	}
+
+	continue;
+	break;	
+	
+}

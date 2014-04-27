@@ -1,0 +1,14 @@
+function : void main() {
+    typedef bool BOOL;
+    typedef BOOL BOOL2;
+
+    const int ten = 10;
+
+    bool[ten] a, b;
+
+    BOOL[1] c;
+
+    BOOL2[ten + ten] d;
+
+    float[2 + 2] e;
+}

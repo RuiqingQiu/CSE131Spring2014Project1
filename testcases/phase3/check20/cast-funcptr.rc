@@ -1,0 +1,7 @@
+//Casting a funcptr
+typedef funcptr : int() FP1;
+typedef funcptr : float() FP2;
+
+FP1 fp1;
+
+funcptr : float() f = (FP2)fp1; //error

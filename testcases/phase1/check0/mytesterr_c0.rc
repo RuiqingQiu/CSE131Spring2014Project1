@@ -1,0 +1,24 @@
+int myX; 
+int *iptr;
+int **iptr2;
+
+typedef int INTEGER;
+INTEGER integer;
+
+bool b;
+float f;
+int[10] arr;
+ 
+function : void foo()
+{ 
+	int x;
+	int i = ::x + 5; //error, x not declared in global scope
+	
+	bool bo = ::bo != true; // error bo not declared in global scope
+
+	INTEGER typeint = ::integerr; //error integerr not declared in global scope
+	float fl = ::fl + 3.3; //error fl not declared in global scope
+	
+	int *ptr = ::ptr; //ptr and ptr2 not declared in global scope
+	int **ptr2 = ::ptr2;
+} 

@@ -1,0 +1,15 @@
+Error, "phase2/check11htvh-check11Test.rc": 
+  Value of index expression not known at compile time.
+Error, "phase2/check11htvh-check11Test.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase2/check11htvh-check11Test.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase2/check11htvh-check11Test.rc": 
+  Type of expression referenced by array subscript (int) is not of array or pointer type.
+Error, "phase2/check11htvh-check11Test.rc": 
+  Index value of 12 is outside legal range [0,6).
+Error, "phase2/check11htvh-check11Test.rc": 
+  Index value of -50 is outside legal range [0,5).
+Error, "phase2/check11htvh-check11Test.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Compile: failure.

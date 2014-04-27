@@ -1,0 +1,21 @@
+Error, "phase1/check5/num-args-bad.rc": 
+  Number of arguments (3) differs from number of parameters (2).
+Error, "phase1/check5/num-args-bad.rc": 
+  Number of arguments (1) differs from number of parameters (2).
+Error, "phase1/check5/num-args-bad.rc": 
+  Number of arguments (3) differs from number of parameters (2).
+Error, "phase1/check5/num-args-bad.rc": 
+  Argument of type float not assignable to value parameter i, of type int.
+Error, "phase1/check5/num-args-bad.rc": 
+  Argument of type bool not assignable to value parameter j, of type int.
+Error, "phase1/check5/num-args-bad.rc": 
+  Number of arguments (1) differs from number of parameters (2).
+Error, "phase1/check5/num-args-bad.rc": 
+  Argument of type bool not equivalent to reference parameter y, of type int.
+Error, "phase1/check5/num-args-bad.rc": 
+  Argument passed to reference parameter x (type int) is not a modifiable L-value.
+Error, "phase1/check5/num-args-bad.rc": 
+  Argument passed to reference parameter y (type int) is not a modifiable L-value.
+Error, "phase1/check5/num-args-bad.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Compile: failure.

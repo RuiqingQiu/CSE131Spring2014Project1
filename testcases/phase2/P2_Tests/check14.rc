@@ -1,0 +1,29 @@
+structdef MYS {
+	int x, y;
+	function: void f(int &x)
+	{ x = x + 1;}
+
+	function: void foo() {}
+};
+
+function : void main() { 
+
+MYS mystruct;
+
+int y = 3;
+int notastruct = y;
+
+notastruct.x; //error trying to access a non struct
+
+mystruct.x;
+mystruct.y;
+mystruct.c; //error, c is not a field
+mystruct.illegal(); //error, illegal is not a field
+
+mystruct.f( 3.0 ); //error function parameters wrong
+
+mystruct.f(3); // error not modifiable l value
+
+mystruct.f(notastruct);
+
+} 

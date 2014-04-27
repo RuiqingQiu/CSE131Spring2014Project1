@@ -1,0 +1,12 @@
+function: void main() {
+	new x;
+	new x;
+	delete x;
+	delete x;
+
+	float y = new float;
+	delete y;	
+
+
+
+}

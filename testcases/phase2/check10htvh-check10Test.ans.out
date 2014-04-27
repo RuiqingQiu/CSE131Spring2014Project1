@@ -1,0 +1,25 @@
+Error, "phase2/check10htvh-check10Test.rc": 
+  Value of index expression not known at compile time.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Index expression value (-1) in array declaration must be > 0.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Index expression type (float) in array declaration not equivalent to int.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Index expression type (float) in array declaration not equivalent to int.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Index expression type (bool) in array declaration not equivalent to int.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Index expression type (float) in array declaration not equivalent to int.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Value of index expression not known at compile time.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Incompatible type float[21] to binary operator +, numeric expected.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Incompatible type float[21] to operator ++, equivalent to int, float, or pointer expected.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Incompatible type int[5] to binary operator +, numeric expected.
+Error, "phase2/check10htvh-check10Test.rc": 
+  Index value of 90 is outside legal range [0,5).
+Error, "phase2/check10htvh-check10Test.rc": 
+  syntax error near "]".
+Compile: failure.

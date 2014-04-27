@@ -1,0 +1,53 @@
+function : float flo()
+{
+	return 3.14;
+}
+
+function: void foo() 
+{
+  typedef int[1] ONE;        //int[1]
+  typedef ONE[2] TWO;    //int[2][1]
+  typedef TWO[3] THREE; 	//int[3][2][1]
+  typedef THREE[4] FOUR; //int[4][3][2][1]
+  typedef FOUR[5] FIVE; //int[5][4][3][2][1]
+  
+  ONE one;
+  TWO two;
+  THREE three;
+  FOUR	four;
+  FIVE five;
+  
+ 
+  five[4][3][2] = 3; //int not assignable to TWO
+ 
+ five[0] = four;  
+  five[2] = three; //THREE not assignable to FOUR
+  five[8] = two; 	//OOB [0,5), assignment supressed
+  
+  five[3][2] = three;
+  four[2] = five[3];
+  four[4][2] = five[4]; //FOUR != TWO
+  
+  four = five[2];  //not modLval, assignment suppressed
+  three = five[3]; //not modLval, assignment suppressed
+  
+  five[ three[0][0][0] ] [0][0][0][0] = 2; 
+  five[ four[0][0][0] ] [0][0][0][0] = 2; //index: ONE not equiv to int
+  two[ three[1] ] [ five[2] ] = 123; //index: TWO not equiv to int 
+  
+  four[3][2][1][0] = three[2][1][0]; 
+  
+  four[3][3][3][3] = 3.13; //OOB [0,3)
+  
+  three[2][1][0][0] = true; //not array or pointer type
+  
+  two[ flo() ][0] = 3.122; //index: float not equiv to int
+  two[true][flo()] = 3;  //index: bool not equiv to int
+  
+  int i = 5;
+  int[i] j; //not known at compile time
+  
+  const int a = 5;
+  int[a] b;
+}
+

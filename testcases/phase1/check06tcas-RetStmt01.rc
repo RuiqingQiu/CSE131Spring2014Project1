@@ -1,0 +1,73 @@
+int i;
+float f;
+bool b;
+
+int intref;
+float floatref;
+bool boolref;
+
+/* Good Code */
+function: int intfun0() { return 1; }
+function: int intfun1() { return i; }
+
+function: float floatfun0() { return 2.1; }
+function: float floatfun1() { return i; }
+function: float floatfun2() { return f; }
+
+function: bool boolfun0() { return true; }
+function: bool boolfun1() { return false; }
+function: bool boolfun2() { return b; }
+
+function: void voidfun0() {}
+function: void voidfun1() { return; }
+
+
+/* wrong return type */
+// Type of return expression (float), not assignment
+// compatible with function's return type (int).
+function: int errintfun0() { return 1.0; }
+function: int errintfun1() { return f; }
+// Type of return expression (bool), not assignment 
+// compatible with function's return type (int).
+function: int errintfun2() { return b; }
+function: int errintfun3() { return true; }
+function: int errintfun4() { return false; }
+
+//Type of return expression (bool), not assignment 
+//compatible with function's return type (float).
+function: float errfloatfun0() { return true; }
+function: float errfloatfun1() { return false; }
+
+//Type of return expression (int), not assignment 
+//compatible with function's return type (bool).
+function: bool errboolfun0() { return 1; } 
+function: bool errboolfun1() { return i; }
+//Type of return expression (float), not assignment 
+//compatible with function's return type (bool).
+function: bool errboolfun2() { return 2.1; }  
+function: bool errboolfun3() { return f; }
+
+//Type of return expression (int), not assignment
+//compatible with function's return type (void).
+function: void errvoidfun0() { return 1; }  
+function: void errvoidfun1() { return i; }
+//Type of return expression (float), not assignment 
+//compatible with function's return type (void).
+function: void errvoidfun2() { return 2.1; }  
+function: void errvoidfun3() { return f; }
+//Type of return expression (bool), not assignment
+//compatible with function's return type (void).
+function: void errvoidfun4() { return b; }  
+function: void errvoidfun5() { return true; }
+function: void errvoidfun6() { return false; }
+
+/* Missing return type */
+function: int mrtintfun0() { return; }
+function: int mrtintfun1() { return; }
+
+function: float mrtfloatfun0() { return; }
+function: float mrtfloatfun1() { return; }
+
+function: bool mrtboolfun0() { return; }
+function: bool mrtboolfun1() { return; }
+

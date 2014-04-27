@@ -1,0 +1,7 @@
+Error, "phase2/check8/const-init-bad.rc": 
+  Initialization value of constant named c not known at compile time.
+Error, "phase2/check8/const-init-bad.rc": 
+  Initialization value of type float not assignable to constant/variable of type int.
+Error, "phase2/check8/const-init-bad.rc": 
+  Initialization value of type int not assignable to constant/variable of type bool.
+Compile: failure.

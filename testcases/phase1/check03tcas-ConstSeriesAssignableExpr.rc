@@ -1,0 +1,36 @@
+int myX; 
+function: void foo()
+{
+  const int x = 4;
+  const float y = 1.5;
+  //int y = 4;
+  
+  int a = 4;
+  float b = 5;
+  bool c;
+  bool d;
+  
+  if (b) {}       // bool or int condition required
+  
+  while (b) {}    // bool or int condition required
+  
+  if (x) {}       // No Error
+  
+  if (y) {}       // bool or int condition required
+  
+  while (y) {}    // bool or int condition required
+  
+  while ( a + b ) {} // bool or int condition required
+  
+  while (a) {}    // No Error
+  
+  if (c) {}       // No Error
+  
+  if ( a - b ) {}   // bool or int condition required
+  
+  while ( -(a + b) ) {} // bool or int condition required
+  
+  if ( (c == d) == y ) {} // bool is not equal to float
+  
+  if ( (c != d) != y ) {} // bool is not equal to float
+}

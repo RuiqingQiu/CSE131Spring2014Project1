@@ -1,0 +1,3 @@
+Error, "phase1/check6a/illegal-return-statements.rc": 
+  Return in function requires a result expression, none found.
+Compile: failure.

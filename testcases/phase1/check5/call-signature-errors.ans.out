@@ -1,0 +1,11 @@
+Error, "phase1/check5/call-signature-errors.rc": 
+  Value of type void not assignable to variable of type int.
+Error, "phase1/check5/call-signature-errors.rc": 
+  Number of arguments (1) differs from number of parameters (0).
+Error, "phase1/check5/call-signature-errors.rc": 
+  Argument of type float not assignable to value parameter i, of type int.
+Error, "phase1/check5/call-signature-errors.rc": 
+  Argument of type int not equivalent to reference parameter i, of type float.
+Error, "phase1/check5/call-signature-errors.rc": 
+  Argument passed to reference parameter b (type bool) is not a modifiable L-value.
+Compile: failure.

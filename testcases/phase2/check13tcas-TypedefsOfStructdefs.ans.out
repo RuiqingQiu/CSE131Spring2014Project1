@@ -1,0 +1,13 @@
+Error, "CSE131TestFrameworkSP12/phase2/check13tcas-TypedefsOfStructdefs.rc": 
+  Incompatible type MANSION to binary operator +, numeric expected.
+Error, "CSE131TestFrameworkSP12/phase2/check13tcas-TypedefsOfStructdefs.rc": 
+  Incompatible type JUNGLE to binary operator -, numeric expected.
+Error, "CSE131TestFrameworkSP12/phase2/check13tcas-TypedefsOfStructdefs.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "CSE131TestFrameworkSP12/phase2/check13tcas-TypedefsOfStructdefs.rc": 
+  Incompatible type float to binary operator |, equivalent to int expected.
+Error, "CSE131TestFrameworkSP12/phase2/check13tcas-TypedefsOfStructdefs.rc": 
+  'zebra' is not a function.
+Error, "CSE131TestFrameworkSP12/phase2/check13tcas-TypedefsOfStructdefs.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Compile: failure.

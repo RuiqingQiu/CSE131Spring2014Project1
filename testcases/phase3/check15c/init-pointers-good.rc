@@ -1,0 +1,10 @@
+int x;
+int[4] a;
+
+function : void main()
+{
+	int* r = &x;
+	int* s = a;
+	int* t = nullptr;	
+}
+

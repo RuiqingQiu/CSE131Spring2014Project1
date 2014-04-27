@@ -1,0 +1,61 @@
+bool globalBool;
+
+//This struct should have no errors
+structdef STRUCTONE{
+	int x;
+	float y;
+	bool z;
+	function: int foo(){return 1;}
+};
+
+structdef STRUCTTWO{
+	bool baz;
+};
+
+//This struct should have no errors
+structdef STRUCTTHREE{
+	int g;
+	float h;
+	bool i;
+
+	function: void foo(){ 
+		this.h = 8.0;
+		this.foo(); 
+	}
+
+	function: void setG(){ this.g = 3;}
+	function: void setH() {this.h = 5.0;}
+	function: void setI() {this.i = false;}
+	function: void setGlobal(){globalBool = false;} //should not error
+};
+
+//This struct should fail, none are in scope.
+structdef STRUCTFOUR{
+	function: void setM(){this.m = 3;}
+	function: void setN(){this.n = 5.0;}
+	function: void setO(){this.o = true;}
+	bool glolalBool;
+	function: void setGlobal(){globalInt = 3;} //should error
+};
+
+function: void main(){
+	STRUCTONE structPass;
+	STRUCTTWO structFail;
+
+	structPass.x = 2;
+	structPass.y = 3.0;
+	structPass.z = true;
+
+	structFail.x = 2;		//x does not exist in STRUCTTWO
+	structFail.y = 3.0;		//y does not exist in STRUCTTWO
+	structFail.z = true;		//z does not exist in STRUCTTWO
+
+	int a = structPass.foo();		
+	int b = structFail.foo();		//foo() does not exist in STRUCTTWO
+
+	int d = 0;
+	d.x = 3;		//d is not a struct type
+	d.foo();		//d is not a struct type
+
+
+}

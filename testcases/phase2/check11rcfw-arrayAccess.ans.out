@@ -1,0 +1,5 @@
+Error, "phase2/check11rcfw-arrayAccess.rc": 
+  Index value of 1 is outside legal range [0,1).
+Error, "phase2/check11rcfw-arrayAccess.rc": 
+  Index value of 1 is outside legal range [0,1).
+Compile: failure.

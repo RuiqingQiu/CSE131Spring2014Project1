@@ -1,0 +1,3 @@
+Error, "phase1/check02snvn-IncDexOps.rc": 
+  Operand to -- is not a modifiable L-value.
+Compile: failure.

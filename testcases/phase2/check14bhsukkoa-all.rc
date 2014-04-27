@@ -1,0 +1,33 @@
+structdef MYSTRUCT1 {
+  int a, c;
+  function : void foo(int a) {}
+};
+
+structdef MYSTRUCT2 {
+  int a, b;
+  function : void foo(bool a) {
+    MYSTRUCT1 s;
+    int x;
+    x = a;         // error, types
+    x = b;         // error, undeclared
+    
+    x = s.a;       // no error
+    
+    x = s.b;       // error, field not found
+    
+    x = s.c;       // no error
+    x = this.a;    // no error
+    x = this.b;    // no error
+    
+    x = this.c;    // error, not found in current struct
+    foo (a);       // error, function not found
+    
+    this.foo (a);  // no error
+    
+    s.foo(a);      // error, argument type
+    if (a) {
+      x = a;       // error, types
+    }
+  }
+};
+// total errors : 7

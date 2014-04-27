@@ -1,0 +1,13 @@
+Error, "phase2/check11a/illegal-array-usage.rc": 
+  Type of expression referenced by array subscript (int) is not of array or pointer type.
+Error, "phase2/check11a/illegal-array-usage.rc": 
+  Index value of 3599 is outside legal range [0,10).
+Error, "phase2/check11a/illegal-array-usage.rc": 
+  Index value of -1 is outside legal range [0,10).
+Error, "phase2/check11a/illegal-array-usage.rc": 
+  Index value of 10 is outside legal range [0,10).
+Error, "phase2/check11a/illegal-array-usage.rc": 
+  Argument of type int[10] not assignable to value parameter i10, of type int[10].
+Error, "phase2/check11a/illegal-array-usage.rc": 
+  Argument of type int[10] not assignable to value parameter i10_alias, of type INT10.
+Compile: failure.

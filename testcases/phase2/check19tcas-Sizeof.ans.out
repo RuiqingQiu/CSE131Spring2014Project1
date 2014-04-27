@@ -1,0 +1,7 @@
+Error, "phase2/check19tcas-Sizeof.rc": 
+  Invalid operand to sizeof. Not a type or not addressable.
+Error, "phase2/check19tcas-Sizeof.rc": 
+  Size of field b cannot be determined at compile time.
+Error, "phase2/check19tcas-Sizeof.rc": 
+  Index value of -4 is outside legal range [0,5).
+Compile: failure.

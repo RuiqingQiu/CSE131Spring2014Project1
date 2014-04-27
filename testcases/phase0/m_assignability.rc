@@ -1,0 +1,58 @@
+int * i;
+int[10] iarr;
+
+typedef int[10] ARR;
+
+function : ARR main( int x )
+{
+	return i;
+}
+
+function : int * main2( int x )
+{
+	return iarr;
+}
+
+int x = 5;
+float f = 5.0;
+
+function : int main3()
+{
+	f = x;
+	x = f; //error, cannot assign float to int
+
+	int[6] arr;
+	float[6] farr;
+	float * fptr;
+	fptr = farr;
+	fptr = arr; //error, cannot assign int arr to float ptr
+	
+	return x;
+}
+
+typedef int[10] INTARR;	 
+typedef float[10] FLOATARR;
+function : void main4()
+{
+	int * p;
+	int [4] xi;
+	p = xi; // No error.
+	 
+	int ** t;
+	INTARR* s; 
+	t = s; //Error
+	 
+	float ** f;
+	f = p; // error, cannot assign int** to float**
+	
+	INTARR* ia;
+	FLOATARR* fa;
+	ia = fa;	//error
+	fa = ia;	//error
+	
+	FLOATARR fa2;
+	float[10] fa3;
+	fa2 = fa3;
+	fa3 = fa2;
+		
+}

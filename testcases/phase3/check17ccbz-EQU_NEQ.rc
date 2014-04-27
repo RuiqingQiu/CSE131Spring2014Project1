@@ -1,0 +1,14 @@
+int* a;
+int b;
+int c;
+bool d;
+
+function : void main()
+{
+	a == b;
+	b == a;
+	c == d;
+	b != a;
+	d != c;
+	
+}

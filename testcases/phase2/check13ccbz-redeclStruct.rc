@@ -1,0 +1,13 @@
+function : int main ()
+{
+
+	structdef MYS {
+		int y;
+	};
+
+	structdef MYS {
+		int x;
+	};
+	
+	return 0;
+}

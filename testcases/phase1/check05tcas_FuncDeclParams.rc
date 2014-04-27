@@ -1,0 +1,43 @@
+function: void food(int i, int j, int k) { i = j;}
+
+int i;
+float f;
+bool b;
+
+function: void food(int i, int j, int k) {i; j; k;}  // Redeclared identifier
+function: int cake() {}
+function: bool soda(int i, float f, bool b) {i; f; b;}
+function: float beef(int& ir, float& fr) {ir; fr;}
+
+function: void main() {
+
+/* Number of Args */
+  food();      // wrong # of args 
+  food(i);     // wrong # of args 
+  food(i,i);   // wrong # of args 
+  food(i,i,i);  
+
+  cake();
+  cake(i);     // wrong # of args 
+  cake(i,i);   // wrong # of args 
+  cake(i,i,i); // wrong # of args
+
+/* Param is pass-by-value */
+  soda(i,f,b);
+  soda(b,b,b);   // bool not asgn to int and float
+  soda(f,f,f);   // float not asgn to int and bool
+  soda(i,i,i);   // int not asgn to bool
+  soda(i,i,b);
+  soda(5,5.0,true);
+  soda(true,true,true);  // bool not asgn to int and float
+  soda(1.0,1.0,1.0);   // float not asgn to int and bool
+  soda(1,2,3);  // int not asgn to bool
+  soda(1,1,true);
+  
+/* Param is pass-by-reference */
+beef(i, f);
+beef(1, 1.0);  // both not ModLVal
+beef(1, f);  // 1 not ModLVal
+beef(i, 1.0);  // 1.0 not ModLVal
+
+}

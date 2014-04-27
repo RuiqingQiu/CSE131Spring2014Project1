@@ -1,0 +1,22 @@
+
+function: void main() 
+{
+  typedef int[1] A;     
+  typedef A[2] B;    
+  typedef B[3] C; 	
+
+  
+ A foo;
+ B bar;
+ C leg;
+ //should throw same error message for both errors
+ bar[1][1][1] = 4; // illegal, first level array only has level 0
+ 
+ bar[0][1][0] = 4; //illegal, bar only a 2 dimensional array
+ 
+ 
+ 
+  
+ 
+
+}

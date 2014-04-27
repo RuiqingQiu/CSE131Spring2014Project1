@@ -1,0 +1,60 @@
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator ==:
+    int*,
+    int;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator ==:
+    int,
+    int*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator !=:
+    int,
+    int*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator !=:
+    int*,
+    int;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator ==:
+    int*,
+    float*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator ==:
+    float*,
+    int*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator !=:
+    bool*,
+    int*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator !=:
+    bool*,
+    float*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator !=:
+    int*,
+    float*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator: int == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible types to operator: bool == int;
+  both must be numeric, or both equivalent to bool.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Operand to -- is not a modifiable L-value.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.
+Error, "phase3/check17bhsukkoa-all.rc": 
+  Incompatible type bool to operator --, equivalent to int, float, or pointer expected.
+Compile: failure.

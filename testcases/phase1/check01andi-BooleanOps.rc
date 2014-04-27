@@ -1,0 +1,45 @@
+int i;
+float f;
+bool b;
+
+function: void foo() {    
+/* And Operator */
+    
+    b && b;
+
+//errors    
+    i && i;
+    f && f;
+    i && f;
+    f && i;
+
+    i && b;
+    b && i;
+        
+    f && b;
+    b && f;
+
+/* Or Operator */
+
+    b || b;
+
+//errors    
+    i || i;
+    f || f;
+    i || f;
+    f || i;
+
+    i || b;
+    b || i;
+        
+    f || b;
+    b || f;
+
+/* Not Operator */
+
+    !b;
+
+//errors    
+    !i;
+    !f;
+}

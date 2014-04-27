@@ -1,0 +1,48 @@
+typedef int INT;
+typedef float FLOAT;
+typedef bool BOOL;
+
+function : int& foo() {
+  INT i;
+  return i;
+}
+
+function : float& bar() {
+  FLOAT f;
+  return f;
+}
+
+function : bool& foobar() {
+  BOOL b;
+  return b;
+}
+
+function : INT& foo2() {
+  int i;
+  return i;
+}
+
+function : FLOAT& bar2() {
+  float f;
+  return f;
+}
+
+function : BOOL& foobar2() {
+  bool b;
+  return b;
+}
+
+function : INT& foo3() {
+  bool b;
+  return b;
+}
+
+function : FLOAT& bar3() {
+  bool b;
+  return b;
+}
+
+function : BOOL& foobar3() {
+  FLOAT f;
+  return f;
+}

@@ -1,0 +1,29 @@
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to -- is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1/check02bhsu-Everything.rc": 
+  Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.
+Compile: failure.

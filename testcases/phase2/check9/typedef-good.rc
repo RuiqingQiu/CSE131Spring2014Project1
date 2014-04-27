@@ -1,0 +1,16 @@
+typedef int INTEGER;
+typedef INTEGER INTEGER2;
+typedef INTEGER2 INTEGER3;
+
+
+INTEGER a;
+INTEGER b;
+INTEGER2 c;
+INTEGER3 d;
+
+const int const_int = 2 + 3 * 0 - 1;
+
+function : int main() {
+	a = b + const_int * c - d;
+	return (a + 30 * 40 - 50);
+}

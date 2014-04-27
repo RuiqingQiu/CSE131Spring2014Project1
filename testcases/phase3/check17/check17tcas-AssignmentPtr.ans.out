@@ -1,0 +1,11 @@
+Error, "phase3/check17/check17tcas-AssignmentPtr.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase3/check17/check17tcas-AssignmentPtr.rc": 
+  Value of type nullptr not assignable to variable of type int.
+Error, "phase3/check17/check17tcas-AssignmentPtr.rc": 
+  Non-addressable argument of type int* to address-of operator.
+Error, "phase3/check17/check17tcas-AssignmentPtr.rc": 
+  Value of type nullptr not assignable to variable of type bool.
+Error, "phase3/check17/check17tcas-AssignmentPtr.rc": 
+  Value of type nullptr not assignable to variable of type int.
+Compile: failure.

@@ -1,0 +1,34 @@
+int i;
+float f;
+bool b;
+
+function: void foo() {    
+/* Equal Operator */
+    i == i;
+    f == f;
+    i == f;
+    f == i;
+    b == b;
+
+//errors
+    i == b;
+    b == i;
+        
+    f == b;
+    b == f;
+
+/* Not Equal Operator */
+    i != i;
+    f != f;
+    i != f;
+    f != i;
+    b != b;
+
+//errors
+    i != b;
+    b != i;
+        
+    f != b;
+    b != f;
+        
+}

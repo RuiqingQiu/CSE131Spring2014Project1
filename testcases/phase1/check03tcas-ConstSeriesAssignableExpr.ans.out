@@ -1,0 +1,21 @@
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  bool or int required for conditional test, float found.
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  bool or int required for conditional test, float found.
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  bool or int required for conditional test, float found.
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  bool or int required for conditional test, float found.
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  bool or int required for conditional test, float found.
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  bool or int required for conditional test, float found.
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  bool or int required for conditional test, float found.
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  Incompatible types to operator: bool == float;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check03tcas-ConstSeriesAssignableExpr.rc": 
+  Incompatible types to operator: bool != float;
+  both must be numeric, or both equivalent to bool.
+Compile: failure.

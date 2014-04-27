@@ -1,0 +1,31 @@
+Error, "phase3/check17tcas-NotEqualPtr.rc": 
+  Incompatible types to operator !=:
+    int*,
+    float*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17tcas-NotEqualPtr.rc": 
+  Incompatible types to operator !=:
+    float*,
+    int*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17tcas-NotEqualPtr.rc": 
+  Incompatible types to operator !=:
+    int*,
+    int;
+  both must be of equivalent pointer type.
+Error, "phase3/check17tcas-NotEqualPtr.rc": 
+  Incompatible types to operator !=:
+    int,
+    int*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17tcas-NotEqualPtr.rc": 
+  Incompatible types to operator !=:
+    int,
+    NULL;
+  both must be of equivalent pointer type.
+Error, "phase3/check17tcas-NotEqualPtr.rc": 
+  Incompatible types to operator !=:
+    NULL,
+    float;
+  both must be of equivalent pointer type.
+Compile: failure.

@@ -1,0 +1,31 @@
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Field x declared second time in struct.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Field x declared second time in struct.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Field x declared second time in struct.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Field arr declared second time in struct.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Field x declared second time in struct.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Field y declared second time in struct.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Field z declared second time in struct.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Field z declared second time in struct.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Return in function requires a result expression, none found.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  undeclared identifier 'z'.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Return required in function, none found.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  undeclared identifier 'fref'.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  undeclared identifier 'fval'.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  undeclared identifier 'fval'.
+Error, "phase2/check13tcas-structdefBase.rc": 
+  Size of field blah cannot be determined at compile time.
+Compile: failure.

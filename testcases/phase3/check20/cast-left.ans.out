@@ -1,0 +1,3 @@
+Error, "phase3/check20/cast-left.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Compile: failure.

@@ -1,0 +1,41 @@
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: int == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: float == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Initialization value of type bool not assignable to constant/variable of type float.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: bool == int;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: bool == float;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: int == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: float == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: bool == int;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: bool == float;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: int == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: float == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Initialization value of type bool not assignable to constant/variable of type int.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: bool == int;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1/check01ehwjh-010.rc": 
+  Incompatible types to operator: bool == float;
+  both must be numeric, or both equivalent to bool.
+Compile: failure.

@@ -1,0 +1,17 @@
+structdef MYS{
+	int x;
+	float y;
+};
+
+int w;
+MYS* ptr;
+MYS ptr2;
+int* k;
+
+function : void boo(){
+	ptr->x = w; //access the field "x" in the struct, and assignable to another int
+	int* s = k; //int* equivalent to int*
+	int* g = nullptr; //pointers assignable to null
+	int* d = ptr; // error, pointers have to be equivalent
+	int* f = ptr2; //error, can't assign regular struct declarations
+}

@@ -1,0 +1,22 @@
+function : int foo() {
+
+	return (int) foo(); //ok
+}
+
+function : int* foo2() {
+
+	return (int*) foo(); //ok
+
+}
+
+
+typedef funcptr : int* () FOOPTR;
+
+function : FOOPTR foo3( FOOPTR hello ) {
+
+	int foo3 = (int*) (hello);
+	
+	return foo3; // Type of return expression (funcptr : FOOPTR (FOOPTR hello)), not assignment compatible with function's return type (FOOPTR).
+	
+	int world = (int*) (*hello);
+}

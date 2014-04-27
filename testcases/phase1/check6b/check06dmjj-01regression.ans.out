@@ -1,0 +1,7 @@
+Error, "phase1/check6b/check06dmjj-01regression.rc": 
+  Type of return expression (bool) is not equivalent to the function's return type (INT).
+Error, "phase1/check6b/check06dmjj-01regression.rc": 
+  Type of return expression (bool) is not equivalent to the function's return type (FLOAT).
+Error, "phase1/check6b/check06dmjj-01regression.rc": 
+  Type of return expression (FLOAT) is not equivalent to the function's return type (BOOL).
+Compile: failure.

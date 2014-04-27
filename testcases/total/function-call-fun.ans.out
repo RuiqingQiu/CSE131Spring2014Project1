@@ -1,0 +1,13 @@
+Error, "total/function-call-fun.rc": 
+  Initialization value of type int* not assignable to constant/variable of type int.
+Error, "total/function-call-fun.rc": 
+  Type of return expression (int), not assignment compatible with function's return type (FOOPTR).
+Error, "total/function-call-fun.rc": 
+  Incompatible type FOOPTR to unary dereference operator *, pointer expected.
+Error, "total/function-call-fun.rc": 
+  Type of return expression (int*), not assignment compatible with function's return type (FOOPTR).
+Error, "total/function-call-fun.rc": 
+  Type of return expression (bool), not assignment compatible with function's return type (FOOPTR).
+Error, "total/function-call-fun.rc": 
+  'foo3' is not a function.
+Compile: failure.

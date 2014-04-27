@@ -1,0 +1,13 @@
+Error, "phase1/check0/mytesterr_c0.rc": 
+  Identifier x is undeclared in the global scope.
+Error, "phase1/check0/mytesterr_c0.rc": 
+  Identifier bo is undeclared in the global scope.
+Error, "phase1/check0/mytesterr_c0.rc": 
+  Identifier integerr is undeclared in the global scope.
+Error, "phase1/check0/mytesterr_c0.rc": 
+  Identifier fl is undeclared in the global scope.
+Error, "phase1/check0/mytesterr_c0.rc": 
+  Identifier ptr is undeclared in the global scope.
+Error, "phase1/check0/mytesterr_c0.rc": 
+  Identifier ptr2 is undeclared in the global scope.
+Compile: failure.

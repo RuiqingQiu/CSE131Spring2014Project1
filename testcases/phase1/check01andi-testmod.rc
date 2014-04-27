@@ -1,0 +1,19 @@
+int i;
+float f;
+bool b;
+
+function: void foo() {    
+/* ModOp */
+    i % i;
+
+//errors
+    i % b;
+    b % i;
+        
+    f % b;
+    b % f;
+
+    f % f;
+        
+    b % b;
+}

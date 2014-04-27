@@ -1,0 +1,15 @@
+Error, "phase2/check14bhsukkoa-all.rc": 
+  Value of type bool not assignable to variable of type int.
+Error, "phase2/check14bhsukkoa-all.rc": 
+  undeclared identifier 'b'.
+Error, "phase2/check14bhsukkoa-all.rc": 
+  Referenced field b not found in type MYSTRUCT1.
+Error, "phase2/check14bhsukkoa-all.rc": 
+  Referenced field c not found in current struct.
+Error, "phase2/check14bhsukkoa-all.rc": 
+  undeclared identifier 'foo'.
+Error, "phase2/check14bhsukkoa-all.rc": 
+  Argument of type bool not assignable to value parameter a, of type int.
+Error, "phase2/check14bhsukkoa-all.rc": 
+  Value of type bool not assignable to variable of type int.
+Compile: failure.

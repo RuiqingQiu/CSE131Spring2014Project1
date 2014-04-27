@@ -1,0 +1,41 @@
+function : int foo() {
+
+	return (int) foo(); //ok
+}
+
+function : int* foo2(int x) {
+
+	return (int*) foo(); //ok
+
+	return foo2(3); //okay
+}
+
+
+typedef funcptr : int* (int x) FOOPTR;
+
+function : FOOPTR foo3( FOOPTR hello ) {
+
+	int foo3 = (int*) hello(5); //error int* not assignable to int
+	
+	return foo3; // Type of return expression (funcptr : FOOPTR (FOOPTR hello)), not assignment compatible with function's return type (FOOPTR).
+	
+	int world = (int*) (*hello); // cannot dereference function pointer
+	
+	int hi = *(hello(5));
+	
+	return hello(5); //int* not assignable to return type of FOOPTR funcptr
+	
+	return foo2;
+	
+	bool foo2;
+	
+	return foo2; //error bool not assignable to FOOPTR
+	
+	return ::foo2;
+	
+	FOOPTR goodbye;
+	
+	return foo3(hello); //error, foo3 is not a function (is an int)
+	
+	return ::foo3(hello); //okay
+}

@@ -1,0 +1,12 @@
+function : void main() {
+
+	auto x = true + 5; //error, not compatible
+
+	int r;
+
+	const auto y = 5+5;
+	
+	int z = 1/ (y - 10); //arithmetic error
+	
+	const auto h = r; //not known at compile time
+}

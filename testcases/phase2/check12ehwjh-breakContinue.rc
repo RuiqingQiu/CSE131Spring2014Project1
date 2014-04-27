@@ -1,0 +1,57 @@
+function : void main()
+{
+	break;             // break does not occur in a loop
+	continue;          // continue does not occur in a loop
+	
+	while (true) {
+		break;    		// this is okay
+	}
+	
+	continue;    		// continue does not occur in a loop
+	break;        		// break does not occur in a loop
+	
+	while (true) {
+		continue;   	// this is ok
+	}
+	
+	while (true) {
+		while (true) {
+			break;    	// this is ok
+			continue; 	// this is ok
+		}
+		break;        	// this is ok
+		continue;     	// this is ok
+	}
+	
+	break;				// break does not occur in a loop
+	continue; 			// continue does not occur in a loop
+	
+	{
+		break;         // break does not occur in a loop
+		continue;      // continue does not occur in a loop
+	}
+	while (true)
+	{
+		{
+			{
+				break;				// this is ok
+				{ 
+					continue;      	// this is ok
+					
+					while (true) {
+						break;		// ok
+						continue;   // ok
+					}
+					
+					continue;      	// ok
+					 
+				}
+				
+				continue;           // ok
+			}
+		}
+	}
+	
+	break;				// ok
+	continue;			// ok
+}

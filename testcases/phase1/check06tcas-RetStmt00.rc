@@ -1,0 +1,65 @@
+int i;
+float f;
+bool b;
+
+int intref;
+float floatref;
+bool boolref;
+
+/* Good Code */
+function: int intfun0() { return 1; }
+function: int intfun1() { return i; }
+
+function: float floatfun0() { return 2.1; }
+function: float floatfun1() { return i; }
+function: float floatfun2() { return f; }
+
+function: bool boolfun0() { return true; }
+function: bool boolfun1() { return false; }
+function: bool boolfun2() { return b; }
+
+function: void voidfun0() {}
+function: void voidfun1() { return; }
+
+
+/* wrong return type */
+//Type of return expression (float), not assignment 
+//compatible with function's return type (int).
+//Return required in function, none found.
+function: int errintfun0() { 
+  { return 1.0; }
+}
+function: int errintfun1() {
+  if (true) {
+    return f;
+  }
+}
+
+//Type of return expression (bool), not assignment 
+//compatible with function's return type (int).
+//Return required in function, none found.
+function: int errintfun2() { 
+  while (true) {
+    return b;
+  }
+}
+function: int errintfun3() { 
+  if (true) {
+    { return true; }
+  } else {}
+}
+function: int errintfun4() {
+  if (true) {
+  } else {
+    return true; 
+  }
+}
+
+//Type of return expression (bool), not assignment 
+//compatible with function's return type (int).
+//Return required in function, none found.
+function: float errfloatfun0() {
+  {
+    { return true; }
+  }
+}

@@ -1,0 +1,11 @@
+Error, "phase1/check01mbaw-NewDelete.rc": 
+  undeclared identifier 'x'.
+Error, "phase1/check01mbaw-NewDelete.rc": 
+  undeclared identifier 'x'.
+Error, "phase1/check01mbaw-NewDelete.rc": 
+  undeclared identifier 'x'.
+Error, "phase1/check01mbaw-NewDelete.rc": 
+  undeclared identifier 'x'.
+Error, "phase1/check01mbaw-NewDelete.rc": 
+  syntax error near "new".
+Compile: failure.

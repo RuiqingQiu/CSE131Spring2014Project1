@@ -1,0 +1,22 @@
+function : int * foo( int & xparam ) 
+{ 
+	int * y = &xparam;
+	int ** y2 = &y;
+	return y; // return pointer to y which is essentially a pointer to x 
+} 
+
+function : int bar( int x, int & y) 
+{ 
+	return x + y;
+} 
+
+function : void main() { 
+	int x = 5;
+	float f = 10.4; 
+	x = x + foo(5); // error argument not mod l val
+	x = x + foo(x); // cannot add pointer with + op, only numeric
+	x = foo(f); //error, incompatiable type for param
+	
+	int ref = 10; 
+	x = bar(5,ref);
+} 

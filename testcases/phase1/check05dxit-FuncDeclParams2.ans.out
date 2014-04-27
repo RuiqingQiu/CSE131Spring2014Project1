@@ -1,0 +1,9 @@
+Error, "phase1/check05dxit-FuncDeclParams2.rc": 
+  Argument of type float not equivalent to reference parameter ir, of type int.
+Error, "phase1/check05dxit-FuncDeclParams2.rc": 
+  Argument of type int not equivalent to reference parameter br, of type bool.
+Error, "phase1/check05dxit-FuncDeclParams2.rc": 
+  Argument of type bool not equivalent to reference parameter ir, of type int.
+Error, "phase1/check05dxit-FuncDeclParams2.rc": 
+  Argument of type float not equivalent to reference parameter br, of type bool.
+Compile: failure.

@@ -1,0 +1,19 @@
+int x = 4;
+int y;
+int* z;
+function : void foo(){
+
+
+new x; // error, not modifiable L type
+delete x;
+new y; // error, not pointer type
+delete y;
+
+new z; //legal, both pointer and modifiable L type
+delete z;
+
+int[10] arr;
+new arr;
+
+
+}

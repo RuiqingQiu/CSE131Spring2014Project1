@@ -1,0 +1,8 @@
+function : int foo() {return 0;}
+function : float fubar() {return 2.0;}
+int x;
+
+funcptr : int() fp1 = foo; //variable declaration with init
+funcptr : int() fp2 = x; //variable declaration without init
+funcptr : int() fp3 = nullptr;
+funcptr : int() fp4 = fubar; //error

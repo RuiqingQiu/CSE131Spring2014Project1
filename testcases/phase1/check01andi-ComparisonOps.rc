@@ -1,0 +1,64 @@
+int i;
+float f;
+bool b;
+
+function: void foo() {    
+/* Less Than */
+    i < i;
+    f < f;
+    i < f;
+    f < i;
+
+//errors
+    i < b;
+    b < i;
+        
+    f < b;
+    b < f;
+         
+    b < b;
+
+/* Greater Than */
+    i > i;
+    f > f;
+    i > f;
+    f > i;
+
+//errors
+    i > b;
+    b > i;
+        
+    f > b;
+    b > f;
+        
+    b > b;
+/* Less Than or Equal to*/
+    i <= i;
+    f <= f;
+    i <= f;
+    f <= i;
+
+//errors
+    i <= b;
+    b <= i;
+        
+    f <= b;
+    b <= f;
+        
+    b <= b;
+/* Greater Than or Equal to */
+    i >= i;
+    f >= f;
+    i >= f;
+    f >= i;
+
+//errors
+    i >= b;
+    b >= i;
+        
+    f >= b;
+    b >= f;
+    
+    b >= b;
+
+}

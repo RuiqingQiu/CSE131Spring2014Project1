@@ -1,0 +1,39 @@
+function : void main()
+{
+	bool[20] a;
+	bool[10] b;
+	int[12] aa;
+	int x = 9;
+	int y;
+	
+	aa = 6;
+  	aa[4] = 6;
+
+	y = aa[2] + aa[4];
+	y = aa + aa;
+	y = a + a;
+	
+	a++;
+	a[1]++;
+	
+	if (a[1])
+	{
+		x = 10;
+	}
+
+	bool c = a[1] || b[2];
+
+	bool d = a[3] || b[30];
+	
+	bool cc = a[33] && b[0];
+	
+	bool z = a[4] && b[2];
+
+	int xx;	
+	xx = a[4] | a[3];
+	xx = 5 | a[3];
+	xx = a[4] & a[2];
+	xx = 6 & a[2];
+	xx = a[4] ^ a[2];
+	xx = 7 ^ b[2];
+}

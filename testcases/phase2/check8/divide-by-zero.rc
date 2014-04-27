@@ -1,0 +1,4 @@
+function : void main() {
+	int c = 1/0.0;
+}
+

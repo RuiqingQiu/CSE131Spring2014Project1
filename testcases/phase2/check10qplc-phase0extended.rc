@@ -1,0 +1,11 @@
+function: void foo()
+{
+	const int a = 2;
+	const int b = -2;
+	//const int b = 2;
+	const int c = a-b;
+	
+	int [a] z; // should be ok
+	int [b] y; // should be error
+	int [c] x; // should be ok
+}

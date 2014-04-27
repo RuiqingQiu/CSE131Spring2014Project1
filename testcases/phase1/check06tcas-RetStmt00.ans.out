@@ -1,0 +1,25 @@
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Type of return expression (float), not assignment compatible with function's return type (int).
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Return required in function, none found.
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Type of return expression (float), not assignment compatible with function's return type (int).
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Return required in function, none found.
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Type of return expression (bool), not assignment compatible with function's return type (int).
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Return required in function, none found.
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Type of return expression (bool), not assignment compatible with function's return type (int).
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Return required in function, none found.
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Type of return expression (bool), not assignment compatible with function's return type (int).
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Return required in function, none found.
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Type of return expression (bool), not assignment compatible with function's return type (float).
+Error, "phase1/check06tcas-RetStmt00.rc": 
+  Return required in function, none found.
+Compile: failure.

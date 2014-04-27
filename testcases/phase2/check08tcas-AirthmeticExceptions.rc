@@ -1,0 +1,16 @@
+function : void main()
+{
+	const int p = 1;
+	const int q = 0;
+	const int r = p/q;        // Arithmetic exception occurred during constant folding.
+	const int s = p%q;        // Arithmetic exception occurred during constant folding.
+	
+	const float k = 1;
+	const float l = 0.0;
+	const float m = k/l;      // Arithmetic exception occurred during constant folding.
+	
+	const bool x = true;
+	const bool y = !x;
+	
+	const int z = -p;
+}

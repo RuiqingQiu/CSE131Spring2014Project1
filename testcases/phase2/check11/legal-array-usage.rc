@@ -1,0 +1,51 @@
+function : void main() {
+    typedef int[10] INT10;
+    typedef INT10 INT10_2;
+    typedef int* INTP;
+    typedef INTP INTP_2;
+
+
+    int var_not_in_bounds = 0xE0F;
+    INTP_2 intp;
+    int[10] int10;
+    INT10_2 int10_aliased;
+
+    int a = int10[var_not_in_bounds];
+
+    a = int10[int10[1]];
+
+    int10[1] = 4;
+    int10_aliased[2] = var_not_in_bounds;
+    int10_aliased[9] = int10[0] + intp[0];
+}
+
+function : void multidimensional_arrays() {
+    typedef int[5] INT5;
+    typedef INT5[10] INT5_10;
+    typedef INT5_10[4] INT5_10_4;
+
+    int var_not_in_bounds = 0xE0F;
+    INT5 int5;
+    INT5_10 int5_10;
+    INT5_10_4 int5_10_4;
+    INT5_10* int5_10_p;
+    INT5_10_4* int5_10_4_p;
+
+    // int5_10[2] = int5_10_4[3][9]; // WNBT
+    // int5_10_4[1] = int5_10_p[1];  // WNBT
+
+    int5_10[9][4] = int5_10_p[0][8][3];
+    int5[0] = int5_10_4_p[0][3][9][4];
+}
+
+typedef int[10] INT10;
+
+function : void fn(int[10]& i10, INT10& i10_alias, int* intp) {
+    return;
+}
+
+function : void test_function_calls() {
+    int[10] int10;
+
+    fn(int10, int10, int10);
+}

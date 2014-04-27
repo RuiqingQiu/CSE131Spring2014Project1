@@ -1,0 +1,7 @@
+structdef MYS {
+	int x;
+	int x;
+	float x;
+	float f, f1, f2, f3, f4;
+	bool b;
+};

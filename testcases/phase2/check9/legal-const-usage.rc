@@ -1,0 +1,22 @@
+function : void main() {
+    typedef int INT;
+    typedef float FLOAT;
+    typedef bool BOOL;
+
+    INT a = 0x10;
+
+    FLOAT b = 1.0;
+
+    BOOL c = true;
+
+    const BOOL d = false && false || true;
+
+    const bool e = !d || false;
+
+    const int f = 4;
+
+    typedef INT INT2;
+    const INT2 g = f / 4 + f * f - 2 % 6;
+
+    const float h = 2 ^ g | g & g;
+}

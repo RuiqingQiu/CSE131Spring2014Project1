@@ -1,0 +1,38 @@
+
+
+
+// do not test until typedefs are validated
+typedef float[10] ARR;
+ARR b;
+ARR[2] c;
+
+function: void main() {
+
+// testing array declarations
+
+// ok 
+int[10] n;
+
+// error
+int[10.2] b;
+
+// error
+int r = 2;
+float[r] d;
+
+// ok 
+const int g = 2;
+float[g] t;
+
+// error
+float c = 5.2;
+float[c] e;
+
+// error
+bool[-43] f;
+
+
+}
+
+
+

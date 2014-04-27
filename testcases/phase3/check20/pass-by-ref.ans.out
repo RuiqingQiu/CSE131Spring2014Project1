@@ -1,0 +1,7 @@
+Error, "phase3/check20/pass-by-ref.rc": 
+  Argument passed to reference parameter x (type int) is not a modifiable L-value.
+Error, "phase3/check20/pass-by-ref.rc": 
+  Non-addressable argument of type int to address-of operator.
+Error, "phase3/check20/pass-by-ref.rc": 
+  Invalid type cast. Type int[10] to type float is not supported.
+Compile: failure.

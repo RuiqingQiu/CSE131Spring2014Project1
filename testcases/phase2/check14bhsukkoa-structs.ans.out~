@@ -1,0 +1,23 @@
+Error, "test.rc": 
+  Referenced field mom not found in current struct.
+Error, "test.rc": 
+  Referenced field dad not found in current struct.
+Error, "test.rc": 
+  Referenced field helpyou not found in current struct.
+Error, "test.rc": 
+  Argument of type bool not assignable to value parameter days, of type int.
+Error, "test.rc": 
+  undeclared identifier 'sleep'.
+Error, "test.rc": 
+  Type of expression referenced by "." (int) is not a struct.
+Error, "test.rc": 
+  Value of type OWNER2 not assignable to variable of type OWNER.
+Error, "test.rc": 
+  Value of type OWNER2 not assignable to variable of type SALLY.
+Error, "test.rc": 
+  Value of type OWNER2 not assignable to variable of type JIM.
+Error, "test.rc": 
+  redeclared identifier 'foo10'.
+Error, "test.rc": 
+  Return required in function, none found.
+Compile: failure.

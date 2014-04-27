@@ -1,0 +1,7 @@
+Error, "phase1/check5/m_funccall.rc": 
+  Argument passed to reference parameter xparam (type int) is not a modifiable L-value.
+Error, "phase1/check5/m_funccall.rc": 
+  Incompatible type int* to binary operator +, numeric expected.
+Error, "phase1/check5/m_funccall.rc": 
+  Argument of type float not equivalent to reference parameter xparam, of type int.
+Compile: failure.

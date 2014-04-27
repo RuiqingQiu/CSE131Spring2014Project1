@@ -1,0 +1,16 @@
+structdef MYS {
+	int x, y;
+	int z;
+	function : void foo() {
+		this.x = 8;
+		this.z = this.y;
+		this.foo(); // recursive call
+	}
+	function : void recurse( int r ) {
+	
+		this.recurse(5.0); //function params error
+	}
+	function : void bar() {
+		this.foo(); // calling other struct function
+	}
+};

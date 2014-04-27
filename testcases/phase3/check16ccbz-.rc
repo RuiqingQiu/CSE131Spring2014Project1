@@ -1,0 +1,11 @@
+int x;
+bool y;
+
+function : void main()
+{
+	new x;
+	delete y;
+
+	new 5;
+	delete 6.5;
+}

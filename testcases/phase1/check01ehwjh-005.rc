@@ -1,0 +1,37 @@
+function: void foo()
+{
+	int i;
+	float f;
+	bool b;
+	
+/****************T_MOD - Local**********************/ 
+
+	//Only these tests should pass.
+	int a = i % i;
+	
+	bool rawr = i % i;
+
+	
+	//All should fail.
+	float ba = i % f;
+	float c = f % i;
+	float d = f % f;
+	float erica = f %  b % b % i % i;
+	float g = i % b;
+	float h = f % b;
+	float j = b % b;
+	float k = b % i;
+	float l = b % f;
+	
+	bool p = i % b;
+	bool s = f % b;
+	bool t = b % b;
+	bool u = b % i;
+	bool v = b % f;
+	
+	int x = i % b;
+	int aa = f % b;
+	int qa = b % b;
+	int ra = b % i;
+	int sa = b % f;
+}

@@ -1,0 +1,54 @@
+function : int main(){
+
+//---Should work, from spec---//
+typedef float[10] ARR;
+float[10] a;
+ARR b;
+ARR[2] c;  // array of array
+/////////////////////////////////////
+
+
+//---Should work---//
+
+const int i = 8;
+bool[5] List1;
+int[5+2] List2;
+bool[i] List3;
+int[i] List4;
+float[i] List5;
+bool[i*2] List6;
+int[i*2] List7;
+float[i*2] List8;
+/////////////////////////////////////
+
+
+//---Should NOT work---//
+
+const float f = 3.5;
+int s = 8;
+
+bool[true] List9;    // index must be of type int
+int[false] List10;   // index must be of type int
+float[true] List11;  // index must be of type int
+int[0] List12;       // no zero index allowed
+bool[0] List13;      // no zero index allowed
+float[0] List14;     // no zero index allowed
+int[s] List15;       // value of index unknown at compile time
+float[s] List16;     // value of index unknown at compile time
+bool[s] List17;      // value of index unknown at compile time
+int[(8/0)] List18;   // arithmetic exception
+float[(2/0)] List19; // arithmetic exception
+bool[(5/0)] List20;  // arithmetic exception
+int[-3] List21;      // no negative index allowed
+float[-6] List22;    // no negative index allowed
+bool[-9] List23;     // no negative index allowed
+int[0.5] List24;     // no float type index allowed
+float[f] List25;     // no float type index allowed
+bool[f] List26;      // no float type index allowed
+
+
+return 1;
+}
+
+// Total number of errors: 18
+

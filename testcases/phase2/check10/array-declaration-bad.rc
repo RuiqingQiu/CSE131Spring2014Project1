@@ -1,0 +1,20 @@
+typedef float[1.0] ARR;
+
+int c;
+typedef float[c] ARR1;
+
+float[0] a;
+float[-1] b;
+
+typedef float FLOAT;
+typedef int INTEGER;
+typedef INTEGER INTEGER2;
+
+function : void main()
+{
+	const FLOAT f = -3.5;
+	INTEGER2 f1		= -3;
+	INTEGER[f] a;				// should be float error, not neg
+	INTEGER2[f1] a2;				// should be compile error, not neg
+	int[-3] a3;				// should be neg error
+}

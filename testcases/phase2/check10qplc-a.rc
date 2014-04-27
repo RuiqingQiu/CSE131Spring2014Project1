@@ -1,0 +1,21 @@
+function: void foo()
+{
+	int a = 5;
+	const int b = 6;
+	const int c = 7;
+	const int d = b - c;
+	
+	int[a] t; // error
+	int[b] u;
+	
+	int[d] v; // error
+	int[10] w;
+	int[0] x; // error
+	int[0-2] y; // error
+	int[10-1] z;
+	
+	typedef float[10] ARR;
+	typedef float[0] ZARR; // error
+	ZARR[2] zz;
+	ARR[0] yy; // error
+}

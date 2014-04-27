@@ -1,0 +1,51 @@
+function : void main()
+{
+	int * x;
+	float * f;
+	bool * b;
+	
+	x == 10;		// error : incompatible ptr types
+	10 == x;		// error : incompatible ptr types
+	10 != x;		// error : incompatible ptr types
+	x != 10;		// error : incompatible ptr types
+	
+	x == f;			// error : incompatible ptr types
+	f == x;			// error : incompatible ptr types
+	b != x;			// error : incompatible ptr types
+	b != f;			// error : incompatible ptr types
+	x != f;			// error : incompatible ptr types
+	
+	20 == false; 	// error : incompatible types
+	false == 10;	// error : incompatible types
+	
+	10 == 1.0;
+	1.0 == 10;
+	
+	x == nullptr;
+	nullptr == x;
+	nullptr == nullptr;
+	
+	x != nullptr;
+	nullptr != x;
+	nullptr != nullptr;
+	
+	bool eq = nullptr == nullptr;
+	bool neq = nullptr != nullptr;
+	eq = x == nullptr;
+	eq = nullptr == x;
+	
+	x++;
+	--x;
+	
+	--5;			// error : not mod lval
+	5++;			// error : not mod lval
+	eq++;			// error : incompatible type bool
+	--eq;			// error : incompatible type bool
+	
+	x = nullptr;
+	f = nullptr;
+	b = nullptr;
+
+}
+
+// total errors : 15

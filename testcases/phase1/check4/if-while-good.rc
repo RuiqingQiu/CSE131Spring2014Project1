@@ -1,0 +1,13 @@
+//All of these tests should compile.
+function : int main() {
+
+	if(true) {}
+
+	int i = 1;
+	if(i) {}
+
+	int j = 1;
+	while(j < 3){j++;}
+	while(j) {j--;}
+	return 0;
+}

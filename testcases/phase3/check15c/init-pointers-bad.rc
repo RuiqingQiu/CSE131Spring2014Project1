@@ -1,0 +1,5 @@
+int x;
+int[4] a;
+
+bool* r = &x;
+bool* b = a; //error

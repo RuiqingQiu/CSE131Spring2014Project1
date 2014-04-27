@@ -1,0 +1,7 @@
+Error, "phase1/check05dxit-FuncRetType.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1/check05dxit-FuncRetType.rc": 
+  Value of type void not assignable to variable of type int.
+Error, "phase1/check05dxit-FuncRetType.rc": 
+  Operand to ++ is not a modifiable L-value.
+Compile: failure.

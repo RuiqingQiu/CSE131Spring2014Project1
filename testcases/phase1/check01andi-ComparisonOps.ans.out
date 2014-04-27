@@ -1,0 +1,41 @@
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1/check01andi-ComparisonOps.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Compile: failure.

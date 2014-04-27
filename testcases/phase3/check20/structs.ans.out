@@ -1,0 +1,3 @@
+Error, "phase3/check20/structs.rc": 
+  Invalid type cast. Type MYSTRUCT to type FOOSTRUCT is not supported.
+Compile: failure.

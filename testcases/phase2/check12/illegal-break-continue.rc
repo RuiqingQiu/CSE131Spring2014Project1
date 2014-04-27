@@ -1,0 +1,41 @@
+
+function : void fun() 
+{
+	break;
+	continue;
+	if(true) {
+		break;
+		continue;
+
+		if(false) {
+			break;
+			continue;
+		} else {
+			break;
+			continue;
+		}
+	}
+
+	while(true) {
+		break;
+		continue;
+
+		if(true) {
+			break;
+			continue;
+			if(true) {
+				break;
+				continue;
+			} else {
+				break;
+				continue;
+			}
+		} else {
+			break;
+			continue;
+		}
+	}
+
+	break;
+	continue;
+}

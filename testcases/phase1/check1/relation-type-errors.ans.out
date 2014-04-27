@@ -1,0 +1,33 @@
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1/check1/relation-type-errors.rc": 
+  Incompatible type bool to binary operator <=, numeric expected.
+Compile: failure.

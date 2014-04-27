@@ -1,0 +1,44 @@
+int i;
+float f;
+bool b;
+
+function: int & refint() {
+  return (int)i;  // a type casted object is not a ModLVal
+}
+
+function: void paramIntref(int & i) {}
+
+typedef funcptr : int () BAR;
+
+function : int foo(float & f, bool* b) {
+return 1;
+}
+
+function: void main ()  {
+  (int) i;
+  (bool) b;
+  (float) f;
+  
+  &(int)i;  // a typecasted object is not addressable
+  
+  paramIntref((int)f);  // (int) f is not a ModLVal
+  
+  (funcptr:int()) f;  // Type float to type funcptr : int () is not supported.
+  (BAR)f;             // Type BAR to type funcptr : int () is not supported.
+  
+  (funcptr:int()) foo;  // Type funcptr : int (float &f, bool* b) to type funcptr : int () is not supported
+  (BAR)foo;  //  Type funcptr : int (float &f, bool* b) to type BAR is not supported.
+  
+  (int) f = 1;  // left hand is not a ModLVal  
+  
+  int** iptrptr;
+  i = iptrptr;
+  i = (int******) iptrptr; // int****** not assignable to variable of type int.
+  
+  // bool******************** not assignable to variable of type bool.
+  b = (bool********************) iptrptr;
+  
+  // float****** not assignable to variable of type bool.
+  b = (float******)(bool********************) iptrptr;
+  
+}

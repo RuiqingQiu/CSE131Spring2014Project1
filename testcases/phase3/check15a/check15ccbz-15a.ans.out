@@ -1,0 +1,19 @@
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Type of return expression (int) is not equivalent to the function's return type (int*).
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Type of return expression (int*), not assignment compatible with function's return type (ARR).
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Type of return expression (MYS2), not assignment compatible with function's return type (MYS1).
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Type of expression referenced by "." (MYS1*) is not a struct.
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Incompatible type MYS1 to operator ->, pointer to struct expected.
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Initialization value of type int* not assignable to constant/variable of type float*.
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Initialization value of type int[5] not assignable to constant/variable of type float*.
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Initialization value of type int* not assignable to constant/variable of type int**.
+Error, "phase3/check15a/check15ccbz-15a.rc": 
+  Initialization value of type int** not assignable to constant/variable of type int*.
+Compile: failure.

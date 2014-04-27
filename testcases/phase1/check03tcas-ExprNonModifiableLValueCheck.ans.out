@@ -1,0 +1,23 @@
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Value of type float not assignable to variable of type int.
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Value of type bool not assignable to variable of type int.
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Value of type bool not assignable to variable of type float.
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Value of type float not assignable to variable of type bool.
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Value of type float not assignable to variable of type bool.
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Value of type float not assignable to variable of type int.
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Value of type float not assignable to variable of type int.
+Error, "phase1/check03tcas-ExprNonModifiableLValueCheck.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Compile: failure.

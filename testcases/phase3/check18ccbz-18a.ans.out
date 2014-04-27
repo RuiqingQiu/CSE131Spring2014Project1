@@ -1,0 +1,13 @@
+Error, "phase3/check18ccbz-18a.rc": 
+  Return expression is not a modifiable L-value for function that returns by reference.
+Error, "phase3/check18ccbz-18a.rc": 
+  Value of type funcptr : int & (int &x, int &y) not assignable to variable of type MYPTRALIAS.
+Error, "phase3/check18ccbz-18a.rc": 
+  Value of type funcptr : int & (int &x, int &y) not assignable to variable of type MYPTRALIAS2.
+Error, "phase3/check18ccbz-18a.rc": 
+  Value of type funcptr : int (int &x, int y) not assignable to variable of type MYPTRALIAS.
+Error, "phase3/check18ccbz-18a.rc": 
+  Value of type funcptr : int (int &x, int y) not assignable to variable of type MYPTRALIAS3.
+Error, "phase3/check18ccbz-18a.rc": 
+  Operand to "new" is not a modifiable L-value.
+Compile: failure.

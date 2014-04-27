@@ -1,0 +1,29 @@
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Value of type int not assignable to variable of type TWO.
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Value of type THREE not assignable to variable of type FOUR.
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Index value of 8 is outside legal range [0,5).
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Value of type FOUR not assignable to variable of type THREE.
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Index value of 4 is outside legal range [0,4).
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Type of index expression in array reference (ONE) not equivalent to int.
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Type of index expression in array reference (TWO) not equivalent to int.
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Index value of 3 is outside legal range [0,3).
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Type of expression referenced by array subscript (int) is not of array or pointer type.
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Type of index expression in array reference (float) not equivalent to int.
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Type of index expression in array reference (bool) not equivalent to int.
+Error, "phase2/check11hpeng_multiDArrays.rc": 
+  Value of index expression not known at compile time.
+Compile: failure.

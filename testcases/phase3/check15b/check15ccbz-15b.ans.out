@@ -1,0 +1,7 @@
+Error, "phase3/check15b/check15ccbz-15b.rc": 
+  Incompatible type MYS1 to unary dereference operator *, pointer expected.
+Error, "phase3/check15b/check15ccbz-15b.rc": 
+  Value of type bool not assignable to variable of type int.
+Error, "phase3/check15b/check15ccbz-15b.rc": 
+  Value of type float not assignable to variable of type int.
+Compile: failure.

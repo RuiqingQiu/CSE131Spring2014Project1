@@ -1,0 +1,10 @@
+structdef MYS{
+	int y;
+};
+
+typedef MYS P;
+
+function: MYS foo() {
+	P y;
+	return y;
+}

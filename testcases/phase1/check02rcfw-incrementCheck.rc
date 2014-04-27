@@ -1,0 +1,21 @@
+
+function : void foo() {
+
+int x;
+float y, w;
+bool j = true;
+int[20] array;
+
+
+
+ j++; //error, can't increment floats
+ ++j; // same as above
+ array++; //can't increment arrays, error
+ x = 5++; // not modifiable L value, error
+
+ int q = 3;
+ int e = 4;
+ 
+ (q + e)++; // can't increment R values
+ 
+ }

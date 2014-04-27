@@ -1,0 +1,60 @@
+function : void main2() {
+
+	break; //error 1
+
+	continue; //error 2
+	
+	while( true ) {
+		break;
+		
+		if( true) {
+			break;
+			
+			if( false ) {
+				continue;
+			}
+			
+		}
+		else {
+			break;
+			
+			if( true) {
+				continue;
+			} 
+		
+		}
+		
+	}
+	
+	int[10] array;
+	foreach( int a : array ) { 
+	
+		break;
+		
+		if( true ) {
+			continue;
+		}
+	
+	} 
+	
+	if( true ) {
+		continue; //error 3
+	} 
+	else {
+		break; //error 4
+	}
+	
+	if( true ) {
+	
+		{
+			continue; //error 5
+		}
+	
+		break; // error 6
+	
+		while( false ) {
+			break;
+			continue;
+		}
+	}
+}

@@ -1,0 +1,7 @@
+Error, "phase3/check20/check20ccbz-typeCast.rc": 
+  bool or int required for conditional test, float found.
+Error, "phase3/check20/check20ccbz-typeCast.rc": 
+  Invalid type cast. Type int[5] to type int is not supported.
+Error, "phase3/check20/check20ccbz-typeCast.rc": 
+  Initialization value of type bool not assignable to constant/variable of type int.
+Compile: failure.

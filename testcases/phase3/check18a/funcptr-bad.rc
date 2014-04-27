@@ -1,0 +1,34 @@
+typedef funcptr : int (float x, int y) MYPTRALIAS;
+MYPTRALIAS myPtr1, myPtr2;
+
+typedef funcptr : int & (int &x, float* y) MYPTRREFALIAS;
+MYPTRREFALIAS myPtr3;
+
+function : int addition(int x, int y) {
+	return x + y;
+}
+
+function : int subtraction(int x, int y) {
+	return x - y;
+}
+
+function : void doStuff(int* foo, int* bar) {}
+
+function : int & doMoreStuff (int &x, int y) {
+	return x;
+}
+
+function : int main() {
+	if (myPtr1 == nullptr) {
+		myPtr1 = addition; //error, don't match
+	}
+	myPtr2 = subtraction;
+	myPtr2 = myPtr1;
+	myPtr2 = nullptr;
+
+	if(myPtr2 == myPtr3){ //not equivalent ptr type - error
+		myPtr3 = doStuff; //error, don't match
+		myPtr3 = doMoreStuff; //error
+	}
+	return 0;
+}

@@ -1,0 +1,63 @@
+typedef float FLOAT;
+typedef FLOAT FLOATX;
+typedef FLOATX FLOATY;
+
+typedef int INT;
+typedef INT INTX;
+
+typedef bool BOOL;
+typedef BOOL BOOLX;
+
+const INTX x = 1;
+const FLOATY y = 1.0;
+
+function: FLOATY foo(INTX x)
+{
+  INT i = 1;
+  FLOAT returnValue = x + i;
+  
+  return returnValue;
+}
+
+function:int main()
+{
+  INTX a = foo(1);      // Error Initialization if FLOATY not assignable to INTX
+  
+  const INT b = 1.0;    // Error Initialization of float not assignable to INT
+  
+  FLOATX c = foo(1.0);  // Error Argument of type float not assignable to value parameter x, type INTX
+  
+  const FLOATY d = 1.0;
+  
+  INT e = foo(d);       // Error Argument of type FLOATY not assignable to value parameter INTX
+  
+  const int f = 2 + 3 * 0 - 1;
+  
+  FLOATY g = x + y;
+  
+  INT h = y + 42;       // Initialization value of type float not assignable to constant/variable of type INT
+  
+  foo(foo(g));          // Argument of type FLOATY not assignable to value parameter x, of type INTX.
+  
+  FLOAT i = f + g;
+  
+  BOOL j = true;        // Argument of type BOOL not assignable to value parameter x, of type INTX.
+  
+  foo(j);
+  
+  INTX k = 1;
+  
+  INT l = 1;
+  
+  INTX m = foo(k + l);  // Initialization value of type FLOATY not assignable to constant/variable of type INTX.     
+  
+  BOOLX n = k + l;      //  Initialization value of type int not assignable to constant/variable of type BOOLX.
+  
+  BOOLX o = true;
+  BOOL p = false;
+  FLOATY q = o && p;    // Initialization value of type bool not assignable to constant/variable of type FLOATY.
+  
+  p = l;                // Value of type INT not assignable to variable of type BOOL.
+  
+  return d;             // Error Type of return expression (FLOATY), not assignment compatible with function's return type (int)
+}

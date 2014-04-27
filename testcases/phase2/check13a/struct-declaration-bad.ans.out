@@ -1,0 +1,5 @@
+Error, "": 
+  Field x declared second time in struct.
+Error, "": 
+  Field x declared second time in struct.
+Compile: failure.

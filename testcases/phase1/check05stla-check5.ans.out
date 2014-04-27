@@ -1,0 +1,89 @@
+Error, "phase1/check05stla-check5.rc": 
+  undeclared identifier 'abc'.
+Error, "phase1/check05stla-check5.rc": 
+  Number of arguments (0) differs from number of parameters (2).
+Error, "phase1/check05stla-check5.rc": 
+  Number of arguments (1) differs from number of parameters (2).
+Error, "phase1/check05stla-check5.rc": 
+  Number of arguments (1) differs from number of parameters (2).
+Error, "phase1/check05stla-check5.rc": 
+  Number of arguments (3) differs from number of parameters (2).
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not assignable to value parameter x, of type int.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type bool not assignable to value parameter x, of type int.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type bool not assignable to value parameter y, of type float.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type int not assignable to value parameter z, of type bool.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not assignable to value parameter z, of type bool.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not assignable to value parameter x, of type int.
+Error, "phase1/check05stla-check5.rc": 
+  undeclared identifier 'n'.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not assignable to value parameter z, of type bool.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not equivalent to reference parameter i, of type int.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type bool not equivalent to reference parameter i, of type int.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type int not equivalent to reference parameter j, of type float.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type bool not equivalent to reference parameter j, of type float.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type int not equivalent to reference parameter k, of type bool.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not equivalent to reference parameter k, of type bool.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type int not equivalent to reference parameter j, of type float.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not equivalent to reference parameter i, of type int.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type bool not equivalent to reference parameter j, of type float.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type int not equivalent to reference parameter k, of type bool.
+Error, "phase1/check05stla-check5.rc": 
+  Argument passed to reference parameter i (type int) is not a modifiable L-value.
+Error, "phase1/check05stla-check5.rc": 
+  Argument passed to reference parameter j (type float) is not a modifiable L-value.
+Error, "phase1/check05stla-check5.rc": 
+  Argument passed to reference parameter k (type bool) is not a modifiable L-value.
+Error, "phase1/check05stla-check5.rc": 
+  Argument passed to reference parameter i (type int) is not a modifiable L-value.
+Error, "phase1/check05stla-check5.rc": 
+  Argument passed to reference parameter j (type float) is not a modifiable L-value.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type bool not equivalent to reference parameter j, of type float.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not assignable to value parameter x, of type int.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type int not assignable to value parameter z, of type bool.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type float not equivalent to reference parameter m, of type int.
+Error, "phase1/check05stla-check5.rc": 
+  Argument of type int not equivalent to reference parameter n, of type float.
+Error, "phase1/check05stla-check5.rc": 
+  Number of arguments (5) differs from number of parameters (6).
+Error, "phase1/check05stla-check5.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1/check05stla-check5.rc": 
+  Incompatible type bool to binary operator ^, equivalent to int expected.
+Error, "phase1/check05stla-check5.rc": 
+  Incompatible type void to binary operator +, numeric expected.
+Error, "phase1/check05stla-check5.rc": 
+  Value of type void not assignable to variable of type int.
+Error, "phase1/check05stla-check5.rc": 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase1/check05stla-check5.rc": 
+  Incompatible type int to binary operator &&, equivalent to bool expected.
+Error, "phase1/check05stla-check5.rc": 
+  Incompatible type void to binary operator ||, equivalent to bool expected.
+Error, "phase1/check05stla-check5.rc": 
+  Incompatible type int to unary operator !, equivalent to bool expected.
+Error, "phase1/check05stla-check5.rc": 
+  Incompatible type bool to binary operator ^, equivalent to int expected.
+Error, "phase1/check05stla-check5.rc": 
+  Incompatible type void to binary operator |, equivalent to int expected.
+Compile: failure.

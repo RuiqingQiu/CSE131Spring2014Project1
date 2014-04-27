@@ -1,0 +1,48 @@
+int i1 = 5;
+int i2 = 10;
+float f1 = 5.3;
+float f2 = 10.7;
+bool b1 = true;
+bool b2 = false;
+
+function : void main()
+{
+	int i3;
+	float f3;
+	bool b3;
+	
+	// +, -, *, / cases
+	i3 = b1 + b2;  // Incompatible type bool to binary operator +, numeric expected.
+	i3 = b1 - i2;  
+	i3 = i1 * b2; 
+	f3 = i1 / b2;
+	
+	// % case
+	i3 = i1 % f2;  //  Incompatible type float to binary operator %, equivalent to int expected.
+	
+	// LT, LTE, GT, GTE cases
+	b3 = b1 < i2;  // Incompatible type bool to binary operator <, numeric expected.
+	b3 = b1 > i2;
+	b3 = b1 <= f1;
+	b3 = b1 >= f1;
+	
+	// ==, != cases 
+	b3 = f1 == b2; // Incompatible types to operator: int == bool; both must be numeric, or both equivalent to bool.
+	b3 = i1 != b2;
+	b3 = i1 == b2;
+	b3 = b1 != f1;
+	
+	// ||, && cases
+	b3 = i1 && i2;  // Incompatible type int to binary operator &&, equivalent to bool expected.
+	b3 = f1 || f2;
+	b3 = (b1 || b2) || (f1 && b2);
+	
+	// ! case
+	b3 = !f1;	// Incompatible type float to unary operator !, equivalent to bool expected.
+	
+	// |, &, ^ cases
+	i3 = f1 | i2;	// Incompatible type float to binary operator |, equivalent to int expected.
+	i3 = b1 & b2;
+	i3 = f1 ^ f2;
+	
+}

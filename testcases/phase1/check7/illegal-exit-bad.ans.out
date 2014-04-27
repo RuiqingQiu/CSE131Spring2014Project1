@@ -1,0 +1,3 @@
+Error, "phase1/check7/illegal-exit-bad.rc": 
+  Exit expression (type bool) is not assignable to int.
+Compile: failure.

@@ -1,0 +1,25 @@
+int myX; 
+int *iptr;
+int **iptr2;
+
+typedef int INTEGER;
+INTEGER integer;
+
+bool b;
+float f;
+int[10] arr;
+ 
+function : void foo()
+{ 
+	int x;
+	int i = ::myX + 5;
+	int i2 = myX + 5;	 
+	
+	bool bo = b != true;
+
+	INTEGER typeint = integer;
+	float fl = f + 3.3;
+	
+	int *ptr = iptr;
+	int **ptr2 = iptr2;
+} 

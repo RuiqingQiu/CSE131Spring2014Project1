@@ -1,0 +1,38 @@
+
+function : int main ()
+{
+    int * pa,pb;
+    int a,b;
+    bool * pp,pq;
+    bool p,q;
+    float * px,py;
+    float x,y;
+    
+    ////////////////////////// Good Ones ////////////////////////////////////
+    
+    pa != pb;
+    a != b;
+    pp != pq;
+    p != q;
+    px != py;
+    x != y;
+    pa != px;
+    px != pa;
+    a != x;
+    y != b;
+    pa != nullptr;
+    nullptr != nullptr;
+    nullptr != px;
+    
+    ////////////////////////// Error Ones ////////////////////////////////////
+    
+    pa != a;             // Incompatible types to operator ==: int*,int; both must be equivalent pointer type;
+    a != pa;             // Incompatible types to operator ==: int,int*; both must be equivalent pointer type;
+    a != nullptr;           // Incompatible types to operator ==: int,nullptr; both must be equivalent pointer type;
+    nullptr != x;           // Incompatible types to operator ==: nullptr,float; both must be equivalent pointer type;
+       
+    return 1;
+}
+
+
+

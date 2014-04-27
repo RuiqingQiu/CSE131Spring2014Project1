@@ -1,0 +1,7 @@
+Error, "phase1/check5/call-type-errors.rc": 
+  Argument of type bool not assignable to value parameter f, of type float.
+Error, "phase1/check5/call-type-errors.rc": 
+  Argument of type void not assignable to value parameter b, of type bool.
+Error, "phase1/check5/call-type-errors.rc": 
+  Argument of type float not assignable to value parameter i, of type int.
+Compile: failure.

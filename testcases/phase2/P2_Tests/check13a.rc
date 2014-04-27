@@ -1,0 +1,13 @@
+structdef MYS {
+	int x, y;
+	int x;						//duplicate id x, error 1
+	int z , x;					//duplicate id x, error 2
+	function: void y() {}		//duplicated id y, error 3
+	function: void f(int &x)
+	{ x = x + 1;}
+
+	function: void foo() {}
+	function: void foo(){}		// duplicate id foo, error 4
+};
+
+function : void foo() { } // no error

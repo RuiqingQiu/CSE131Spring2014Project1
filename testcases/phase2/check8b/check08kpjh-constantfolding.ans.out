@@ -1,0 +1,9 @@
+Error, "phase2/check8b/check08kpjh-constantfolding.rc": 
+  Arithmetic exception occurred during constant folding.
+Error, "phase2/check8b/check08kpjh-constantfolding.rc": 
+  Arithmetic exception occurred during constant folding.
+Error, "phase2/check8b/check08kpjh-constantfolding.rc": 
+  Arithmetic exception occurred during constant folding.
+Error, "phase2/check8b/check08kpjh-constantfolding.rc": 
+  Incompatible type int to binary operator &&, equivalent to bool expected.
+Compile: failure.

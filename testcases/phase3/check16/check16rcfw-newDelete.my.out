@@ -1,0 +1,11 @@
+Error, "testcases/phase3/check16rcfw-newDelete.rc": 
+  Type of new's operand must be of pointer type, int found.
+Error, "testcases/phase3/check16rcfw-newDelete.rc": 
+  Type of delete's operand must be of pointer type, int found.
+Error, "testcases/phase3/check16rcfw-newDelete.rc": 
+  Type of new's operand must be of pointer type, int found.
+Error, "testcases/phase3/check16rcfw-newDelete.rc": 
+  Type of delete's operand must be of pointer type, int found.
+Error, "testcases/phase3/check16rcfw-newDelete.rc": 
+  Operand to "new" is not a modifiable L-value.
+Compile: failure.

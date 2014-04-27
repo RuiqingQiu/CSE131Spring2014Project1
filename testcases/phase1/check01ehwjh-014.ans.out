@@ -1,0 +1,13 @@
+Error, "phase1/check01ehwjh-014.rc": 
+  Incompatible type int to unary operator !, equivalent to bool expected.
+Error, "phase1/check01ehwjh-014.rc": 
+  Incompatible type float to unary operator !, equivalent to bool expected.
+Error, "phase1/check01ehwjh-014.rc": 
+  Incompatible type int to unary operator !, equivalent to bool expected.
+Error, "phase1/check01ehwjh-014.rc": 
+  Incompatible type float to unary operator !, equivalent to bool expected.
+Error, "phase1/check01ehwjh-014.rc": 
+  Incompatible type int to unary operator !, equivalent to bool expected.
+Error, "phase1/check01ehwjh-014.rc": 
+  Incompatible type float to unary operator !, equivalent to bool expected.
+Compile: failure.

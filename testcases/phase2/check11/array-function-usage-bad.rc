@@ -1,0 +1,46 @@
+/* Arrays will be passed by REF to array param */
+function : void funRef(int[10]& i) {
+	i[3] = 4;
+	i[9] = 5;
+	i[0] = 6;
+}
+/* Arrays will be passed by VALUE to pointer param */
+function : void funVal(int * i) {
+	i[300000] = 3;
+	int x = i[-12391932];
+}
+
+typedef int[10] ARR;
+typedef ARR[10] ARR2;
+typedef ARR2[10] ARR3;
+typedef ARR3[10] ARR4;
+
+function : ARR4& multi_arr(ARR4& arr)
+{
+	arr[9][9][9][9] = 30;
+	return arr;
+}
+
+function : void multi_arr_ptr (ARR3* arr) {
+	arr[900000][3][2][1] = 30; // once get 9000, now accessing array type
+	
+} 
+
+
+function : void main()
+{
+	typedef int[40] INT;
+
+	INT param;
+
+	funRef(param);
+	funVal(param);	
+
+	ARR4[30] intarray;
+
+	multi_arr(intarray);
+
+	multi_arr_ptr(intarray);
+
+
+}

@@ -1,0 +1,34 @@
+function : int main()
+{
+
+int x;
+x = 1;
+int y;
+y = 5;
+bool w;
+w = true;
+bool u;
+u = false;
+float a;
+a = 2.4;
+
+// pass
+if (x) {}
+if (y) {}
+if (-y) {}
+if (+y) {}
+if (x+y) {}
+if (w) {}
+if (u) {}
+if (x == 1) {}
+
+// error
+if (a) {}
+if (-a) {}
+if (a+x) {}
+while (a) {}
+while (-a) {}
+while (a+x) {}
+
+return 0;
+}

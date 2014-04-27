@@ -1,0 +1,9 @@
+function : int main () 
+{
+	const int x = 1 % 0; //error
+	const int y = 1.2 / 0.0; //error
+	const int z = 1 % (2-2); //error
+	const int w = 1.32 / (3.2 - 3.2); //error
+
+	return 0;
+}

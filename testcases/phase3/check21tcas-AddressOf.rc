@@ -1,0 +1,19 @@
+
+function : int foo(int i)
+{
+  return 0;
+} 
+
+typedef funcptr : int(int i) MYFP;
+
+function: void main ()
+{
+  MYFP MyFuncPtr;
+  MyFuncPtr = foo; 
+  MyFuncPtr(1);
+
+  MYFP * MyFuncPtrPtr;
+  MyFuncPtrPtr = &foo;           // Non-addressable argument of type funcptr : int (int i) to address-of operator.
+  MyFuncPtrPtr = &MyFuncPtr;
+  (*MyFuncPtrPtr) (1);           
+}

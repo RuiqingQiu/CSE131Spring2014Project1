@@ -1,0 +1,41 @@
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator -, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator -, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator -, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator -, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator -, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator /, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator /, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator /, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator /, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator /, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator *, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator *, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator *, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator *, numeric expected.
+Error, "phase1/check01tcas-ArithmeticOps.rc": 
+  Incompatible type bool to binary operator *, numeric expected.
+Compile: failure.

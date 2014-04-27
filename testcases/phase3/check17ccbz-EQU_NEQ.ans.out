@@ -1,0 +1,22 @@
+Error, "phase3/check17ccbz-EQU_NEQ.rc": 
+  Incompatible types to operator ==:
+    int*,
+    int;
+  both must be of equivalent pointer type.
+Error, "phase3/check17ccbz-EQU_NEQ.rc": 
+  Incompatible types to operator ==:
+    int,
+    int*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17ccbz-EQU_NEQ.rc": 
+  Incompatible types to operator: int == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase3/check17ccbz-EQU_NEQ.rc": 
+  Incompatible types to operator !=:
+    int,
+    int*;
+  both must be of equivalent pointer type.
+Error, "phase3/check17ccbz-EQU_NEQ.rc": 
+  Incompatible types to operator: bool != int;
+  both must be numeric, or both equivalent to bool.
+Compile: failure.

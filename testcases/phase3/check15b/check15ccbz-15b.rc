@@ -1,0 +1,19 @@
+
+
+structdef MYS1 {
+	int x, y;
+	int z;
+};
+
+function : int main(){
+
+ MYS1* ptr;
+ int* ptr2;
+ (**ptr).x = 5;
+ *ptr2 = true;
+ ptr->x = 5.0;
+ 
+ 
+ 
+ return 0;
+ }

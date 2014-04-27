@@ -1,0 +1,13 @@
+function : void main() {
+    // Initialization value of type float not assignable to constant/variable
+    // of type int.
+    const int a = 1.0;
+
+    // Initialization value of type int not assignable to constant/variable
+    // of type bool.
+    const bool b = 2;
+
+    // Initialization value of type bool not assignable to constant/variable
+    // of type float.
+    const float c = false;
+}

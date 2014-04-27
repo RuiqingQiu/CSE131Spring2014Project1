@@ -1,0 +1,16 @@
+int i = 3;
+float f = 3.5;
+const float f1 = 3.5;
+
+const int err = i; 		// x not known at compile time
+
+const int err1 = f1; 	// float not assignable to int
+
+const int err2 = f; 	// compile time error BEFORE assignable error
+
+function : void main()
+{
+	const int x = ::i;
+	const float f = ::f;
+
+}

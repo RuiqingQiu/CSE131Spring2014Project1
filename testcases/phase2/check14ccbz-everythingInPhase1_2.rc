@@ -1,0 +1,288 @@
+// for check 5 (functions -- params and args)
+function : bool foo(int x, int y) { return false; }
+function : bool foo1(int &x, int y) { return false; }
+function : int  foo5(int x, int y) { return x; }
+function : int  foo6() { return 1; return 2; }
+
+// for check 6 (functions -- return statements ERROR)
+float n = 1.0;
+function : float & foo2(int x, int y) 
+{ 
+	float ch; 
+	if(true) 
+	{
+		if(true)
+		{
+			int z = 0;
+			return ch;
+		}
+		return n;
+	} 
+	return n; 
+}
+
+// check 6c
+function : void foo3(int z) { bool c = true; }
+
+
+// for check 9 (typedefs)
+typedef int NUMBER;
+typedef NUMBER INTEGER;
+typedef int COW;
+
+typedef int ANIMAL;
+typedef ANIMAL CAT;
+typedef CAT SIAMESE;
+
+typedef int BUILDING;
+typedef BUILDING HOUSE;
+
+function: int foo9(CAT x) { return 1; }
+
+// for check 11
+function : int foo11(int[5] & b11){ return 1; }
+
+
+// for check 13
+structdef MYS {
+	int x, y;
+	bool z;
+	function : int main() { return 0; }
+};
+
+// for check 14
+structdef MYS1 {
+	int x, y;
+	int z;
+	function : void foo() {
+		this.x = 8;
+		this.z = this.y;
+		this.foo();
+	}
+	function : void bar() {
+		this.foo();
+	}
+};
+
+function : int main() {
+
+  //-------------------------------- CHECK 1 ------------------------------------------//
+
+  // add_int_float
+  int a = 1;
+  float b = 2.2;
+  b = a + b;
+
+  // add_int_int
+  a = a + 5;
+  
+  // minus_int_float
+  b = a - b;
+  
+  // mult_int_int
+  a = 5 * a;
+ 
+  // div_float_int 
+  b = 2.2 / a ;
+  
+  // mod_int_int
+  a = a % 5;
+  
+  // lt_float_int
+  bool z;
+  z = b < a;
+  
+  // lt_int_int
+  int x;
+  int y = 4;
+  bool c = true;
+  bool d;
+  z = y < x;
+  
+  // lte_int_int
+  z = x <= y;
+  
+  // gt_int_int
+  z = x > y;
+  
+  // gte_int_int
+  z = y >= x;
+  
+  // equ_int_int
+  z = x == y;
+  
+  // equ_bool_bool
+  z = c == d;
+  
+  // neq_int_int
+  z = x != y;
+  
+  // neq_bool_bool
+  z = d != c;
+  
+  // or_bool_bool
+  z = c || d;
+  
+  // and_bool_bool
+  z = c && d;
+  
+  // not_bool
+  z = !c;
+  
+  // amp_int_int
+  x = x & y;
+  
+  // caret_int_int
+  x = x ^ y;
+  
+  // bar_int_int
+  x = x | y;
+  
+ 
+  //-------------------------------- CHECK 2 ------------------------------------------//
+  
+  // incinc_int
+  x = ++x;
+  
+  // incinc_float
+  b = b++;
+  
+  // decdec_int
+  x = --x;
+  
+  // decdec_float
+  b = --b;
+  
+  // incinc_decdec_int_float
+  b = x++ + --b;
+
+  
+  
+  //-------------------------------- CHECK 3 ------------------------------------------//
+
+  // modifiable l-val
+  x = 4;
+  
+  // int_int
+  x = y;
+  
+  // float_float
+  b = b;
+  
+  // float_int
+  b = x;
+  
+  // bool_bool
+  c = d;
+  
+  
+  //-------------------------------- CHECK 4 ------------------------------------------//
+  
+  // if_int
+  
+  if( x )
+  {
+  	y = 5;
+  }
+  
+  // while_bool
+  
+  while( c = true )
+  {
+  	y++;
+  }
+  
+  
+  //-------------------------------- CHECK 5 ------------------------------------------//
+  
+  // same_num_args_params and arg_assignable_to_param
+  
+  foo(3,4);
+  
+  // arg_equiv_to_pass-by-ref_param
+  
+  foo1(x,4);
+  
+  //-------------------------------- CHECK 6 ------------------------------------------//
+
+  // up on top
+  
+  
+  //-------------------------------- CHECK 7 ------------------------------------------//
+  exit(4);
+  exit(x);
+  
+  //-------------------------------- CHECK 8 ------------------------------------------//
+  const int e = 5;
+  const float f = 1.3;
+  const bool g = true;
+  const int h = 6, i = 7;
+  const float t = f;
+  const int j = 1 + 3 - 2 / 3 * 4;
+  const int k = 3 % 5;
+  const bool l = true == true;
+  const bool m = false != true;
+  const bool n = 1.0 < 3.5;
+  const bool o = true && false;
+  const bool p = !false;
+  const int q = 1 & 2;
+  const int r = 0 | 1;
+  const int s = 11 ^ 12;
+  
+  int [5] a8;
+  int [5] b8 = a8;
+  
+  //-------------------------------- CHECK 9 ------------------------------------------//
+  const INTEGER a9 = 5;
+  INTEGER x9 = 5;
+  COW y9 = x9;
+  
+  HOUSE bob = 2;
+  ANIMAL frank = 4;
+  SIAMESE justin = 3;
+  int number = 42;
+
+  foo9(bob);
+  foo9(frank);
+  foo9(justin);
+  foo9(number);
+  
+  //-------------------------------- CHECK 10 ------------------------------------------//
+  int [10] b10;
+  int [10] a10;
+  float [10] c10;
+  
+  //-------------------------------- CHECK 11 ------------------------------------------//
+  int b10_5 = b10[5];
+  b10[5] = a10[3];
+  float c10_9 = c10[9];
+  
+  int [5] a11;
+//  foo11(a11);
+
+  b10[3] = b10[1] + a10[3];
+  c10[0] = c10[0] + a10[4];
+
+  
+  //-------------------------------- CHECK 12 ------------------------------------------//
+  while(x>0){
+  	if(x == 2){
+  		break;
+  	}
+  	if(x == 4){
+  		continue;
+  	}
+  	x--;
+  }
+  
+  //-------------------------------- CHECK 13 ------------------------------------------//
+  // up at the top
+  
+  //-------------------------------- CHECK 14 ------------------------------------------//
+  MYS mys;
+  
+  mys.x = 5;
+  mys.z = true;
+  
+  return 0;
+}

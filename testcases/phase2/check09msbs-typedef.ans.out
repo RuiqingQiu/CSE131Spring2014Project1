@@ -1,0 +1,5 @@
+Error, "phase2/check09msbs-typedef.rc": 
+  Argument of type F1 not equivalent to reference parameter a, of type I2.
+Error, "phase2/check09msbs-typedef.rc": 
+  Return required in function, none found.
+Compile: failure.

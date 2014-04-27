@@ -1,0 +1,40 @@
+function: void foo()
+{
+	//Tests T_AND
+	int x;
+	float f;
+	bool b;
+	
+/****************T_AND - Local**********************/ 
+
+	//Only these tests should pass.
+	bool q = (b && b);
+
+	//All should fail.
+	float e = (x && x);
+	float h = (x && b);
+	float b = (x && f);
+	float c = (f && x);
+	float d = (f && f);
+	float l = (f && b);
+	float r = (b && x);
+	float s = (b && f);
+	
+	bool e = (x && x);
+	bool h = (x && b);
+	bool i = (f && f);
+	bool j = (f && x);
+	bool l = (f && b);
+	bool r = (b && x);
+	bool s = (b && f);
+
+	int a = (x && x);
+	int f = (x && f);
+	int h = (x && b);
+	int i = (f && f);
+	int j = (f && x);
+	int l = (f && b);
+	
+	int r = (b && x);
+	int s = (b && f);
+}
