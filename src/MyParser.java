@@ -189,6 +189,38 @@ class MyParser extends parser
 	}
 	
 	void
+	DoConstAutoDeclaration(String id, STO sto){
+		if(sto.isError()){
+			return;
+		}
+		
+        //throw error if redeclaration occurs
+		if (m_symtab.accessLocal (id) != null)
+		{
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString (ErrorMsg.redeclared_id, id));
+			return;
+		}
+		
+		if(!(sto.isConst())){
+			m_nNumErrors++;
+			m_errors.print (Formatter.toString (ErrorMsg.error8b_CompileTime, id));
+			return;
+		}
+		
+		//Create a VarSTO
+		ConstSTO v = new ConstSTO (id);
+		//get the type from the sto
+		v.setType(sto.getType().clone());
+		v.setValue(((ConstSTO)sto).getValue());
+		//Regular declare, l-value
+		v.setIsAddressable(false);
+		v.setIsModifiable(true);
+		m_symtab.insert(v);	
+	}
+	
+	
+	void
 	DoNewStmtCheck(STO sto){
 		if(sto.isError()){
 			return;
@@ -672,11 +704,12 @@ class MyParser extends parser
 			return ptr;
 		}
 		//Check if the arrow's left is a pointer to a struct
-		if(!(ptr.getType().isPointer())){
+		if(!(ptr.getType().isPointer()) || (ptr.getType().isNullPointer())){
 			m_nNumErrors++;
 			m_errors.print (Formatter.toString(ErrorMsg.error15_ReceiverArrow, ptr.getType().getName()));
 			return new ErrorSTO("struct pointer arrow error");
 		}
+		
 		//left side is good, check there's field x and get the exprSTO with the type x
 		else{
 			if(!((PointerType)ptr.getType()).getElementType().isStruct()){
@@ -916,6 +949,7 @@ class MyParser extends parser
 				m_symtab.insert(s);
 			}
 		}
+		m_symtab.getFunc().getType().setName(((FunctionPointerType)(m_symtab.getFunc().getType())).getErrorName());
 	}
 	
 	void

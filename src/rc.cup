@@ -282,7 +282,7 @@ ConstDecl ::=  OptStatic:_1 T_CONST UndecoratedType:_2 IdListWInit:_3 T_SEMI
     |          OptStatic T_CONST T_AUTO T_ID:_1 T_ASSIGN Expr:_2 T_SEMI
                {: 
                  // Assign _1 with the type _2 have and put in a symbol table
-                 ((MyParser) parser).DoAutoDeclaration(_1,_2);
+                 ((MyParser) parser).DoConstAutoDeclaration(_1,_2);
                :}
     ;
 
@@ -460,6 +460,7 @@ Type ::=         SubType:_1 OptModifiers:_2
 			  _1.setReference(true);
 		    type.setReturnType(_1);
 		    type.setParameters(_3);
+		    type.setName(type.getErrorName());
 		    RESULT = type;
     	 :}
     ;
