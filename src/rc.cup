@@ -1209,8 +1209,10 @@ Designator ::= T_STAR Designator:_1
 			    ((VarSTO)_1).setNegative(true);
 			    ExprSTO ret = new ExprSTO("-" + _1.getName(), _1.getType());
 			    RESULT = ret;
+			  }else{
+			    ExprSTO ret = new ExprSTO("-" + _1.getName(), _1.getType());
+			    RESULT = ret;
 			  }
-
 			}
         :}
     |   T_NOT Designator:_1

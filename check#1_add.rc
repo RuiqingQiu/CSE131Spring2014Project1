@@ -33,5 +33,11 @@ function: void main(){
  	
  	(test1 + test4) = test2; //Error, left hand side is not mod lval
  	test1 = &(test1 + test4);//Error, non-addressable
+ 	test1  =&(test1 - 1);
+ 	test1 = &(1 - test1);
+ 	test1  =&(test1 * test4);
+ 	test1  =&(test1 / test4);
+ 	test1  =&(test1 % test4);
+ 	test1  =&(test1 || test4);
  	test1 = test2 = test3;    //Error, BOOL can not assigned to FLOAT
 }
