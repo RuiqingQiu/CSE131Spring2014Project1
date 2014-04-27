@@ -4,10 +4,11 @@ public class MulOp extends ArithmeticOp{
 	STO checkOperands(STO a, STO b) {
 		Type aType = a.getType();
 		Type bType = b.getType();
-		if (!(aType.isNumeric()) || !(bType.isNumeric())) {
-			// error
-			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,"bool", "*"));
-		} else if (aType.isInt() && bType.isInt()) {
+		if(!aType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,aType.getName(), "*"));
+		else if(!bType.isNumeric())
+			return new ErrorSTO(Formatter.toString(ErrorMsg.error1n_Expr,bType.getName(), "*"));
+		else if (aType.isInt() && bType.isInt()) {
 			if(a.isConst() && b.isConst()){
 				int x = ((ConstSTO)a).getIntValue() * ((ConstSTO)b).getIntValue();
 				ConstSTO c = new ConstSTO("", aType);
