@@ -32,7 +32,7 @@ class RC
 
 		//	The error printer uses the lexer to get the name
 		//	of the current file & line number.
-		ErrorPrinter	errors = new ErrorPrinter (lexer, true);
+		ErrorPrinter	errors = new ErrorPrinter (lexer, false);
 
 
 		//	Finally, the parser takes in everybody.
