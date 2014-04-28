@@ -1457,9 +1457,16 @@ class MyParser extends parser
 		// Good place to do the struct checks
         //check the type of sto is a struct type
 		if(!(sto.getType().isStruct())){
-			m_nNumErrors++;
-			m_errors.print (Formatter.toString(ErrorMsg.error14t_StructExp, sto.getType().getName()));
-		    return new ErrorSTO("ERROR");
+			if(sto.getType().isPointer()){
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error14t_StructExp, ((PointerType)sto.getType()).getPrintedName() + "*"));
+				return new ErrorSTO("ERROR");
+			}
+			else{
+				m_nNumErrors++;
+				m_errors.print (Formatter.toString(ErrorMsg.error14t_StructExp, sto.getType().getName()));
+				return new ErrorSTO("ERROR");
+			}
 		}
 		//check type of struct has no field named strID
 		Vector<STO> fieldList = ((StructType)(sto.getType())).getField();
