@@ -269,7 +269,6 @@ ConstDecl ::=  OptStatic:_1 T_CONST UndecoratedType:_2 IdListWInit:_3 T_SEMI
                          for(int i = 0; i < _3.size(); i++){
                            VarSTO s = (VarSTO)_3.elementAt(i);
                            s.setStatic(true);
-                           //s.setType(_2);
                            v.addElement(s);
                          }
                          ((MyParser) parser).DoConstDecl (v, _2);
@@ -511,7 +510,6 @@ SubType ::=    QualIdent:_1
 
 DeclareType ::=  T_DECLTYPE T_LPAREN Expr0:_1 T_RPAREN
 				 {:
-				    //System.out.println(t.getName());
 				    if(_1.isError())
 				      RESULT = new ErrorType("decl error", 4);
 				    else{
@@ -819,11 +817,19 @@ IdListWInit ::=     OptModifiers T_ID:_1 T_ASSIGN ConstExpr:_2
 			          }
                     :}
   //|       Do not need an extra rule since we are not doing constant arrays
-    |               IdListWInit:_1 T_COMMA OptModifiers T_ID:_3 T_ASSIGN ConstExpr
-                    {:
-			RESULT = _1;
-			RESULT.addElement (_3);
-		    :}
+    |   IdListWInit:_1 T_COMMA OptModifiers T_ID:_3 T_ASSIGN ConstExpr:_2
+        {:
+		  RESULT = _1;
+		  if(_2.isError()){
+            RESULT = new Vector();
+          }
+          else{
+            VarSTO v = new VarSTO(_3);
+            v.setInit(_2);
+            v.setStatic(false);
+			RESULT.addElement (v);
+		  }
+	    :}
     ;
 
 
