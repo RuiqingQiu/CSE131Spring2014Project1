@@ -392,6 +392,8 @@ class MyParser extends parser
 				tmp = ((PointerType)stoList.elementAt(i).getType()).clone();
 
 				tmp.setName(((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*");
+			}else if(stoList.elementAt(i).getType().isError()){
+				return;
 			}
 			
 			//Check redeclare error
