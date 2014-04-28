@@ -493,11 +493,7 @@ SubType ::=    QualIdent:_1
 			     }
 			     else{
 			       Type t = _1.getType().clone();
-			       /*System.out.println(_1);
-			       System.out.println(_1.getName());
-			       */
 				   t.setName(_1.getName());
-				   //System.out.println(t.getName());
 			       RESULT = t;
 			     }
 			   :}

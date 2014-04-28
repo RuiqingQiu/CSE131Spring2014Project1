@@ -390,6 +390,7 @@ class MyParser extends parser
 			else if(stoList.elementAt(i).getType().isPointer()){
 				((PointerType)stoList.elementAt(i).getType()).setElementType(type.clone());
 				tmp = ((PointerType)stoList.elementAt(i).getType()).clone();
+
 				tmp.setName(((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*");
 			}
 			
@@ -974,7 +975,6 @@ class MyParser extends parser
 			return;
 		}
 		Type t = s.getType();
-		//System.out.println(m_symtab.getFunc().getReturnType());
 		//Check if the return type is by reference or value
 		if(m_symtab.getFunc().getReturnType().isReference()){
 		  //Check if the type of return expression is not equivalent to the return 
@@ -1187,7 +1187,6 @@ class MyParser extends parser
 		if(var.getType().isNullPointer()){
 			int size = var.getType().getSize();
 			ConstSTO ret = new ConstSTO(var.getName()+"'s size");
-			//System.out.println("Size : " + size);
 			ret.setValue(size);
 			ret.setType(new IntType("int", 4));
 			return ret; 
@@ -1199,10 +1198,8 @@ class MyParser extends parser
 			return new ErrorSTO("sizeof not addressable");
 		}
 		else{
-			//System.out.println("Type : " + var.getType());
 			int size = var.getType().getSize();
 			ConstSTO ret = new ConstSTO(var.getName()+"'s size");
-			//System.out.println("Size : " + size);
 			ret.setValue(size);
 			ret.setType(new IntType("int", 4));
 			return ret; 
@@ -1221,7 +1218,6 @@ class MyParser extends parser
 		}
 		else{
 			int size = t.getSize();
-			//System.out.println("size is : " + size);
 			ConstSTO ret = new ConstSTO(t.getName()+"'s size");
 			ret.setValue(size);
 			ret.setType(new IntType("int", 4));
@@ -1312,7 +1308,6 @@ class MyParser extends parser
 							ret.setIsModifiable(true);
 							return ret;
 						}
-						//System.out.println("here");
 					    return new ExprSTO("FuncCall", tmp.getReturnType());
 					}
 				}//End of if statement check argument size and parameter size
@@ -1380,7 +1375,6 @@ class MyParser extends parser
 					ret.setIsModifiable(true);
 					return ret;
 				}
-				//System.out.println("here");
 			    return new ExprSTO("FuncCall", tmp.getReturnType());
 			}
 			else{

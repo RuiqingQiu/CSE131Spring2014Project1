@@ -38,8 +38,10 @@ public class PointerType extends PointerGroupType {
 	}
 	
 	public String getPrintedName(){
-		
 		if(this.getElementType().isPointer()){
+			if(!this.getElementType().getName().equals("pointer")){
+				return this.getElementType().getName();
+			}
 			return ((PointerType)this.getElementType()).getPrintedName() + "*";
 		}
 		else{
