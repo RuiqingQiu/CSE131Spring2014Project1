@@ -20,7 +20,7 @@ public class PointerType extends PointerGroupType {
 			if(t.isNullPointer())
 				return false;
 			//Check if the pointer type is the same as the array type
-			return this.getElementType().isAssignableTo(((PointerType)t).getElementType());
+			return this.getElementType().isEquivalentTo((((PointerType)t).getElementType()));
 		}
 		else	
 			return false;

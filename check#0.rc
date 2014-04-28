@@ -5,7 +5,7 @@ function: void foo(){
   int x;
   //First error
   int i =  5 + ::x;//error, Incompatible type bool to binary operator +, numeric expected.
-  
+  int aaa = ::y;
   auto y = 5;
   int z = y + 3;
 

@@ -369,6 +369,8 @@ class MyParser extends parser
 	void
 	DoVarDecl (Vector<VarSTO> stoList, Type type)
 	{
+		if(type.isError())
+			return;
 		Vector<String> lstIDs = new Vector<String>();
 		for (STO s : stoList){
 			lstIDs.addElement(s.getName());
@@ -427,6 +429,10 @@ class MyParser extends parser
 							
 							if(stoList.elementAt(i).getInit().isFunc()){
 								
+							}else if(stoList.elementAt(i).getInit().getType().isFuncPointer()){
+								m_nNumErrors++;
+								m_errors.print (Formatter.toString(ErrorMsg.error8a_CompileTime, id));
+								return;
 							}
 						}
 						else if(!(stoList.elementAt(i).getInit().isConst())){
@@ -481,10 +487,18 @@ class MyParser extends parser
 				}
 			}
 			else{
-				sto.setType(type);
-				//Regular declare, l-value
-				sto.setIsAddressable(true);
-				sto.setIsModifiable(true);
+				//Typedef is array
+				if(type.isArray()){
+					sto.setType(type);
+					sto.setIsAddressable(true);
+					sto.setIsModifiable(false);
+				}
+				else{
+					sto.setType(type);
+					//Regular declare, l-value
+					sto.setIsAddressable(true);
+					sto.setIsModifiable(true);
+				}
 			}
 			m_symtab.insert (sto);
 		}
@@ -519,6 +533,8 @@ class MyParser extends parser
 	void
 	DoConstDecl (Vector<VarSTO> STOlst, Type type)
 	{
+		if(type.isError())
+			return;
 		Vector<String> lstIDs = new Vector<String>();
 		for(VarSTO s : STOlst){
 			lstIDs.addElement(s.getName());
@@ -561,6 +577,8 @@ class MyParser extends parser
 	void
 	DoTypedefDecl (Type type, Vector<String> lstIDs)
 	{
+		if(type.isError())
+			return;
 		for (int i = 0; i < lstIDs.size (); i++)
 		{
 			String id = lstIDs.elementAt (i);
@@ -733,6 +751,8 @@ class MyParser extends parser
 	
 	STO
 	doAddressOfCheck(STO target){
+		if(target.isError())
+			return target;
 		if(!(target.getIsAddressable())){
 			m_nNumErrors++;
 			ErrorSTO ret = new ErrorSTO(Formatter.toString(ErrorMsg.error21_AddressOf, target.getType().getName()));
@@ -755,6 +775,8 @@ class MyParser extends parser
 	void
 	DoFuncDecl_1 (Type returnType, String id)
 	{
+		if(returnType.isError())
+			return;
 		//Check if the function is already in the symbol table
 		if (m_symtab.accessLocal (id) != null)
 		{
@@ -922,28 +944,6 @@ class MyParser extends parser
 				//Check #19, all formal param are variables, which are mod l-val
 				s.setIsAddressable(true);
 				s.setIsModifiable(true);
-				/*if(s.getType().isArray()){
-					//May need to fix
-					s.getType().setSize(((ArrayType)s.getType()).getArraySize() 
-							* ((ArrayType)s.getType()).getElementType().getSize());
-					//Set name
-					((ArrayType)s.getType()).setName(((ArrayType)s.getType()).getElementType().getName()+"[" + 
-							((ArrayType)(s.getType())).getArraySize() + "]");
-					
-				}
-				else if(s.getType().isPointer()){
-					//Get name of the pointer
-					((PointerType)s.getType()).setName(
-							((PointerType)s.getType()).getPrintedName() + "*");
-				}*/
-				//Add parameters to the type
-				/*System.out.println("\n\n");
-				System.out.println(s);
-				System.out.println(s.getName());
-				System.out.println(s.getType());
-				System.out.println(s.getType().getName());
-				System.out.println("\n\n");
-				*/
 				((FunctionPointerType)(m_symtab.getFunc().getType())).addParameter(s);
 				m_symtab.getFunc().addParameter(s);
 				m_symtab.insert(s);
@@ -961,9 +961,6 @@ class MyParser extends parser
 			m_errors.print ("internal: DoReturnCheck says no proc!");
 			return;
 		}
-		/*if(m_symtab.getFunc().getDefineError())
-			return;
-		*/
 		//It's top level and a return statement is found
 		if(m_symtab.getLevel() == 2){
 			m_symtab.getFunc().setTopLevelReturn(true);
@@ -1019,6 +1016,8 @@ class MyParser extends parser
 	
 	void
 	DoExitStmtCheck(STO s){
+		if(s.isError())
+			return;
 		//cehck if the STO is assignable to an int
 		if(!(s.getType().isAssignableTo(new IntType("int",4)))){
 			m_nNumErrors++;
@@ -1098,7 +1097,7 @@ class MyParser extends parser
 		if(a.isError())
 			return a;
 		STO result = o.checkOperands(a);
-		if(result instanceof ErrorSTO){
+		if(result.isError()){
 			result.setType(new ErrorType("error",8));
 			m_nNumErrors++;
 			m_errors.print (result.getName());
@@ -1500,7 +1499,7 @@ class MyParser extends parser
 		 	return new ErrorType("error", 4);
 		}
 		//Check if the value of the index expression is not known at compile time
-		if(!(sto instanceof ConstSTO)){
+		if(!(sto.isConst())){
 			m_nNumErrors++;
 		 	m_errors.print(ErrorMsg.error10c_Array);	
 		 	return new ErrorType("error", 4);

@@ -1,165 +1,43 @@
+function: void food(int i, int j, int k) { i = j;}
 
-/*int myX; 
-typedef int INT;
-typedef float FLOAT;
+int i;
+float f;
+bool b;
 
-int myX; 
-int *p;
-funcptr : void () fpt;
+function: void food(int i, int j, int k) {i; j; k;}  // Redeclared identifier
+function: int cake() {}
+function: bool soda(int i, float f, bool b) {i; f; b;}
+function: float beef(int& ir, float& fr) {ir; fr;}
 
-function: void foo()
-{
-  p = fpt;
-  const int x = 4;
-  const float y = 1.5;
-  //int y = 4;
+function: void main() {
+
+/* Number of Args */
+  food();      // wrong # of args 
+  food(i);     // wrong # of args 
+  food(i,i);   // wrong # of args 
+  food(i,i,i);  
+
+  cake();
+  cake(i);     // wrong # of args 
+  cake(i,i);   // wrong # of args 
+  cake(i,i,i); // wrong # of args
+
+/* Param is pass-by-value */
+  soda(i,f,b);
+  soda(b,b,b);   // bool not asgn to int and float
+  soda(f,f,f);   // float not asgn to int and bool
+  soda(i,i,i);   // int not asgn to bool
+  soda(i,i,b);
+  soda(5,5.0,true);
+  soda(true,true,true);  // bool not asgn to int and float
+  soda(1.0,1.0,1.0);   // float not asgn to int and bool
+  soda(1,2,3);  // int not asgn to bool
+  soda(1,1,true);
   
-  int a = 4;
-  float b = 5;
-  bool c;
-  bool d;
-  
-  while (- (4 + 1.5)){}
-  while ( -(a + b) ) {} // bool or int condition required
-  if(-(a+b)){}
- 
-  float fff = 2/0.0;
-  int g = 1 / ((int)nullptr);
-  bool b = 2 % 2.0;
-  c = -(a + b);   // Error not assignable types Float to Bool
-}*/
+/* Param is pass-by-reference */
+beef(i, f);
+beef(1, 1.0);  // both not ModLVal
+beef(1, f);  // 1 not ModLVal
+beef(i, 1.0);  // 1.0 not ModLVal
 
-// test cases for function call, function return types
-// simple types only
-
-function : void arguments (int x, int y) 
-{
 }
-
-function : void assignableInt (int x) 
-{
-}
-
-function : void assignableFloat (float y) 
-{
-}
-
-function : void assignableBool (bool z) {}
-
-function : void assignableMul (int x, float y, bool z) {}
-
-function : void refInt (int &i) {}
-function : void refFloat (float &j) {}
-function : void refBool (bool &k) {}
-function : void refMul (int &i, float &j, bool &k) {}
-
-function : void combo (int x, float y, bool z, int &m, float &n, bool &o) {}
-
-function : bool foo () { return false; } 
-function : void bar () { /* do nothing */ } 
-function : int fubar () { return 17; }
-function : float fubar2() {return 0.4;}
-
-function : int main()
-{
-int a;
-int b;
-float c;
-float d;
-int e;
-bool f;
-
-// pass
-arguments(a, b);
-assignableFloat(a); // int -> float
-assignableFloat(c);
-assignableBool(f);
-assignableInt(a);
-assignableMul(a, c, f);
-assignableMul(a, b, f);
-refInt(a);
-refFloat(c);
-refBool(f);
-refMul(a, c, f);
-
-int l;
-l = 0;
-l = l + fubar();
-
-bool m;
-m = false;
-m = m && foo();
-m = !foo();
-
-l = l ^ fubar();
-
-// Errors
-// undeclared function
-abc();
-
-// 5n: Number of arguments (%D) differs from number of parameters (%D).
-arguments();
-arguments(a);
-arguments(b);
-arguments(a, b, e);
-
-// 5a: Argument of type %T not assignable to value parameter %S, of type %T.
-assignableInt(c);
-assignableInt(f);
-assignableFloat(f);
-assignableBool(a);
-assignableBool(c);
-assignableMul(c, d, f);
-assignableMul(a, d, n);
-assignableMul(a, d, c);
-
-// 5r: Argument of type %T not equivalent to reference parameter %S, of type %T.
-refInt(c);
-refInt(f);
-refFloat(a);
-refFloat(f);
-refBool(a);
-refBool(c);
-refMul(a, b, f);
-refMul(c, f, a);
-
-// 5c
-refInt(2);
-refFloat(2.3);
-refBool(true);
-
-refInt(fubar());
-refFloat(fubar2());
-refFloat(foo());
-
-// test "print all error and print in order"
-// combo (c,d,a,c,j); // WNBT
-combo (c,d,a,c,e,f); // print in order
-combo (c,d,a,c,a); // only print missing param
-
-// function within expr
-int x; 
-x = x + foo();  // error: bool incompatible with + operator 
-x = x ^ foo();
-x = x + bar();
-x = bar();      // error: void not assignable to int.
-foo() = 0; // not assignable L-value
-
-m = m && fubar();
-m = m || bar();
-m = !fubar();
-
-l = l ^ foo();
-l = l | bar();
-
-return 0;
-}
-
-
-=======
-  typedef int[3] C;
-  C cc;
-  cc = 1;
-  
-}
->>>>>>> 6b0b022e6cf1123ec1119c7dac62d3fe3fd2b6f3
