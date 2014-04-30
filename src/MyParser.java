@@ -154,7 +154,9 @@ class MyParser extends parser
 	{
 		// Opens the global scope.
 		m_symtab.openScope ();
-	}
+                myAsWriter = new AssemblyCodeGenerator("output.s");
+	  myAsWriter.increaseIndent();
+        }
 
 
 	//----------------------------------------------------------------
@@ -164,6 +166,8 @@ class MyParser extends parser
 	DoProgramEnd()
 	{
 		m_symtab.closeScope ();
+          myAsWriter.decreaseIndent();
+          myAsWriter.dispose();
 	}
 	
 	void
@@ -453,6 +457,16 @@ class MyParser extends parser
 			
 			//Check if the init type is assignable to Type
 			if(stoList.elementAt(i).getInit() != null){
+				//Check if STO is not modifiable value
+				if (!stoList.elementAt(i).isModLValue())
+				{
+					//Enter here if it's an error
+					STO result = new ErrorSTO(ErrorMsg.error3a_Assign);
+					result.setType(new ErrorType("error",8));
+					m_nNumErrors++;
+					m_errors.print (result.getName());
+					return;
+				}
 				//If the init expression is not assignable to type declared
 				if(!(stoList.elementAt(i).getInit().getType().isAssignableTo(tmp))){					
 					m_nNumErrors++;
@@ -981,6 +995,11 @@ class MyParser extends parser
 		if(m_symtab.getFunc().getReturnType().isReference()){
 		  //Check if the type of return expression is not equivalent to the return 
 		  //type of the function
+			if(!m_symtab.getFunc().getReturnType().isVoid() && t.isVoid()){
+				m_nNumErrors++;
+				m_errors.print (ErrorMsg.error6a_Return_expr);
+				return;
+			}
 		  if(!(t.isEquivalentTo(m_symtab.getFunc().getReturnType()))){
 			  m_nNumErrors++;
 			  m_errors.print (Formatter.toString(ErrorMsg.error6b_Return_equiv, t.getName(),m_symtab.getFunc().getReturnType().getName()));
@@ -1639,5 +1658,6 @@ class MyParser extends parser
 	private boolean			m_bSyntaxError = true;
 	private int			m_nSavedLineNum;
 
+        private AssemblyCodeGenerator myAsWriter;
 	private SymbolTable		m_symtab;
 }
