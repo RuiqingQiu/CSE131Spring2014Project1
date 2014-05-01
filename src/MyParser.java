@@ -458,7 +458,7 @@ class MyParser extends parser
 			//Check if the init type is assignable to Type
 			if(stoList.elementAt(i).getInit() != null){
 				//Check if STO is not modifiable value
-				if (!stoList.elementAt(i).isModLValue())
+				if (stoList.elementAt(i).getType() != null && stoList.elementAt(i).getType().isArray())
 				{
 					//Enter here if it's an error
 					STO result = new ErrorSTO(ErrorMsg.error3a_Assign);
