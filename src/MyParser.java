@@ -497,7 +497,7 @@ class MyParser extends parser
 					
 				}
 				else if(stoList.elementAt(i).getType().isPointer()){
-					((PointerType)stoList.elementAt(i).getType()).setElementType(type);
+					//((PointerType)stoList.elementAt(i).getType()).setElementType(type);
 					//Get name of the pointer
 					((PointerType)stoList.elementAt(i).getType()).setName(
 							((PointerType)stoList.elementAt(i).getType()).getPrintedName() + "*");
